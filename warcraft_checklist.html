@@ -1,0 +1,2382 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>WARCRAFT CHECKLIST</title>
+
+<meta name="theme-color" content="#111111">
+
+<!-- Favicon — stejné zlaté "W" jako v nadpisu webu -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Cdefs%3E%3ClinearGradient%20id%3D%27g%27%20x1%3D%270%27%20y1%3D%270%27%20x2%3D%270%27%20y2%3D%271%27%3E%3Cstop%20offset%3D%270%27%20stop-color%3D%27%23f5dfa0%27%2F%3E%3Cstop%20offset%3D%270.45%27%20stop-color%3D%27%23d6a84f%27%2F%3E%3Cstop%20offset%3D%271%27%20stop-color%3D%27%239c7327%27%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2713%27%20fill%3D%27%2314151b%27%2F%3E%3Crect%20x%3D%272%27%20y%3D%272%27%20width%3D%2760%27%20height%3D%2760%27%20rx%3D%2711%27%20fill%3D%27none%27%20stroke%3D%27%237a5a24%27%20stroke-width%3D%273%27%2F%3E%3Crect%20x%3D%276%27%20y%3D%2716%27%20width%3D%2712%27%20height%3D%273.6%27%20rx%3D%271.2%27%20fill%3D%27url(%23g)%27%2F%3E%3Crect%20x%3D%2746%27%20y%3D%2716%27%20width%3D%2712%27%20height%3D%273.6%27%20rx%3D%271.2%27%20fill%3D%27url(%23g)%27%2F%3E%3Cpath%20d%3D%27M11%2018%20L21.5%2046%20L32%2028%20L42.5%2046%20L53%2018%27%20fill%3D%27none%27%20stroke%3D%27url(%23g)%27%20stroke-width%3D%276.5%27%20stroke-linejoin%3D%27miter%27%2F%3E%3C%2Fsvg%3E">
+
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cinzel+Decorative:wght@700;900&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: #0d0e12;
+    color: #e4dfd2;
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+    transition: background 0.5s ease, color 0.5s ease;
+}
+
+/* Dekorativní pozadí je v samostatné, k viewportu ukotvené
+   vrstvě. Dřív bylo namalované přes celý (velmi dlouhý)
+   dokument, takže se přechody roztahovaly a diagonální
+   šrafování vytvářelo pruhy a artefakty — nejvíc v sekci
+   MÉDIA, která je zdaleka nejdelší. */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse at 20% 0%, rgba(120, 40, 20, 0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 10%, rgba(20, 60, 90, 0.10) 0%, transparent 55%),
+        #0d0e12;
+    transition: background 0.5s ease;
+}
+
+.header {
+    background:
+        linear-gradient(180deg, rgba(90,30,15,0.35) 0%, rgba(13,14,18,0) 60%),
+        #14151b;
+    border-bottom: 3px solid #7a5a24;
+    box-shadow: 0 2px 0 #2c220d, 0 4px 18px rgba(0,0,0,.5);
+    position: relative;
+    transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #d6a84f 20%, #f0d68a 50%, #d6a84f 80%, transparent);
+    opacity: .8;
+    transition: background 0.5s ease;
+}
+
+.header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 26px 18px 20px;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+    font-family: 'Cinzel Decorative', 'Cinzel', Georgia, serif;
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    background: linear-gradient(180deg, #f5dfa0 0%, #d6a84f 45%, #9c7327 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 2px 10px rgba(214,168,79,.15);
+    transition: background 0.5s ease;
+}
+
+.subtitle {
+    margin-top: 8px;
+    color: #a89a78;
+    font-size: 13px;
+    letter-spacing: .5px;
+    font-style: italic;
+    transition: color 0.5s ease;
+}
+
+.progress-area {
+    margin-top: 20px;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.progress-label {
+    font-size: 11px;
+    color: #7a7460;
+    margin-bottom: 6px;
+    text-align: center;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-family: 'Cinzel', Georgia, serif;
+    transition: color 0.5s ease;
+}
+
+/* Rám XP baru — kovový okraj jako u WoW UI panelů */
+.progress-bar {
+    position: relative;
+    height: 26px;
+    background: linear-gradient(180deg, #120d05 0%, #1c1408 50%, #0c0904 100%);
+    border: 2px solid #5c4a24;
+    border-radius: 13px;
+    overflow: hidden;
+    box-shadow:
+        inset 0 2px 5px rgba(0,0,0,.85),
+        inset 0 -1px 0 rgba(255,255,255,.04),
+        0 0 0 1px #241b0c,
+        0 1px 0 rgba(255,255,255,.03);
+    transition: background 0.5s ease, border-color 0.5s ease;
+}
+
+/* Vyplněná část — modrý XP gradient se sklem nahoře */
+.progress-fill {
+    position: relative;
+    height: 100%;
+    width: 0%;
+    min-width: 0;
+    background: linear-gradient(180deg, #9fe3ff 0%, #4fb0f0 18%, #1f78d6 55%, #164f9c 100%);
+    box-shadow:
+        0 0 12px rgba(79,176,240,.65),
+        inset 0 1px 0 rgba(255,255,255,.5),
+        inset 0 -2px 4px rgba(0,20,50,.5);
+    transition: width .5s cubic-bezier(.22,.7,.2,1), background 0.5s ease, box-shadow 0.5s ease;
+    border-radius: 11px;
+}
+
+/* Jemný lesklý pruh přes horní třetinu výplně */
+.progress-fill::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 45%;
+    background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,0));
+    border-radius: 11px 11px 0 0;
+}
+
+/* Dělicí rysky po 10 % jako na WoW liště zkušeností */
+.progress-bar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: repeating-linear-gradient(
+        90deg,
+        rgba(0,0,0,.5) 0,
+        rgba(0,0,0,.5) 1px,
+        transparent 1px,
+        transparent 10%
+    );
+    z-index: 2;
+    pointer-events: none;
+}
+
+.progress-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .3px;
+    color: #fff;
+    text-shadow:
+        0 1px 2px rgba(0,0,0,.9),
+        0 0 6px rgba(0,0,0,.6);
+    z-index: 3;
+    pointer-events: none;
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+}
+
+.loading-note {
+    font-size: 12px;
+    color: #7a7f89;
+    margin-top: 6px;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 18px 60px;
+}
+
+
+/* =========================
+   COLLAPSIBLE SECTIONS
+========================= */
+
+.section {
+    margin-bottom: 10px;
+    background: linear-gradient(180deg, #1a1b21 0%, #17181d 100%);
+    border: 1px solid #322818;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: background 0.5s ease, border-color 0.5s ease;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    user-select: none;
+    border-left: 3px solid transparent;
+    transition: border-color .15s ease, background .15s ease;
+}
+
+.section-header:hover {
+    background: #20242c;
+    border-left-color: #d6a84f;
+}
+
+.section-title {
+    font-family: 'Cinzel', Georgia, serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: #d9cfb5;
+    letter-spacing: .3px;
+    transition: color 0.5s ease;
+}
+
+.section-count {
+    color: #7a7460;
+    font-size: 11px;
+    margin-left: auto;
+    letter-spacing: .3px;
+    transition: color 0.5s ease;
+}
+
+.arrow {
+    width: 9px;
+    height: 9px;
+    border-right: 2px solid #b08a3e;
+    border-bottom: 2px solid #b08a3e;
+    transform: rotate(45deg);
+    transition: transform .2s ease, border-color 0.5s ease;
+    margin-right: 3px;
+}
+
+.section.open > .section-header > .arrow {
+    transform: rotate(225deg);
+}
+
+.section-content {
+    display: none;
+    padding: 0 12px 12px;
+}
+
+.section.open > .section-content {
+    display: block;
+}
+
+
+/* =========================
+   ITEMS
+========================= */
+
+.item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 9px 8px;
+    border-top: 1px solid #24211a;
+    line-height: 1.4;
+    font-size: 14px;
+    color: #c9c2ae;
+    transition: border-color 0.5s ease, color 0.5s ease;
+}
+
+.item:first-child {
+    border-top: 0;
+}
+
+.item input {
+    flex: 0 0 auto;
+    margin-top: 3px;
+    width: 16px;
+    height: 16px;
+    accent-color: #d6a84f;
+    cursor: pointer;
+}
+
+.item label {
+    cursor: pointer;
+    flex: 1;
+}
+
+.item.completed label {
+    color: #625c4d;
+    text-decoration: line-through;
+}
+
+/* =========================
+   MEDIA
+========================= */
+
+.media-category {
+    margin-bottom: 12px;
+}
+
+.media-category .section-title {
+    font-size: 18px;
+    color: #f0d68a;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.category-icon {
+    flex: 0 0 auto;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 35% 30%, #23262f 0%, #14151b 75%);
+    border: 1.5px solid #6e5223;
+    border-radius: 6px;
+    box-shadow:
+        inset 0 0 4px rgba(0,0,0,.6),
+        0 0 6px rgba(214,168,79,.25);
+    transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.category-icon svg {
+    width: 15px;
+    height: 15px;
+    display: block;
+}
+
+.media-category > .section {
+    border-color: #4a3a18;
+}
+
+/* Skupiny vnořené v kategorii nesmí opakovat stejný svislý
+   přechod jako rodičovský panel — vznikaly tím světlejší
+   obdélníky, které vypadaly jako poškozené pozadí.
+   Uvnitř proto plná barva. */
+.media-category .section-content .section {
+    background: #191a20;
+}
+
+
+/* =========================
+   DOKONČENÁ SEKCE
+========================= */
+
+.check {
+    display: none;
+    flex: 0 0 auto;
+    width: 17px;
+    height: 17px;
+    line-height: 17px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #0d0e12;
+    background: #4ade80;
+    border-radius: 50%;
+    box-shadow: 0 0 9px rgba(74, 222, 128, .45);
+}
+
+.section.complete > .section-header > .check {
+    display: block;
+}
+
+.section.complete > .section-header > .section-title {
+    color: #4ade80;
+}
+
+.section.complete > .section-header {
+    border-left-color: #4ade80;
+}
+
+
+/* =========================
+   FOOTER & THEME SELECTOR
+========================= */
+
+.footer {
+    border-top: 2px solid #3a2e18;
+    background: #0f1015;
+    padding: 30px 18px 40px;
+    text-align: center;
+    position: relative;
+    transition: background 0.5s ease, border-color 0.5s ease;
+}
+
+.footer::before {
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #d6a84f 50%, transparent);
+    opacity: 0.6;
+    transition: background 0.5s ease;
+}
+
+.theme-title {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8c7e62;
+    margin-bottom: 18px;
+    transition: color 0.5s ease;
+}
+
+.faction-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.faction-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    background: rgba(20, 22, 30, 0.7);
+    border: 2px solid #4a3a1d;
+    border-radius: 10px;
+    padding: 12px 20px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+    width: 140px;
+}
+
+.faction-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.faction-card:hover {
+    transform: translateY(-4px) scale(1.03);
+}
+
+.faction-card.alliance:hover, .faction-card.alliance.active {
+    border-color: #3b82f6;
+    box-shadow: 0 0 18px rgba(59, 130, 246, 0.4), inset 0 0 10px rgba(59, 130, 246, 0.2);
+}
+
+.faction-card.horde:hover, .faction-card.horde.active {
+    border-color: #ef4444;
+    box-shadow: 0 0 18px rgba(239, 68, 68, 0.4), inset 0 0 10px rgba(239, 68, 68, 0.2);
+}
+
+.faction-card.neutral:hover, .faction-card.neutral.active {
+    border-color: #eab308;
+    box-shadow: 0 0 18px rgba(234, 179, 8, 0.4), inset 0 0 10px rgba(234, 179, 8, 0.2);
+}
+
+.faction-icon {
+    width: 54px;
+    height: 54px;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.faction-card:hover .faction-icon {
+    transform: scale(1.1);
+}
+
+.faction-name {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 8px;
+    letter-spacing: 1px;
+    z-index: 2;
+}
+
+.faction-card.alliance .faction-name { color: #60a5fa; }
+.faction-card.horde .faction-name { color: #f87171; }
+.faction-card.neutral .faction-name { color: #facc15; }
+
+.faction-status {
+    font-size: 10px;
+    color: #888;
+    margin-top: 2px;
+    z-index: 2;
+    font-style: italic;
+}
+
+
+/* =========================
+   THEME STYLES — ALLIANCE
+========================= */
+
+body.theme-alliance {
+    background: #090e17;
+    color: #e2e8f0;
+}
+
+body.theme-alliance::before {
+    background:
+        radial-gradient(ellipse at 20% 0%, rgba(30, 80, 160, 0.22) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, rgba(200, 160, 60, 0.12) 0%, transparent 55%),
+        repeating-linear-gradient(45deg, rgba(20, 40, 80, 0.03) 0px, rgba(20, 40, 80, 0.03) 2px, transparent 2px, transparent 8px),
+        #090e17;
+}
+
+body.theme-alliance .header {
+    background: linear-gradient(180deg, rgba(15, 35, 75, 0.85) 0%, rgba(9, 14, 23, 0.95) 100%), #0d1527;
+    border-bottom: 3px solid #2563eb;
+    box-shadow: 0 2px 0 #1e3a8a, 0 4px 20px rgba(37, 99, 235, 0.25);
+}
+
+body.theme-alliance .header::after {
+    background: linear-gradient(90deg, transparent, #3b82f6 20%, #f59e0b 50%, #3b82f6 80%, transparent);
+}
+
+body.theme-alliance h1 {
+    background: linear-gradient(180deg, #ffffff 0%, #93c5fd 40%, #2563eb 85%, #1e40af 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+}
+
+body.theme-alliance .subtitle {
+    color: #93c5fd;
+}
+
+body.theme-alliance .progress-label {
+    color: #60a5fa;
+}
+
+body.theme-alliance .progress-bar {
+    background: linear-gradient(180deg, #070c14 0%, #0f1d36 50%, #050a12 100%);
+    border: 2px solid #2563eb;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,.85), 0 0 8px rgba(37,99,235,.4);
+}
+
+body.theme-alliance .progress-fill {
+    background: linear-gradient(180deg, #fef08a 0%, #eab308 30%, #ca8a04 70%, #854d0e 100%);
+    box-shadow: 0 0 14px rgba(234, 179, 8, 0.7), inset 0 1px 0 rgba(255,255,255,.6);
+}
+
+body.theme-alliance .section {
+    background: linear-gradient(180deg, #111a2e 0%, #0d1424 100%);
+    border: 1px solid #1e3a8a;
+}
+
+body.theme-alliance .media-category .section-content .section {
+    background: #0f172a;
+}
+
+body.theme-alliance .section-header:hover {
+    background: #1e293b;
+    border-left-color: #3b82f6;
+}
+
+body.theme-alliance .section-title {
+    color: #e0f2fe;
+}
+
+body.theme-alliance .media-category .section-title {
+    color: #93c5fd;
+}
+
+body.theme-alliance .section-count {
+    color: #64748b;
+}
+
+body.theme-alliance .arrow {
+    border-color: #3b82f6;
+}
+
+body.theme-alliance .item {
+    border-top-color: #1e293b;
+    color: #cbd5e1;
+}
+
+body.theme-alliance .item input {
+    accent-color: #3b82f6;
+}
+
+body.theme-alliance .item.completed label {
+    color: #475569;
+}
+
+body.theme-alliance .category-icon {
+    background: radial-gradient(circle at 35% 30%, #1e293b 0%, #0f172a 75%);
+    border-color: #3b82f6;
+    box-shadow: inset 0 0 4px rgba(0,0,0,.6), 0 0 8px rgba(59, 130, 246, 0.4);
+}
+
+body.theme-alliance .footer {
+    background: #070a12;
+    border-top-color: #1e3a8a;
+}
+
+body.theme-alliance .footer::before {
+    background: linear-gradient(90deg, transparent, #3b82f6 50%, transparent);
+}
+
+body.theme-alliance .theme-title {
+    color: #60a5fa;
+}
+
+
+/* =========================
+   THEME STYLES — HORDE
+========================= */
+
+body.theme-horde {
+    background: #140808;
+    color: #f3d8d8;
+}
+
+body.theme-horde::before {
+    background:
+        radial-gradient(ellipse at 20% 0%, rgba(180, 20, 20, 0.25) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, rgba(90, 10, 10, 0.2) 0%, transparent 55%),
+        repeating-linear-gradient(-45deg, rgba(80, 10, 10, 0.04) 0px, rgba(80, 10, 10, 0.04) 3px, transparent 3px, transparent 10px),
+        #140808;
+}
+
+body.theme-horde .header {
+    background: linear-gradient(180deg, rgba(80, 10, 10, 0.85) 0%, rgba(20, 8, 8, 0.95) 100%), #1c0a0a;
+    border-bottom: 3px solid #dc2626;
+    box-shadow: 0 2px 0 #7f1d1d, 0 4px 20px rgba(220, 38, 38, 0.3);
+}
+
+body.theme-horde .header::after {
+    background: linear-gradient(90deg, transparent, #ef4444 20%, #f97316 50%, #ef4444 80%, transparent);
+}
+
+body.theme-horde h1 {
+    background: linear-gradient(180deg, #fef2f2 0%, #fca5a5 35%, #dc2626 80%, #7f1d1d 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 0 0 15px rgba(220, 38, 38, 0.5);
+}
+
+body.theme-horde .subtitle {
+    color: #fca5a5;
+}
+
+body.theme-horde .progress-label {
+    color: #ef4444;
+}
+
+body.theme-horde .progress-bar {
+    background: linear-gradient(180deg, #120404 0%, #2a0808 50%, #0a0202 100%);
+    border: 2px solid #b91c1c;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,.85), 0 0 8px rgba(185, 28, 28, 0.4);
+}
+
+body.theme-horde .progress-fill {
+    background: linear-gradient(180deg, #fca5a5 0%, #ef4444 30%, #b91c1c 70%, #7f1d1d 100%);
+    box-shadow: 0 0 14px rgba(239, 68, 68, 0.8), inset 0 1px 0 rgba(255,255,255,.5);
+}
+
+body.theme-horde .section {
+    background: linear-gradient(180deg, #240d0d 0%, #1a0a0a 100%);
+    border: 1px solid #7f1d1d;
+}
+
+body.theme-horde .media-category .section-content .section {
+    background: #1f0b0b;
+}
+
+body.theme-horde .section-header:hover {
+    background: #361212;
+    border-left-color: #ef4444;
+}
+
+body.theme-horde .section-title {
+    color: #fee2e2;
+}
+
+body.theme-horde .media-category .section-title {
+    color: #fca5a5;
+}
+
+body.theme-horde .section-count {
+    color: #9f1239;
+}
+
+body.theme-horde .arrow {
+    border-color: #ef4444;
+}
+
+body.theme-horde .item {
+    border-top-color: #361212;
+    color: #fecdd3;
+}
+
+body.theme-horde .item input {
+    accent-color: #ef4444;
+}
+
+body.theme-horde .item.completed label {
+    color: #7f1d1d;
+}
+
+body.theme-horde .category-icon {
+    background: radial-gradient(circle at 35% 30%, #361212 0%, #1a0a0a 75%);
+    border-color: #ef4444;
+    box-shadow: inset 0 0 4px rgba(0,0,0,.6), 0 0 8px rgba(239, 68, 68, 0.4);
+}
+
+body.theme-horde .footer {
+    background: #0d0404;
+    border-top-color: #7f1d1d;
+}
+
+body.theme-horde .footer::before {
+    background: linear-gradient(90deg, transparent, #ef4444 50%, transparent);
+}
+
+body.theme-horde .theme-title {
+    color: #f87171;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    h1 {
+        font-size: 23px;
+    }
+
+    .main {
+        padding: 14px 10px 40px;
+    }
+
+    .section-header {
+        padding: 14px 12px;
+    }
+
+    .item {
+        font-size: 13px;
+    }
+
+    .faction-container {
+        gap: 12px;
+    }
+
+    .faction-card {
+        width: 100px;
+        padding: 10px 8px;
+    }
+
+    .faction-icon {
+        width: 42px;
+        height: 42px;
+    }
+
+    .faction-name {
+        font-size: 11px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+        <linearGradient id="icon-gold" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#f5dfa0"/>
+            <stop offset="0.45" stop-color="#d6a84f"/>
+            <stop offset="1" stop-color="#9c7327"/>
+        </linearGradient>
+
+        <linearGradient id="icon-alliance" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#93c5fd"/>
+            <stop offset="0.5" stop-color="#3b82f6"/>
+            <stop offset="1" stop-color="#1d4ed8"/>
+        </linearGradient>
+
+        <linearGradient id="icon-horde" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#fca5a5"/>
+            <stop offset="0.5" stop-color="#ef4444"/>
+            <stop offset="1" stop-color="#b91c1c"/>
+        </linearGradient>
+    </defs>
+</svg>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <h1>WARCRAFT CHECKLIST</h1>
+
+        <div class="subtitle">
+            Kompletní checklist světa Warcraftu
+        </div>
+
+        <div class="progress-area">
+
+            <div class="progress-label">Postup sbírky</div>
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    id="progressFill">
+                </div>
+
+                <div
+                    class="progress-text"
+                    id="progressText">
+                    Načítám…
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="main">
+
+
+<!-- =========================================================
+     MÉDIA
+========================================================= -->
+
+<section id="mediaView">
+
+    <div id="mediaContainer"></div>
+
+</section>
+
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER & FACTION THEME SELECTOR
+========================================================= -->
+
+<footer class="footer">
+
+    <div class="theme-title">Zvolte svoji frakci (Téma vzhledu)</div>
+
+    <div class="faction-container">
+
+        <!-- ALLIANCE BUTTON -->
+        <div class="faction-card alliance" id="btnAlliance" onclick="setTheme('alliance')" title="Přepnout na téma Aliance">
+            <svg class="faction-icon" viewBox="0 0 100 100">
+                <!-- Shield base -->
+                <path d="M50 5 L85 20 V50 C85 72 50 95 50 95 C50 95 15 72 15 50 V20 Z" fill="#1e3a8a" stroke="#f59e0b" stroke-width="4"/>
+                <!-- Inner border -->
+                <path d="M50 12 L78 24 V48 C78 66 50 85 50 85 C50 85 22 66 22 48 V24 Z" fill="none" stroke="#3b82f6" stroke-width="2"/>
+                <!-- Stylized Lion Head (Alliance Emblem) -->
+                <path d="M50 25 C42 25 36 30 34 38 C32 46 36 52 40 54 C38 58 35 60 32 60 C38 65 44 63 46 68 C47 71 45 74 50 78 C55 74 53 71 54 68 C56 63 62 65 68 60 C65 60 62 58 60 54 C64 52 68 46 66 38 C64 30 58 25 50 25 Z" fill="#f59e0b"/>
+                <circle cx="43" cy="40" r="2.5" fill="#1e3a8a"/>
+                <circle cx="57" cy="40" r="2.5" fill="#1e3a8a"/>
+                <path d="M47 48 L50 52 L53 48 Z" fill="#1e3a8a"/>
+                <!-- Crown top -->
+                <path d="M40 22 L44 16 L50 20 L56 16 L60 22 Z" fill="#f0d68a"/>
+            </svg>
+            <div class="faction-name">ALIANCE</div>
+            <div class="faction-status" id="statusAlliance">Za Alianci!</div>
+        </div>
+
+        <!-- NEUTRAL / DEFAULT BUTTON -->
+        <div class="faction-card neutral active" id="btnNeutral" onclick="setTheme('neutral')" title="Přepnout na původní téma">
+            <svg class="faction-icon" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" fill="#14151b" stroke="#7a5a24" stroke-width="4"/>
+                <circle cx="50" cy="50" r="32" fill="none" stroke="#d6a84f" stroke-width="2"/>
+                <path d="M30 35 L42 70 L50 48 L58 70 L70 35" fill="none" stroke="url(#icon-gold)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div class="faction-name">NEUTRÁLNÍ</div>
+            <div class="faction-status" id="statusNeutral">Klasické</div>
+        </div>
+
+        <!-- HORDE BUTTON -->
+        <div class="faction-card horde" id="btnHorde" onclick="setTheme('horde')" title="Přepnout na téma Hordy">
+            <svg class="faction-icon" viewBox="0 0 100 100">
+                <!-- Outer shield background -->
+                <path d="M50 5 L85 22 V50 C85 72 50 95 50 95 C50 95 15 72 15 50 V22 Z" fill="#2a0808" stroke="#7f1d1d" stroke-width="4"/>
+                <!-- Horde Emblem Crest -->
+                <path d="M50 18 C46 18 43 21 43 25 C43 30 47 33 50 35 C53 33 57 30 57 25 C57 21 54 18 50 18 Z" fill="#ef4444"/>
+                <path d="M50 35 C38 35 25 45 22 62 C30 58 38 58 43 62 C41 52 45 42 50 40 C55 42 59 52 57 62 C62 58 70 58 78 62 C75 45 62 35 50 35 Z" fill="#ef4444"/>
+                <!-- Spikes -->
+                <path d="M30 25 L20 18 L26 32 Z" fill="#991b1b"/>
+                <path d="M70 25 L80 18 L74 32 Z" fill="#991b1b"/>
+                <path d="M50 68 L46 82 L50 88 L54 82 Z" fill="#ef4444"/>
+                <circle cx="50" cy="48" r="4" fill="#140808"/>
+            </svg>
+            <div class="faction-name">HORDA</div>
+            <div class="faction-status" id="statusHorde">Za Hordu!</div>
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+
+/* =========================================================
+   DATA — MÉDIA
+========================================================= */
+
+const mediaData = [
+
+{
+    title: "HRY",
+    icon: "swords",
+    groups: [
+
+        {
+            title: "Warcraft: Orcs & Humans",
+            items: [
+                "Warcraft: Orcs & Humans — Human Campaign",
+                "Warcraft: Orcs & Humans — Orc Campaign"
+            ]
+        },
+
+        {
+            title: "Warcraft II: Tides of Darkness",
+            items: [
+                "Warcraft II: Tides of Darkness — Human Campaign",
+                "Warcraft II: Tides of Darkness — Orc Campaign"
+            ]
+        },
+
+        {
+            title: "Warcraft II: Beyond the Dark Portal",
+            items: [
+                "Warcraft II: Beyond the Dark Portal — Alliance Campaign",
+                "Warcraft II: Beyond the Dark Portal — Horde Campaign"
+            ]
+        },
+
+        {
+            title: "Warcraft III: Reign of Chaos",
+            items: [
+                "Warcraft III: Reign of Chaos — Human Campaign — The Scourge of Lordaeron",
+                "Warcraft III: Reign of Chaos — Undead Campaign — Path of the Damned",
+                "Warcraft III: Reign of Chaos — Orc Campaign — The Invasion of Kalimdor",
+                "Warcraft III: Reign of Chaos — Night Elf Campaign — Eternity’s End"
+            ]
+        },
+
+        {
+            title: "Warcraft III: The Frozen Throne",
+            items: [
+                "Warcraft III: The Frozen Throne — Night Elf Campaign — Terror of the Tides",
+                "Warcraft III: The Frozen Throne — Human Campaign — Curse of the Blood Elves",
+                "Warcraft III: The Frozen Throne — Undead Campaign — Legacy of the Damned",
+                "Warcraft III: The Frozen Throne — Orc Bonus Campaign — The Founding of Durotar"
+            ]
+        },
+
+        {
+            title: "World of Warcraft — Classic",
+            items: [
+                "Alliance — Stormwind & Defias Brotherhood",
+                "Alliance — Dwarves, Gnomes & Ironforge",
+                "Alliance — Night Elves",
+                "Horde — Orcs & Trolls",
+                "Horde — Tauren",
+                "Horde — Forsaken",
+                "The Missing Diplomat",
+                "The Scarlet Crusade",
+                "The Black Dragonflight / Onyxia",
+                "The Dark Iron Dwarves / Blackrock",
+                "Ragnaros / Molten Core",
+                "The Scourge / Argent Dawn",
+                "Hakkar / Zul’Gurub",
+                "The War of the Shifting Sands / Ahn’Qiraj",
+                "Naxxramas / Kel’Thuzad"
+            ]
+        },
+
+        {
+            title: "The Burning Crusade",
+            items: [
+                "The Dark Portal / Invasion of Outland",
+                "Hellfire Peninsula — Burning Legion",
+                "Zangarmarsh — Coilfang & Naga",
+                "Terokkar Forest — Arakkoa & Auchindoun",
+                "Nagrand — Garrosh & the Mag’har",
+                "Blade’s Edge Mountains — Gruul & the Gronn",
+                "Netherstorm — Tempest Keep & Kael’thas",
+                "Shadowmoon Valley — Illidan",
+                "Sunwell Plateau — Kael’thas & the Burning Crusade’s End"
+            ]
+        },
+
+        {
+            title: "Wrath of the Lich King",
+            items: [
+                "Arrival in Northrend",
+                "Borean Tundra — Warsong Expedition / Valiance Expedition",
+                "Howling Fjord — Vrykul & Lich King",
+                "Dragonblight — Wrathgate",
+                "Grizzly Hills — Drakkari & Arugal",
+                "Zul’Drak — Drakkari",
+                "Sholazar Basin — Titans & the Frenzied Heart",
+                "The Storm Peaks — Titans & Loken",
+                "Icecrown — Assault on the Scourge",
+                "The Argent Tournament",
+                "The Lich King / Icecrown Citadel"
+            ]
+        },
+
+        {
+            title: "Cataclysm",
+            items: [
+                "The Shattering",
+                "Kezan — Goblin Starting Experience",
+                "Gilneas — Worgen Starting Experience",
+                "Mount Hyjal — Guardians of Nordrassil",
+                "Vashj’ir — Naga & Neptulon",
+                "Deepholm — World Pillar",
+                "Uldum — Tol’vir & the Curse",
+                "Twilight Highlands — Twilight’s Hammer",
+                "The War Against Deathwing",
+                "Firelands — Ragnaros",
+                "Dragon Soul — Deathwing"
+            ]
+        },
+
+        {
+            title: "Mists of Pandaria",
+            items: [
+                "The Wandering Isle / Pandaren Introduction",
+                "Arrival in Pandaria",
+                "The Jade Forest",
+                "Valley of the Four Winds / Halfhill",
+                "Krasarang Wilds",
+                "Kun-Lai Summit",
+                "Townlong Steppes",
+                "Dread Wastes / Klaxxi",
+                "The Thunder King / Isle of Thunder",
+                "Vale of Eternal Blossoms — Garrosh Hellscream",
+                "Siege of Orgrimmar"
+            ]
+        },
+
+        {
+            title: "Warlords of Draenor",
+            items: [
+                "Tanaan Jungle — The Dark Portal",
+                "Frostfire Ridge — Horde",
+                "Shadowmoon Valley — Alliance",
+                "Gorgrond",
+                "Talador",
+                "Spires of Arak",
+                "Nagrand",
+                "Garrison Campaign",
+                "Tanaan Jungle — The Iron Horde",
+                "Archimonde / Hellfire Citadel"
+            ]
+        },
+
+        {
+            title: "Legion",
+            items: [
+                "The Broken Shore — Fall of the Legion",
+                "Artifact & Class Order Campaign",
+                "Azsuna",
+                "Val’sharah",
+                "Highmountain",
+                "Stormheim",
+                "Suramar",
+                "The Broken Shore — Tomb of Sargeras",
+                "Argus",
+                "Antorus — Sargeras"
+            ]
+        },
+
+        {
+            title: "Battle for Azeroth",
+            items: [
+                "Battle for Lordaeron",
+                "Kul Tiras — Tiragarde Sound",
+                "Drustvar",
+                "Stormsong Valley",
+                "Zandalar — Zuldazar",
+                "Nazmir",
+                "Vol’dun",
+                "The War Campaign",
+                "Battle for Darkshore",
+                "Battle for Arathi",
+                "The Fate of Rastakhan / War Campaign",
+                "Nazjatar — Azshara",
+                "Mechagon",
+                "Ny’alotha — N’Zoth"
+            ]
+        },
+
+        {
+            title: "Shadowlands",
+            items: [
+                "The Maw — Introduction",
+                "Bastion",
+                "Maldraxxus",
+                "Ardenweald",
+                "Revendreth",
+                "Covenant Campaign",
+                "The Maw / Torghast",
+                "Chains of Domination / Korthia",
+                "Zereth Mortis",
+                "The Jailer / Sepulcher of the First Ones"
+            ]
+        },
+
+        {
+            title: "Dragonflight",
+            items: [
+                "The Dragon Isles — Arrival",
+                "The Waking Shores",
+                "Ohn’ahran Plains",
+                "The Azure Span",
+                "Thaldraszus",
+                "The Forbidden Reach",
+                "The Incarnates",
+                "Zaralek Cavern / Aberrus",
+                "The Emerald Dream",
+                "Amirdrassil / Fyrakk"
+            ]
+        },
+
+        {
+            title: "The War Within",
+            items: [
+                "Khaz Algar — Arrival",
+                "Isle of Dorn",
+                "The Ringing Deeps",
+                "Hallowfall",
+                "Azj-Kahet",
+                "The War Within Campaign",
+                "Siren Isle",
+                "Undermine",
+                "K’aresh",
+                "The Void / End of The War Within"
+            ]
+        },
+
+        {
+            title: "Midnight",
+            items: [
+                "Quel’Thalas — Arrival",
+                "Eversong Woods",
+                "Zul’Aman",
+                "Harandar",
+                "Voidstorm",
+                "Midnight Campaign",
+                "End of Midnight"
+            ]
+        }
+
+    ]
+},
+
+
+{
+    title: "KNIHY",
+    icon: "book",
+    groups: [
+
+        {
+            title: "Romány / novely",
+            items: [
+                "The Last Guardian",
+                "Day of the Dragon",
+                "Lord of the Clans",
+                "Of Blood and Honor",
+                "The Well of Eternity",
+                "The Demon Soul",
+                "The Sundering",
+                "Cycle of Hatred",
+                "Rise of the Horde",
+                "Tides of Darkness",
+                "Beyond the Dark Portal",
+                "Night of the Dragon",
+                "Arthas: Rise of the Lich King",
+                "Stormrage",
+                "The Shattering: Prelude to Cataclysm",
+                "Thrall: Twilight of the Aspects",
+                "Wolfheart",
+                "Jaina Proudmoore: Tides of War",
+                "Dawn of the Aspects",
+                "Vol’jin: Shadows of the Horde",
+                "War Crimes",
+                "Illidan",
+                "Traveler",
+                "Traveler: The Spiral Path",
+                "Traveler: The Shining Blade",
+                "Before the Storm",
+                "Shadows Rising",
+                "Sylvanas",
+                "War of the Scaleborn",
+                "Blood Ties"
+            ]
+        },
+
+        {
+            title: "Exploring Azeroth",
+            items: [
+                "Exploring Azeroth: The Eastern Kingdoms",
+                "Exploring Azeroth: Kalimdor",
+                "Exploring Azeroth: Northrend",
+                "Exploring Azeroth: Pandaria",
+                "Exploring Azeroth: Islands and Isles"
+            ]
+        },
+
+        {
+            title: "Chronicle",
+            items: [
+                "World of Warcraft: Chronicle Volume 1",
+                "World of Warcraft: Chronicle Volume 2",
+                "World of Warcraft: Chronicle Volume 3",
+                "World of Warcraft: Chronicle Volume 4"
+            ]
+        }
+
+    ]
+},
+
+
+{
+    title: "KOMIKSY / MANGA",
+    icon: "scroll",
+    groups: [
+
+        {
+            title: "Komiksy",
+            groups: [
+
+                {
+                    title: "World of Warcraft: The Comic series",
+                    groups: [
+
+                        {
+                            title: "Volume 1",
+                            items: [
+                                "Issue 0: Prologue",
+                                "Issue 1: Stranger in a Strange Land",
+                                "Issue 2: Killing Ground",
+                                "Issue 3: Destiny Awaits!",
+                                "Issue 4: Balancing the Scales",
+                                "Issue 5: The Beast Within!",
+                                "Issue 6: Blood",
+                                "Issue 7: Revelations"
+                            ]
+                        },
+
+                        {
+                            title: "Volume 2",
+                            items: [
+                                "Issue 8: The Return",
+                                "Issue 9: Through the Mirror Darkly",
+                                "Issue 10: Last of the Line",
+                                "Issue 11: Descent",
+                                "Issue 12: The Enemy Revealed",
+                                "Issue 13: Flashback",
+                                "Issue 14: Into the Jaws of Death!"
+                            ]
+                        },
+
+                        {
+                            title: "Volume 3",
+                            items: [
+                                "Issue 15: Conflicting Loyalties",
+                                "Issue 16: Threat!",
+                                "Issue 17: Gathering Thunder!",
+                                "Issue 18: Showdown!",
+                                "Issue 19: The Winds of War",
+                                "Issue 20: Repercussions",
+                                "Issue 21: Secrets"
+                            ]
+                        },
+
+                        {
+                            title: "Volume 4",
+                            items: [
+                                "Issue 22: Whispers",
+                                "Issue 23: The Gathering",
+                                "Issue 24: Hard Choices",
+                                "Issue 25: Armageddon"
+                            ]
+                        }
+
+                    ]
+                },
+
+                {
+                    title: "Ashbringer",
+                    items: [
+                        "Ashbringer"
+                    ]
+                },
+
+                {
+                    title: "Wrath of the Lich King",
+                    items: [
+                        "World of Warcraft: The Comic – Special Issue: Beginnings and Ends"
+                    ]
+                },
+
+                {
+                    title: "Cataclysm",
+                    items: [
+                        "Curse of the Worgen",
+                        "Dark Riders",
+                        "Bloodsworn"
+                    ]
+                },
+
+                {
+                    title: "Mists of Pandaria",
+                    items: [
+                        "Pearl of Pandaria"
+                    ]
+                },
+
+                {
+                    title: "Warlords of Draenor",
+                    items: [
+                        "Gul’dan and the Stranger",
+                        "Blackhand",
+                        "Blood and Thunder"
+                    ]
+                },
+
+                {
+                    title: "Legion",
+                    items: [
+                        "Magni: Fault Lines",
+                        "Nightborne: Twilight of Suramar",
+                        "Highmountain: A Mountain Divided",
+                        "Anduin: Son of the Wolf"
+                    ]
+                },
+
+                {
+                    title: "Battle for Azeroth",
+                    items: [
+                        "Jaina: Reunion",
+                        "Magni: The Speaker",
+                        "Windrunner: Three Sisters",
+                        "Mechagon"
+                    ]
+                },
+
+                {
+                    title: "The War Within",
+                    items: [
+                        "Seasons"
+                    ]
+                },
+
+                {
+                    title: "Midnight",
+                    items: [
+                        "Legacy of Rage"
+                    ]
+                }
+
+            ]
+        },
+
+        {
+            title: "Manga",
+            items: [
+                "The Sunwell Trilogy: Dragon Hunt",
+                "The Sunwell Trilogy: Shadows of Ice",
+                "The Sunwell Trilogy: Ghostlands",
+                "Warcraft Legends – Volume 1",
+                "Warcraft Legends – Volume 2",
+                "Warcraft Legends – Volume 3",
+                "Warcraft Legends – Volume 4",
+                "Warcraft Legends – Volume 5",
+                "Death Knight",
+                "Mage",
+                "Shaman",
+                "Shadow Wing: The Dragons of Outland",
+                "Shadow Wing: Nexus Point"
+            ]
+        }
+
+    ]
+},
+
+
+{
+    title: "SHORT STORIES",
+    icon: "quill",
+    groups: [
+
+        {
+            title: "World of Warcraft — Classic",
+            items: [
+                "The War of the Shifting Sands",
+                "Road to Damnation"
+            ]
+        },
+
+        {
+            title: "The Burning Crusade",
+            items: [
+                "Unbroken"
+            ]
+        },
+
+        {
+            title: "Cataclysm",
+            items: [
+                "Charge of the Aspects",
+                "Garrosh Hellscream: Heart of War",
+                "Genn Greymane: Lord of His Pack",
+                "Gallywix: Trade Secrets of a Trade Prince",
+                "The Council of Three Hammers: Fire and Iron",
+                "Vol’jin: The Judgment",
+                "Gelbin Mekkatorque: Cut Short",
+                "Baine Bloodhoof: As Our Fathers Before Us",
+                "Tyrande & Malfurion: Seeds of Faith",
+                "Sylvanas Windrunner: Edge of Night",
+                "Varian Wrynn: Blood of Our Fathers",
+                "Lor’themar Theron: In the Shadow of the Sun",
+                "Velen: Prophet’s Lesson"
+            ]
+        },
+
+        {
+            title: "Mists of Pandaria",
+            items: [
+                "Quest for Pandaria – Part One",
+                "Quest for Pandaria – Part Two",
+                "Quest for Pandaria – Part Three",
+                "Quest for Pandaria – Part Four",
+                "Li Li’s Travel Journal",
+                "The Trial of the Red Blossoms",
+                "Bleeding Sun",
+                "The Blank Scroll",
+                "Death From Above",
+                "The Strength of Steel",
+                "Over Water",
+                "The Untamed Valley",
+                "The Jade Hunters"
+            ]
+        },
+
+        {
+            title: "Warlords of Draenor",
+            items: [
+                "Hellscream",
+                "Code of Rule",
+                "Apocrypha"
+            ]
+        },
+
+        {
+            title: "Legion",
+            items: [
+                "Dark Mirror"
+            ]
+        },
+
+        {
+            title: "Battle for Azeroth",
+            items: [
+                "A Good War",
+                "Elegy",
+                "A Moment in Verse"
+            ]
+        },
+
+        {
+            title: "Shadowlands",
+            items: [
+                "Terror by Torchlight",
+                "We Ride Forth",
+                "Visage Day"
+            ]
+        },
+
+        {
+            title: "Dragonflight",
+            items: [
+                "The Vow Eternal"
+            ]
+        },
+
+        {
+            title: "The War Within",
+            items: [
+                "A Whisper of Warning",
+                "The Calling",
+                "The Goblin Way",
+                "The Lilac and the Stone",
+                "Trials",
+                "The Tipping Point",
+                "Heartlands – Chapter 1",
+                "Heartlands – Chapter 2",
+                "Heartlands – Chapter 3",
+                "Heartlands – Chapter 4",
+                "Heartlands – Chapter 5",
+                "Faith & Flame",
+                "The Doom of K’aresh – Chapter 1",
+                "The Doom of K’aresh – Chapter 2",
+                "The Doom of K’aresh – Chapter 3"
+            ]
+        },
+
+        {
+            title: "Midnight",
+            items: [
+                "The Void Between",
+                "Legacy of the Amani",
+                "The Quiet at the End of Us"
+            ]
+        }
+
+    ]
+},
+
+
+{
+    title: "VIDEA",
+    icon: "shield",
+    groups: [
+
+        {
+            title: "Mists of Pandaria",
+            items: [
+                "The Burdens of Shaohao Prelude: The Vision",
+                "The Burdens of Shaohao Part 1: Doubt",
+                "The Burdens of Shaohao Part 2: Despair",
+                "The Burdens of Shaohao Part 3: Fear",
+                "The Burdens of Shaohao Part 4: Anger",
+                "The Burdens of Shaohao Part 5: The Sundering"
+            ]
+        },
+
+        {
+            title: "Warlords of Draenor",
+            items: [
+                "Lords of War - Part 1",
+                "Lords of War - Part 2",
+                "Lords of War - Part 3",
+                "Lords of War - Part 4",
+                "Lords of War - Part 5"
+            ]
+        },
+
+        {
+            title: "Legion",
+            items: [
+                "Harbingers: Gul’dan",
+                "Harbingers: Khadgar",
+                "Harbingers: Illidan"
+            ]
+        },
+
+        {
+            title: "Battle for Azeroth",
+            items: [
+                "Warbringers: Jaina",
+                "Warbringers: Sylvanas",
+                "Warbringers: Azshara",
+                "Old Soldier",
+                "Battle for Azeroth Cinematic Trailer",
+                "Battle for Azeroth — Embers of War",
+                "Lost Honor",
+                "Safe Haven",
+                "Terror of Darkshore",
+                "Reckoning",
+                "Visions of N’Zoth - Intro Cinematic"
+            ]
+        },
+
+        {
+            title: "Shadowlands",
+            items: [
+                "Shadowlands Launch Cinematic: “Beyond the Veil”",
+                "Shadowlands Afterlives: Bastion",
+                "Shadowlands Afterlives: Maldraxxus",
+                "Shadowlands Afterlives: Ardenweald",
+                "Shadowlands Afterlives: Revendreth"
+            ]
+        },
+
+        {
+            title: "Dragonflight",
+            items: [
+                "Dragonflight: Legacies, Chapter 1",
+                "Dragonflight: Legacies, Chapter 2"
+            ]
+        },
+
+        {
+            title: "The War Within",
+            items: [
+                "“A Place to Call Home” Featuring AURORA",
+                "Xal’atath Animation: Supremacy"
+            ]
+        },
+
+        {
+            title: "Midnight",
+            items: [
+                "“Midnight Story So Far”",
+                "“The Bitter Truth” Part One",
+                "“The Bitter Truth” Part Two: “A Toast”",
+                "“The Bitter Truth” Part Three: “The Dregs”"
+            ]
+        }
+
+    ]
+}
+
+];
+
+
+/* =========================================================
+   THEME MANAGER
+========================================================= */
+
+const THEME_KEY = "warcraft_theme_preference";
+
+function setTheme(theme) {
+    document.body.classList.remove("theme-alliance", "theme-horde");
+
+    document.getElementById("btnAlliance").classList.remove("active");
+    document.getElementById("btnHorde").classList.remove("active");
+    document.getElementById("btnNeutral").classList.remove("active");
+
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+
+    if (theme === "alliance") {
+        document.body.classList.add("theme-alliance");
+        document.getElementById("btnAlliance").classList.add("active");
+        if (metaTheme) metaTheme.setAttribute("content", "#090e17");
+    } else if (theme === "horde") {
+        document.body.classList.add("theme-horde");
+        document.getElementById("btnHorde").classList.add("active");
+        if (metaTheme) metaTheme.setAttribute("content", "#140808");
+    } else {
+        document.getElementById("btnNeutral").classList.add("active");
+        if (metaTheme) metaTheme.setAttribute("content", "#111111");
+    }
+
+    try {
+        window.localStorage.setItem(THEME_KEY, theme);
+    } catch (e) {
+        console.error("Uložení tématu se nezdařilo:", e);
+    }
+}
+
+function loadSavedTheme() {
+    try {
+        const savedTheme = window.localStorage.getItem(THEME_KEY);
+        if (savedTheme) {
+            setTheme(savedTheme);
+        }
+    } catch (e) {
+        console.error("Načtení tématu se nezdařilo:", e);
+    }
+}
+
+
+/* =========================================================
+   CHECKBOX STORAGE (persistuje mezi sezeními, jen pro tebe)
+========================================================= */
+
+const STORAGE_KEY = "warcraft_storyline_checked_v1";
+
+let checkedItems = {};
+let storageReady = false;
+
+
+async function loadCheckedItems() {
+
+    try {
+
+        const raw = window.localStorage.getItem(STORAGE_KEY);
+
+        checkedItems = raw ? JSON.parse(raw) : {};
+
+    } catch (err) {
+
+        checkedItems = {};
+
+    }
+
+    storageReady = true;
+
+}
+
+
+async function saveCheckedItems() {
+
+    try {
+
+        window.localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(checkedItems)
+        );
+
+    } catch (err) {
+
+        console.error("Uložení se nezdařilo:", err);
+
+    }
+
+}
+
+
+/* =========================================================
+   CHECKBOX
+========================================================= */
+
+function makeId(text) {
+
+    return text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[̀-ͯ]/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "");
+
+}
+
+
+// Registr všech DOM instancí dané položky, aby se
+// zaškrtnutí propsalo okamžitě všude.
+let itemRegistry = {};
+let idCounters = {};
+
+// Registr sekcí (kategorie a skupiny v médiích), aby
+// šlo označit zelenou fajfkou tu, která je celá hotová.
+let groupRegistry = [];
+
+
+function registerGroup(element, ids) {
+
+    if (!ids.length) {
+        return;
+    }
+
+    groupRegistry.push({
+        element: element,
+        ids: ids
+    });
+
+}
+
+
+function updateGroupStates() {
+
+    groupRegistry.forEach(function(group) {
+
+        const done = group.ids.every(function(id) {
+            return !!checkedItems[id];
+        });
+
+        group.element.classList.toggle("complete", done);
+
+    });
+
+}
+
+
+/* =========================================================
+   IKONY KATEGORIÍ (Warcraft styl — tažené zlatou linkou,
+   stejný gradient jako logo v hlavičce)
+========================================================= */
+
+const CATEGORY_ICONS = {
+
+    // Zkřížené meče — HRY
+    swords:
+        '<g fill="none" stroke="url(#icon-gold)" stroke-width="1.7" ' +
+        'stroke-linecap="round" stroke-linejoin="round">' +
+        '<path d="M5 19 L19 5"/>' +
+        '<path d="M19 19 L5 5"/>' +
+        '<path d="M6.6 15.4 L9.8 18.6"/>' +
+        '<path d="M17.4 15.4 L14.2 18.6"/>' +
+        '<circle cx="5" cy="19" r="1.1" fill="url(#icon-gold)" stroke="none"/>' +
+        '<circle cx="19" cy="19" r="1.1" fill="url(#icon-gold)" stroke="none"/>' +
+        "</g>",
+
+    // Kniha s hřbetem a stužkou záložky — KNIHY
+    book:
+        '<g fill="none" stroke="url(#icon-gold)" stroke-width="1.5" ' +
+        'stroke-linecap="round" stroke-linejoin="round">' +
+        '<rect x="5" y="4.2" width="14" height="15.6" rx="1.2"/>' +
+        '<path d="M12 4.2v15.6"/>' +
+        '<path d="M14.6 4.2v5.6l-1.6-1.15-1.6 1.15V4.2" ' +
+        'fill="url(#icon-gold)" stroke="none"/>' +
+        "</g>",
+
+    // Svinutý svitek s pečetí — KOMIKSY / MANGA
+    scroll:
+        '<g fill="none" stroke="url(#icon-gold)" stroke-width="1.5" ' +
+        'stroke-linecap="round" stroke-linejoin="round">' +
+        '<rect x="3.6" y="8.4" width="16.8" height="7.2" rx="3.6"/>' +
+        '<path d="M9.6 8.4v7.2"/>' +
+        '<path d="M14.4 8.4v7.2"/>' +
+        '<circle cx="12" cy="12" r="1.3" fill="url(#icon-gold)" stroke="none"/>' +
+        "</g>",
+
+    // Brk s inkoustovým tahem — SHORT STORIES
+    quill:
+        '<g fill="none" stroke="url(#icon-gold)" stroke-width="1.6" ' +
+        'stroke-linecap="round" stroke-linejoin="round">' +
+        '<path d="M18.5 4.5c-4.2.3-8.7 3-10.6 8.6-.9 2.6-1 4.4-1 4.4s1.8-.1 4.4-1c5.6-1.9 8.3-6.4 8.6-10.6.1-1 .1-1.5-1.4-1.4z"/>' +
+        '<path d="M15.6 6.4 8.7 13.3"/>' +
+        '<path d="M6.9 16.9c-1 1.1-1.6 2-2.1 3.1"/>' +
+        "</g>",
+
+    // Znak štítu s trojúhelníkem přehrávání — VIDEA
+    shield:
+        '<g fill="none" stroke="url(#icon-gold)" stroke-width="1.6" ' +
+        'stroke-linecap="round" stroke-linejoin="round">' +
+        '<path d="M12 3.4 18.6 6v5.4c0 5-2.9 7.9-6.6 9-3.7-1.1-6.6-4-6.6-9V6z"/>' +
+        '<path d="M10 9.2 15 12l-5 2.8z" fill="url(#icon-gold)" stroke="none"/>' +
+        "</g>"
+
+};
+
+
+function createCategoryIcon(iconName) {
+
+    const wrapper = document.createElement("span");
+
+    wrapper.className = "category-icon";
+
+    const svgMarkup =
+        '<svg viewBox="0 0 24 24">' +
+        (CATEGORY_ICONS[iconName] || "") +
+        "</svg>";
+
+    wrapper.innerHTML = svgMarkup;
+
+    return wrapper;
+
+}
+
+
+function createCheckMark() {
+
+    const check = document.createElement("div");
+
+    check.className = "check";
+
+    check.textContent = "✓";
+
+    check.title = "Vše dokončeno";
+
+    return check;
+
+}
+
+
+function createItem(text) {
+
+    const id = makeId(text);
+
+    if (!itemRegistry[id]) {
+        itemRegistry[id] = [];
+        idCounters[id] = 0;
+    }
+
+    idCounters[id]++;
+
+    const wrapper = document.createElement("div");
+
+    wrapper.className = "item";
+
+    if (checkedItems[id]) {
+        wrapper.classList.add("completed");
+    }
+
+    const checkbox = document.createElement("input");
+
+    checkbox.type = "checkbox";
+
+    checkbox.checked = !!checkedItems[id];
+
+    // Unikátní DOM id, protože stejná položka se může
+    // objevit ve více pohledech současně.
+    checkbox.id = "check-" + id + "-" + idCounters[id];
+
+    checkbox.addEventListener("change", function() {
+
+        setChecked(id, checkbox.checked);
+
+    });
+
+
+    const label = document.createElement("label");
+
+    label.htmlFor = checkbox.id;
+
+    label.textContent = text;
+
+
+    wrapper.appendChild(checkbox);
+    wrapper.appendChild(label);
+
+    itemRegistry[id].push({
+        wrapper: wrapper,
+        checkbox: checkbox
+    });
+
+    return wrapper;
+
+}
+
+
+function setChecked(id, value) {
+
+    checkedItems[id] = value;
+
+    saveCheckedItems();
+
+    (itemRegistry[id] || []).forEach(function(entry) {
+
+        entry.checkbox.checked = value;
+
+        entry.wrapper.classList.toggle(
+            "completed",
+            value
+        );
+
+    });
+
+    updateProgress();
+
+    updateGroupStates();
+
+}
+
+
+/* =========================================================
+   GENERIC SECTION (rekurzivní — podporuje vnořené skupiny)
+========================================================= */
+
+// Node je buď list ({ items: [...] }), nebo uzel s dalšími
+// vnořenými skupinami ({ groups: [...] }).
+function collectIds(node) {
+
+    if (node.items) {
+        return node.items.map(makeId);
+    }
+
+    return (node.groups || []).reduce(function(ids, group) {
+
+        return ids.concat(collectIds(group));
+
+    }, []);
+
+}
+
+
+function createSection(title, node) {
+
+    const section = document.createElement("div");
+
+    section.className = "section";
+
+
+    const header = document.createElement("div");
+
+    header.className = "section-header";
+
+
+    const titleEl = document.createElement("div");
+
+    titleEl.className = "section-title";
+
+    titleEl.textContent = title;
+
+
+    const ids = collectIds(node);
+
+    const count = document.createElement("div");
+
+    count.className = "section-count";
+
+    count.textContent = ids.length + " položek";
+
+
+    const arrow = document.createElement("div");
+
+    arrow.className = "arrow";
+
+
+    header.appendChild(createCheckMark());
+    header.appendChild(titleEl);
+    header.appendChild(count);
+    header.appendChild(arrow);
+
+
+    const content = document.createElement("div");
+
+    content.className = "section-content";
+
+
+    if (node.items) {
+
+        node.items.forEach(function(item) {
+
+            content.appendChild(
+                createItem(item)
+            );
+
+        });
+
+    } else {
+
+        (node.groups || []).forEach(function(group) {
+
+            content.appendChild(
+                createSection(group.title, group)
+            );
+
+        });
+
+    }
+
+
+    header.addEventListener("click", function() {
+
+        const willOpen = !section.classList.contains("open");
+
+        section.classList.toggle("open", willOpen);
+
+        // Při zavření kategorie se zavřou i všechny
+        // vnořené podkategorie, aby se příště otevřela
+        // vždy sbalená.
+        if (!willOpen) {
+
+            content
+                .querySelectorAll(".section.open")
+                .forEach(function(sub) {
+
+                    sub.classList.remove("open");
+
+                });
+
+        }
+
+    });
+
+
+    section.appendChild(header);
+    section.appendChild(content);
+
+    registerGroup(section, ids);
+
+    return section;
+
+}
+
+
+/* =========================================================
+   RENDER MÉDIA
+========================================================= */
+
+function renderMedia() {
+
+    const container =
+        document.getElementById("mediaContainer");
+
+    container.innerHTML = "";
+
+
+    mediaData.forEach(function(category) {
+
+        const categorySection =
+            document.createElement("div");
+
+        categorySection.className =
+            "media-category";
+
+
+        const section =
+            document.createElement("div");
+
+        section.className = "section";
+
+
+        const header =
+            document.createElement("div");
+
+        header.className =
+            "section-header";
+
+
+        const title =
+            document.createElement("div");
+
+        title.className =
+            "section-title";
+
+        title.appendChild(
+            createCategoryIcon(category.icon)
+        );
+
+        title.appendChild(
+            document.createTextNode(category.title)
+        );
+
+
+        const total =
+            category.groups.reduce(
+                (sum, group) =>
+                    sum + collectIds(group).length,
+                0
+            );
+
+
+        const count =
+            document.createElement("div");
+
+        count.className =
+            "section-count";
+
+        count.textContent =
+            total + " položek";
+
+
+        const arrow =
+            document.createElement("div");
+
+        arrow.className =
+            "arrow";
+
+
+        header.appendChild(createCheckMark());
+        header.appendChild(title);
+        header.appendChild(count);
+        header.appendChild(arrow);
+
+
+        const content =
+            document.createElement("div");
+
+        content.className =
+            "section-content";
+
+
+        // Kategorie s jedinou skupinou by jinak měla
+        // zbytečnou podkategorii se stejným názvem —
+        // položky proto vypíšeme rovnou (pokud jde o
+        // plochý seznam a ne o další vnořené skupiny).
+        if (category.groups.length === 1 && category.groups[0].items) {
+
+            category.groups[0].items
+                .forEach(function(item) {
+
+                    content.appendChild(
+                        createItem(item)
+                    );
+
+                });
+
+        } else {
+
+            category.groups.forEach(function(group) {
+
+                const groupSection =
+                    createSection(
+                        group.title,
+                        group
+                    );
+
+                content.appendChild(
+                    groupSection
+                );
+
+            });
+
+        }
+
+
+        header.addEventListener(
+            "click",
+            function() {
+
+                const willOpen =
+                    !section.classList.contains("open");
+
+                section.classList.toggle(
+                    "open",
+                    willOpen
+                );
+
+                if (!willOpen) {
+
+                    content
+                        .querySelectorAll(".section.open")
+                        .forEach(function(sub) {
+
+                            sub.classList.remove("open");
+
+                        });
+
+                }
+
+            }
+        );
+
+
+        section.appendChild(header);
+        section.appendChild(content);
+
+        registerGroup(
+            section,
+            category.groups.reduce(
+                (ids, group) =>
+                    ids.concat(collectIds(group)),
+                []
+            )
+        );
+
+        categorySection.appendChild(section);
+
+        container.appendChild(categorySection);
+
+    });
+
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+function updateProgress() {
+
+    const ids = Object.keys(itemRegistry);
+
+    const total = ids.length;
+
+    let completed = 0;
+
+    ids.forEach(function(id) {
+
+        if (checkedItems[id]) {
+            completed++;
+        }
+
+    });
+
+
+    const percentage =
+        total === 0
+            ? 0
+            : Math.round(
+                completed / total * 100
+            );
+
+
+    document.getElementById(
+        "progressText"
+    ).textContent =
+        completed +
+        " / " +
+        total +
+        " dokončeno";
+
+
+    document.getElementById(
+        "progressFill"
+    ).style.width =
+        percentage + "%";
+
+}
+
+
+/* =========================================================
+   RENDER ALL (čistí registr, aby se nekumulovaly staré
+   odkazy na smazané DOM elementy)
+========================================================= */
+
+function renderAll() {
+
+    itemRegistry = {};
+    idCounters = {};
+    groupRegistry = [];
+
+    renderMedia();
+    updateProgress();
+    updateGroupStates();
+
+}
+
+
+/* =========================================================
+   INIT
+========================================================= */
+
+async function init() {
+
+    await loadCheckedItems();
+
+    renderAll();
+    loadSavedTheme();
+
+}
+
+init();
+
+</script>
+
+</body>
+</html>
