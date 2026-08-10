@@ -8,13 +8,20 @@
 
 <meta name="theme-color" content="#111111">
 
-<!-- Favicon — stejné zlaté "W" jako v nadpisu webu -->
+<!-- Favicon -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Cdefs%3E%3ClinearGradient%20id%3D%27g%27%20x1%3D%270%27%20y1%3D%270%27%20x2%3D%270%27%20y2%3D%271%27%3E%3Cstop%20offset%3D%270%27%20stop-color%3D%27%23f5dfa0%27%2F%3E%3Cstop%20offset%3D%270.45%27%20stop-color%3D%27%23d6a84f%27%2F%3E%3Cstop%20offset%3D%271%27%20stop-color%3D%27%239c7327%27%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2713%27%20fill%3D%27%2314151b%27%2F%3E%3Crect%20x%3D%272%27%20y%3D%272%27%20width%3D%2760%27%20height%3D%2760%27%20rx%3D%2711%27%20fill%3D%27none%27%20stroke%3D%27%237a5a24%27%20stroke-width%3D%273%27%2F%3E%3Crect%20x%3D%276%27%20y%3D%2716%27%20width%3D%2712%27%20height%3D%273.6%27%20rx%3D%271.2%27%20fill%3D%27url(%23g)%27%2F%3E%3Crect%20x%3D%2746%27%20y%3D%2716%27%20width%3D%2712%27%20height%3D%273.6%27%20rx%3D%271.2%27%20fill%3D%27url(%23g)%27%2F%3E%3Cpath%20d%3D%27M11%2018%20L21.5%2046%20L32%2028%20L42.5%2046%20L53%2018%27%20fill%3D%27none%27%20stroke%3D%27url(%23g)%27%20stroke-width%3D%276.5%27%20stroke-linejoin%3D%27miter%27%2F%3E%3C%2Fsvg%3E">
 
+<!-- iOS Apple Touch Icon -->
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Cdefs%3E%3ClinearGradient%20id%3D%27g%27%20x1%3D%270%27%20y1%3D%270%27%20x2%3D%270%27%20y2%3D%271%27%3E%3Cstop%20offset%3D%270%27%20stop-color%3D%27%23f5dfa0%27%2F%3E%3Cstop%20offset%3D%270.45%27%20stop-color%3D%27%23d6a84f%27%2F%3E%3Cstop%20offset%3D%271%27%20stop-color%3D%27%239c7327%27%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2713%27%20fill%3D%27%2314151b%27%2F%3E%3Crect%20x%3D%272%27%20y%3D%272%27%20width%3D%2760%27%20height%3D%2760%27%20rx%3D%2711%27%20fill%3D%27none%27%20stroke%3D%27%237a5a24%27%20stroke-width%3D%273%27%2F%3E%3Crect%20x%3D%276%27%20y%3D%2716%27%20width%3D%2712%27%20height%3D%273.6%27%20rx%3D%271.2%27%20fill%3D%27url(%23g)%27%2F%3E%3Crect%20x%3D%2746%27%20y%3D%2716%27%20width%3D%2712%27%20height%3D%273.6%27%20rx%3D%271.2%27%20fill%3D%27url(%23g)%27%2F%3E%3Cpath%20d%3D%27M11%2018%20L21.5%2046%20L32%2028%20L42.5%2046%20L53%2018%27%20fill%3D%27none%27%20stroke%3D%27url(%23g)%27%20stroke-width%3D%276.5%27%20stroke-linejoin%3D%27miter%27%2F%3E%3C%2Fsvg%3E">
 
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cinzel+Decorative:wght@700;900&display=swap');
+
+:root {
+    --noise-pattern: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C%2Ffilter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.07'/%3E%3C%2Fsvg%3E");
+    --leather-pattern: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='leather'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.15' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C%2Ffilter%3E%3Crect width='100%25' height='100%25' filter='url(%23leather)' opacity='0.04'/%3E%3C%2Fsvg%3E");
+}
 
 * {
     box-sizing: border-box;
@@ -22,21 +29,21 @@
 
 html {
     scroll-behavior: smooth;
+    height: 100%;
 }
 
 body {
     margin: 0;
-    background: #0d0e12;
+    background-color: #0b0c0f;
+    background-image: var(--noise-pattern);
     color: #e4dfd2;
     font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
     transition: background 0.5s ease, color 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-/* Dekorativní pozadí je v samostatné, k viewportu ukotvené
-   vrstvě. Dřív bylo namalované přes celý (velmi dlouhý)
-   dokument, takže se přechody roztahovaly a diagonální
-   šrafování vytvářelo pruhy a artefakty — nejvíc v sekci
-   MÉDIA, která je zdaleka nejdelší. */
 body::before {
     content: "";
     position: fixed;
@@ -47,18 +54,19 @@ body::before {
     z-index: -1;
     pointer-events: none;
     background:
-        radial-gradient(ellipse at 20% 0%, rgba(120, 40, 20, 0.12) 0%, transparent 55%),
-        radial-gradient(ellipse at 80% 10%, rgba(20, 60, 90, 0.10) 0%, transparent 55%),
-        #0d0e12;
+        radial-gradient(ellipse at 20% 0%, rgba(130, 80, 30, 0.15) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 10%, rgba(0, 0, 0, 0.8) 0%, transparent 55%),
+        #0b0c0f;
     transition: background 0.5s ease;
 }
 
 .header {
     background:
-        linear-gradient(180deg, rgba(90,30,15,0.35) 0%, rgba(13,14,18,0) 60%),
+        var(--noise-pattern),
+        linear-gradient(180deg, rgba(30,22,15,0.9) 0%, rgba(15,16,21,0.95) 60%),
         #14151b;
-    border-bottom: 3px solid #7a5a24;
-    box-shadow: 0 2px 0 #2c220d, 0 4px 18px rgba(0,0,0,.5);
+    border-bottom: 3px solid #6b4e1b;
+    box-shadow: inset 0 -2px 10px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,0.8), 0 0 15px rgba(107, 78, 27, 0.3);
     position: relative;
     transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
 }
@@ -70,8 +78,8 @@ body::before {
     right: 0;
     bottom: -6px;
     height: 3px;
-    background: linear-gradient(90deg, transparent, #d6a84f 20%, #f0d68a 50%, #d6a84f 80%, transparent);
-    opacity: .8;
+    background: linear-gradient(90deg, transparent, #8f6924 20%, #f0d68a 50%, #8f6924 80%, transparent);
+    opacity: .9;
     transition: background 0.5s ease;
 }
 
@@ -88,25 +96,107 @@ h1 {
     font-size: 32px;
     font-weight: 900;
     letter-spacing: 1px;
-    background: linear-gradient(180deg, #f5dfa0 0%, #d6a84f 45%, #9c7327 100%);
+    background: linear-gradient(180deg, #fff2c8 0%, #d6a84f 45%, #7a5410 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    text-shadow: 0 2px 10px rgba(214,168,79,.15);
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.9));
     transition: background 0.5s ease;
 }
 
 .subtitle {
     margin-top: 8px;
-    color: #a89a78;
+    color: #9e8f6c;
     font-size: 13px;
     letter-spacing: .5px;
     font-style: italic;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
     transition: color 0.5s ease;
 }
 
+/* PET CONTROL PANEL */
+.pet-control-bar {
+    max-width: 520px;
+    margin: 15px auto 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(0,0,0,0.4);
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid #4a3819;
+}
+
+.pet-control-label {
+    font-size: 11px;
+    color: #918263;
+    font-family: 'Cinzel', Georgia, serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.pet-btn {
+    background: linear-gradient(180deg, #2a2215 0%, #17120a 100%);
+    border: 1px solid #6b4e1b;
+    color: #dcd3be;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-family: 'Cinzel', Georgia, serif;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pet-btn:hover {
+    border-color: #d6a84f;
+    color: #fff2c8;
+    background: linear-gradient(180deg, #3d311d 0%, #221b10 100%);
+}
+
+.pet-btn.active {
+    background: linear-gradient(180deg, #8f6924 0%, #5c4212 100%);
+    border-color: #f5dfa0;
+    color: #ffffff;
+    box-shadow: 0 0 8px rgba(214, 168, 79, 0.4);
+}
+
+/* POHYBUJÍCÍ SE PET NA PLOŠE */
+#desktopPet {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    z-index: 9999;
+    pointer-events: none;
+    display: none;
+    transition: transform 0.15s ease;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.8));
+}
+
+#desktopPet svg {
+    width: 100%;
+    height: 100%;
+}
+
+.pet-speech {
+    position: absolute;
+    bottom: 62px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(15, 16, 21, 0.95);
+    border: 1px solid #d6a84f;
+    color: #f5dfa0;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+    display: none;
+    font-family: 'Cinzel', serif;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
 .progress-area {
-    margin-top: 20px;
+    margin-top: 15px;
     max-width: 520px;
     margin-left: auto;
     margin-right: auto;
@@ -114,47 +204,45 @@ h1 {
 
 .progress-label {
     font-size: 11px;
-    color: #7a7460;
+    color: #918263;
     margin-bottom: 6px;
     text-align: center;
     letter-spacing: 1.5px;
     text-transform: uppercase;
     font-family: 'Cinzel', Georgia, serif;
+    text-shadow: 0 1px 2px #000;
     transition: color 0.5s ease;
 }
 
-/* Rám XP baru — kovový okraj jako u WoW UI panelů */
 .progress-bar {
     position: relative;
     height: 26px;
-    background: linear-gradient(180deg, #120d05 0%, #1c1408 50%, #0c0904 100%);
+    background: var(--noise-pattern), linear-gradient(180deg, #050505 0%, #17120a 50%, #0c0904 100%);
     border: 2px solid #5c4a24;
     border-radius: 13px;
     overflow: hidden;
     box-shadow:
-        inset 0 2px 5px rgba(0,0,0,.85),
+        inset 0 3px 6px rgba(0,0,0,0.9),
         inset 0 -1px 0 rgba(255,255,255,.04),
         0 0 0 1px #241b0c,
-        0 1px 0 rgba(255,255,255,.03);
-    transition: background 0.5s ease, border-color 0.5s ease;
+        0 1px 0 rgba(255,255,255,.1);
 }
 
-/* Vyplněná část — modrý XP gradient se sklem nahoře */
 .progress-fill {
     position: relative;
     height: 100%;
     width: 0%;
     min-width: 0;
-    background: linear-gradient(180deg, #9fe3ff 0%, #4fb0f0 18%, #1f78d6 55%, #164f9c 100%);
+    background: var(--leather-pattern), linear-gradient(180deg, #5bb3ff 0%, #1e73e8 50%, #0042a5 100%);
     box-shadow:
-        0 0 12px rgba(79,176,240,.65),
-        inset 0 1px 0 rgba(255,255,255,.5),
-        inset 0 -2px 4px rgba(0,20,50,.5);
-    transition: width .5s cubic-bezier(.22,.7,.2,1), background 0.5s ease, box-shadow 0.5s ease;
+        0 0 14px rgba(66, 153, 225, 0.7),
+        0 0 4px rgba(147, 197, 253, 0.9),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6),
+        inset 0 -2px 4px rgba(0, 20, 50, 0.4);
+    transition: width .5s cubic-bezier(.22,.7,.2,1);
     border-radius: 11px;
 }
 
-/* Jemný lesklý pruh přes horní třetinu výplně */
 .progress-fill::before {
     content: "";
     position: absolute;
@@ -162,11 +250,10 @@ h1 {
     left: 0;
     right: 0;
     height: 45%;
-    background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,0));
+    background: linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0));
     border-radius: 11px 11px 0 0;
 }
 
-/* Dělicí rysky po 10 % jako na WoW liště zkušeností */
 .progress-bar::before {
     content: "";
     position: absolute;
@@ -197,43 +284,30 @@ h1 {
     font-size: 12px;
     font-weight: 700;
     letter-spacing: .3px;
-    color: #fff;
+    color: #ffffff;
     text-shadow:
-        0 1px 2px rgba(0,0,0,.9),
-        0 0 6px rgba(0,0,0,.6);
+        0 1px 3px rgba(0,0,0,1),
+        0 0 6px rgba(0,0,0,0.9);
     z-index: 3;
     pointer-events: none;
     font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
 }
 
-.loading-note {
-    font-size: 12px;
-    color: #7a7f89;
-    margin-top: 6px;
-}
-
-
-/* =========================
-   MAIN
-========================= */
-
 .main {
     max-width: 1100px;
+    width: 100%;
     margin: 0 auto;
     padding: 20px 18px 60px;
+    flex: 1 0 auto;
 }
-
-
-/* =========================
-   COLLAPSIBLE SECTIONS
-========================= */
 
 .section {
     margin-bottom: 10px;
-    background: linear-gradient(180deg, #1a1b21 0%, #17181d 100%);
-    border: 1px solid #322818;
+    background: var(--leather-pattern), linear-gradient(180deg, #16171d 0%, #111216 100%);
+    border: 1px solid #3d311d;
     border-radius: 5px;
     overflow: hidden;
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.05), 0 4px 10px rgba(0,0,0,0.5);
     transition: background 0.5s ease, border-color 0.5s ease;
 }
 
@@ -245,26 +319,27 @@ h1 {
     padding: 14px 16px;
     cursor: pointer;
     user-select: none;
-    border-left: 3px solid transparent;
-    transition: border-color .15s ease, background .15s ease;
+    border-left: 3px solid transparent !important;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0.2) 100%);
+    transition: background .15s ease;
 }
 
 .section-header:hover {
-    background: #20242c;
-    border-left-color: #d6a84f;
+    background: rgba(212, 175, 55, 0.05);
 }
 
 .section-title {
     font-family: 'Cinzel', Georgia, serif;
     font-weight: 700;
     font-size: 14px;
-    color: #d9cfb5;
+    color: #dcd3be;
     letter-spacing: .3px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
     transition: color 0.5s ease;
 }
 
 .section-count {
-    color: #7a7460;
+    color: #6e6754;
     font-size: 11px;
     margin-left: auto;
     letter-spacing: .3px;
@@ -272,42 +347,56 @@ h1 {
 }
 
 .arrow {
-    width: 9px;
-    height: 9px;
-    border-right: 2px solid #b08a3e;
-    border-bottom: 2px solid #b08a3e;
-    transform: rotate(45deg);
-    transition: transform .2s ease, border-color 0.5s ease;
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    font-size: 19px;
+    font-weight: bold;
+    color: #a37c33;
+    transition: transform .2s ease, color 0.5s ease;
     margin-right: 3px;
 }
 
+.arrow::before {
+    content: "+";
+}
+
 .section.open > .section-header > .arrow {
+    width: 9px;
+    height: 9px;
+    border-right: 2px solid #a37c33;
+    border-bottom: 2px solid #a37c33;
     transform: rotate(225deg);
+    font-size: 0;
+}
+
+.section.open > .section-header > .arrow::before {
+    content: "";
 }
 
 .section-content {
     display: none;
-    padding: 0 12px 12px;
+    padding: 10px 12px 12px;
+    background: rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.6);
 }
 
 .section.open > .section-content {
     display: block;
 }
 
-
-/* =========================
-   ITEMS
-========================= */
-
 .item {
     display: flex;
     align-items: flex-start;
     gap: 10px;
     padding: 9px 8px;
-    border-top: 1px solid #24211a;
+    border-top: 1px solid #211e17;
     line-height: 1.4;
     font-size: 14px;
-    color: #c9c2ae;
+    color: #c0b8a3;
     transition: border-color 0.5s ease, color 0.5s ease;
 }
 
@@ -320,7 +409,7 @@ h1 {
     margin-top: 3px;
     width: 16px;
     height: 16px;
-    accent-color: #d6a84f;
+    accent-color: #c99836;
     cursor: pointer;
 }
 
@@ -330,13 +419,9 @@ h1 {
 }
 
 .item.completed label {
-    color: #625c4d;
+    color: #544e40;
     text-decoration: line-through;
 }
-
-/* =========================
-   MEDIA
-========================= */
 
 .media-category {
     margin-bottom: 12px;
@@ -344,7 +429,7 @@ h1 {
 
 .media-category .section-title {
     font-size: 18px;
-    color: #f0d68a;
+    color: #f3dd98;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -357,12 +442,12 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: radial-gradient(circle at 35% 30%, #23262f 0%, #14151b 75%);
-    border: 1.5px solid #6e5223;
+    background: var(--noise-pattern), radial-gradient(circle at 35% 30%, #2a2e3a 0%, #0d0e12 80%);
+    border: 1.5px solid #826227;
     border-radius: 6px;
     box-shadow:
-        inset 0 0 4px rgba(0,0,0,.6),
-        0 0 6px rgba(214,168,79,.25);
+        inset 0 0 5px rgba(0,0,0,.8),
+        0 2px 6px rgba(0,0,0,0.6);
     transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
 }
 
@@ -373,35 +458,36 @@ h1 {
 }
 
 .media-category > .section {
-    border-color: #4a3a18;
+    border-color: #54421e;
+    background: var(--leather-pattern), linear-gradient(180deg, #1c1d24 0%, #14151a 100%);
 }
 
-/* Skupiny vnořené v kategorii nesmí opakovat stejný svislý
-   přechod jako rodičovský panel — vznikaly tím světlejší
-   obdélníky, které vypadaly jako poškozené pozadí.
-   Uvnitř proto plná barva. */
 .media-category .section-content .section {
-    background: #191a20;
+    background: var(--noise-pattern), #14151b;
+    border: 1px solid #3d311d;
+    border-radius: 4px;
+    margin-left: 12px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
 
-
-/* =========================
-   DOKONČENÁ SEKCE
-========================= */
-
-.check {
+.check, .in-progress {
     display: none;
     flex: 0 0 auto;
     width: 17px;
     height: 17px;
-    line-height: 17px;
     text-align: center;
+    border-radius: 50%;
+}
+
+.check {
+    line-height: 17px;
     font-size: 12px;
     font-weight: 700;
-    color: #0d0e12;
-    background: #4ade80;
-    border-radius: 50%;
-    box-shadow: 0 0 9px rgba(74, 222, 128, .45);
+    color: #051408;
+    background: #3cd070;
+    box-shadow: 0 0 10px rgba(60, 208, 112, 0.4);
 }
 
 .section.complete > .section-header > .check {
@@ -416,18 +502,50 @@ h1 {
     border-left-color: #4ade80;
 }
 
+.in-progress {
+    background: radial-gradient(circle at 35% 35%, #5a1c1c 0%, #300a0a 70%, #150202 100%);
+    border: 1.5px solid #d6a84f;
+    box-shadow: 0 0 8px rgba(214, 168, 79, 0.4), inset 0 1px 2px rgba(0,0,0,0.8);
+    align-items: center;
+    justify-content: center;
+}
 
-/* =========================
-   FOOTER & THEME SELECTOR
-========================= */
+.in-progress .dots {
+    display: flex;
+    gap: 1.5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.in-progress .dots span {
+    width: 2px;
+    height: 2px;
+    background-color: #f5dfa0;
+    border-radius: 50%;
+    box-shadow: 0 0 2px #f5dfa0;
+}
+
+.section.in-progress-state > .section-header > .in-progress {
+    display: flex;
+}
+
+.section.in-progress-state > .section-header > .section-title {
+    color: #f3dd98;
+}
+
+.section.in-progress-state > .section-header {
+    border-left-color: #d6a84f;
+}
 
 .footer {
-    border-top: 2px solid #3a2e18;
-    background: #0f1015;
+    border-top: 2px solid #4a3819;
+    background: var(--noise-pattern), linear-gradient(180deg, #0d0e11 0%, #050507 100%);
     padding: 30px 18px 40px;
     text-align: center;
     position: relative;
     transition: background 0.5s ease, border-color 0.5s ease;
+    margin-top: auto;
+    width: 100%;
 }
 
 .footer::before {
@@ -438,7 +556,7 @@ h1 {
     right: 0;
     height: 2px;
     background: linear-gradient(90deg, transparent, #d6a84f 50%, transparent);
-    opacity: 0.6;
+    opacity: 0.7;
     transition: background 0.5s ease;
 }
 
@@ -449,6 +567,7 @@ h1 {
     text-transform: uppercase;
     color: #8c7e62;
     margin-bottom: 18px;
+    text-shadow: 0 1px 2px #000;
     transition: color 0.5s ease;
 }
 
@@ -465,8 +584,8 @@ h1 {
     flex-direction: column;
     align-items: center;
     cursor: pointer;
-    background: rgba(20, 22, 30, 0.7);
-    border: 2px solid #4a3a1d;
+    background: var(--leather-pattern), linear-gradient(180deg, rgba(25, 27, 36, 0.8) 0%, rgba(12, 13, 18, 0.9) 100%);
+    border: 2px solid #3d3019;
     border-radius: 10px;
     padding: 12px 20px;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -474,6 +593,7 @@ h1 {
     overflow: hidden;
     user-select: none;
     width: 140px;
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.05), 0 4px 10px rgba(0,0,0,0.6);
 }
 
 .faction-card::before {
@@ -490,18 +610,20 @@ h1 {
 }
 
 .faction-card.alliance:hover, .faction-card.alliance.active {
-    border-color: #3b82f6;
-    box-shadow: 0 0 18px rgba(59, 130, 246, 0.4), inset 0 0 10px rgba(59, 130, 246, 0.2);
+    border-color: #8f793b;
+    box-shadow: 0 0 15px rgba(23, 42, 69, 0.8), inset 0 0 10px rgba(15, 28, 48, 0.8);
+    background: linear-gradient(135deg, #09121d 0%, #102136 60%, #08111a 100%);
 }
 
 .faction-card.horde:hover, .faction-card.horde.active {
-    border-color: #b83a3a;
-    box-shadow: 0 0 18px rgba(184, 58, 58, 0.4), inset 0 0 10px rgba(184, 58, 58, 0.2);
+    border-color: #853e2b;
+    box-shadow: 0 0 15px rgba(64, 18, 18, 0.8), inset 0 0 10px rgba(45, 12, 12, 0.8);
+    background: linear-gradient(135deg, #120b0b 0%, #301313 60%, #1a0808 100%);
 }
 
 .faction-card.neutral:hover, .faction-card.neutral.active {
-    border-color: #eab308;
-    box-shadow: 0 0 18px rgba(234, 179, 8, 0.4), inset 0 0 10px rgba(234, 179, 8, 0.2);
+    border-color: #d6a84f;
+    box-shadow: 0 0 20px rgba(214, 168, 79, 0.3), inset 0 0 10px rgba(214, 168, 79, 0.2);
 }
 
 .faction-icon {
@@ -510,6 +632,7 @@ h1 {
     position: relative;
     z-index: 2;
     transition: transform 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
 }
 
 .faction-card:hover .faction-icon {
@@ -525,299 +648,137 @@ h1 {
     z-index: 2;
 }
 
-.faction-card.alliance .faction-name { color: #60a5fa; }
-.faction-card.horde .faction-name { color: #d96b6b; }
-.faction-card.neutral .faction-name { color: #facc15; }
+.faction-card.alliance .faction-name { color: #b89f56; }
+.faction-card.horde .faction-name { color: #ab7967; }
+.faction-card.neutral .faction-name { color: #f0d68a; }
 
 .faction-status {
     font-size: 10px;
-    color: #888;
+    color: #7a725e;
     margin-top: 2px;
     z-index: 2;
     font-style: italic;
 }
 
-
-/* =========================
-   THEME STYLES — ALLIANCE
-========================= */
-
 body.theme-alliance {
-    background: #090e17;
-    color: #e2e8f0;
+    background-color: #070a0e;
+    color: #c5cbd3;
 }
-
 body.theme-alliance::before {
     background:
-        radial-gradient(ellipse at 20% 0%, rgba(30, 80, 160, 0.22) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 80%, rgba(200, 160, 60, 0.12) 0%, transparent 55%),
-        repeating-linear-gradient(45deg, rgba(20, 40, 80, 0.03) 0px, rgba(20, 40, 80, 0.03) 2px, transparent 2px, transparent 8px),
-        #090e17;
+        radial-gradient(ellipse at 20% 0%, rgba(20, 45, 80, 0.25) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, rgba(120, 100, 40, 0.08) 0%, transparent 55%),
+        repeating-linear-gradient(45deg, rgba(15, 25, 45, 0.03) 0px, rgba(15, 25, 45, 0.03) 2px, transparent 2px, transparent 8px),
+        #070a0e;
 }
-
 body.theme-alliance .header {
-    background: linear-gradient(180deg, rgba(15, 35, 75, 0.85) 0%, rgba(9, 14, 23, 0.95) 100%), #0d1527;
-    border-bottom: 3px solid #2563eb;
-    box-shadow: 0 2px 0 #1e3a8a, 0 4px 20px rgba(37, 99, 235, 0.25);
+    background: var(--noise-pattern), linear-gradient(135deg, #09121d 0%, #122238 60%, #0a1524 100%);
+    border-bottom: 3px solid #8f793b;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.9), 0 0 15px rgba(20, 50, 90, 0.3);
 }
-
 body.theme-alliance .header::after {
-    background: linear-gradient(90deg, transparent, #3b82f6 20%, #f59e0b 50%, #3b82f6 80%, transparent);
+    background: linear-gradient(90deg, transparent, #284c70 20%, #8f793b 50%, #284c70 80%, transparent);
 }
-
-body.theme-alliance h1 {
-    background: linear-gradient(180deg, #ffffff 0%, #93c5fd 40%, #2563eb 85%, #1e40af 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    text-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
-}
-
-body.theme-alliance .subtitle {
-    color: #93c5fd;
-}
-
-body.theme-alliance .progress-label {
-    color: #60a5fa;
-}
-
-body.theme-alliance .progress-bar {
-    background: linear-gradient(180deg, #070c14 0%, #0f1d36 50%, #050a12 100%);
-    border: 2px solid #2563eb;
-    box-shadow: inset 0 2px 5px rgba(0,0,0,.85), 0 0 8px rgba(37,99,235,.4);
-}
-
-body.theme-alliance .progress-fill {
-    background: linear-gradient(180deg, #fef08a 0%, #eab308 30%, #ca8a04 70%, #854d0e 100%);
-    box-shadow: 0 0 14px rgba(234, 179, 8, 0.7), inset 0 1px 0 rgba(255,255,255,.6);
-}
-
+body.theme-alliance .subtitle { color: #6a8fae; }
+body.theme-alliance .progress-label { color: #b89f56; }
 body.theme-alliance .section {
-    background: linear-gradient(180deg, #111a2e 0%, #0d1424 100%);
-    border: 1px solid #1e3a8a;
+    background: var(--leather-pattern), linear-gradient(180deg, #0c1421 0%, #080d17 100%);
+    border: 1px solid #1a2b42;
 }
-
 body.theme-alliance .media-category .section-content .section {
-    background: #0f172a;
+    background: var(--noise-pattern), #0c1421;
+    border-color: #1a2b42;
 }
-
-body.theme-alliance .section-header:hover {
-    background: #1e293b;
-    border-left-color: #3b82f6;
-}
-
-body.theme-alliance .section-title {
-    color: #e0f2fe;
-}
-
-body.theme-alliance .media-category .section-title {
-    color: #93c5fd;
-}
-
-body.theme-alliance .section-count {
-    color: #64748b;
-}
-
-body.theme-alliance .arrow {
-    border-color: #3b82f6;
-}
-
-body.theme-alliance .item {
-    border-top-color: #1e293b;
-    color: #cbd5e1;
-}
-
-body.theme-alliance .item input {
-    accent-color: #3b82f6;
-}
-
-body.theme-alliance .item.completed label {
-    color: #475569;
-}
-
+body.theme-alliance .section-header:hover { background: rgba(40, 76, 112, 0.12); }
+body.theme-alliance .section-title { color: #c5cbd3; }
+body.theme-alliance .media-category .section-title { color: #b89f56; }
+body.theme-alliance .section-count { color: #435263; }
+body.theme-alliance .arrow { border-color: #8f793b; }
+body.theme-alliance .item { border-top-color: #131e2d; color: #c5cbd3; }
+body.theme-alliance .item input { accent-color: #8f793b; }
+body.theme-alliance .item.completed label { color: #435263; }
 body.theme-alliance .category-icon {
-    background: radial-gradient(circle at 35% 30%, #1e293b 0%, #0f172a 75%);
-    border-color: #3b82f6;
-    box-shadow: inset 0 0 4px rgba(0,0,0,.6), 0 0 8px rgba(59, 130, 246, 0.4);
+    background: var(--noise-pattern), radial-gradient(circle at 35% 30%, #132742 0%, #060b12 80%);
+    border-color: #8f793b;
+    box-shadow: inset 0 0 5px rgba(0,0,0,.8), 0 0 15px rgba(15, 35, 65, 0.4);
 }
-
 body.theme-alliance .footer {
-    background: #070a12;
-    border-top-color: #1e3a8a;
+    background: var(--noise-pattern), linear-gradient(180deg, #06090e 0%, #020406 100%);
+    border-top-color: #8f793b;
 }
-
-body.theme-alliance .footer::before {
-    background: linear-gradient(90deg, transparent, #3b82f6 50%, transparent);
-}
-
-body.theme-alliance .theme-title {
-    color: #60a5fa;
-}
-
-
-/* =========================
-   THEME STYLES — HORDE
-========================= */
+body.theme-alliance .footer::before { background: linear-gradient(90deg, transparent, #284c70 50%, transparent); }
+body.theme-alliance .theme-title { color: #8f793b; }
 
 body.theme-horde {
-    background: #140808;
-    color: #e6cece;
+    background-color: #0c0808;
+    color: #c9bcad;
 }
-
 body.theme-horde::before {
     background:
-        radial-gradient(ellipse at 20% 0%, rgba(135, 30, 30, 0.2) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 80%, rgba(70, 15, 15, 0.18) 0%, transparent 55%),
-        repeating-linear-gradient(-45deg, rgba(60, 15, 15, 0.04) 0px, rgba(60, 15, 15, 0.04) 3px, transparent 3px, transparent 10px),
-        #140808;
+        radial-gradient(ellipse at 20% 0%, rgba(85, 20, 20, 0.25) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, rgba(40, 15, 15, 0.15) 0%, transparent 55%),
+        repeating-linear-gradient(-45deg, rgba(35, 12, 12, 0.04) 0px, rgba(35, 12, 12, 0.04) 3px, transparent 3px, transparent 10px),
+        #0c0808;
 }
-
 body.theme-horde .header {
-    background: linear-gradient(180deg, rgba(65, 15, 15, 0.85) 0%, rgba(20, 8, 8, 0.95) 100%), #1c0a0a;
-    border-bottom: 3px solid #a83232;
-    box-shadow: 0 2px 0 #5c1818, 0 4px 20px rgba(168, 50, 50, 0.25);
+    background: var(--noise-pattern), linear-gradient(135deg, #120b0b 0%, #301313 60%, #1a0808 100%);
+    border-bottom: 3px solid #5e2323;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.9), 0 0 15px rgba(65, 15, 15, 0.4);
 }
-
 body.theme-horde .header::after {
-    background: linear-gradient(90deg, transparent, #b83a3a 20%, #d97736 50%, #b83a3a 80%, transparent);
+    background: linear-gradient(90deg, transparent, #5e2323 20%, #853e2b 50%, #5e2323 80%, transparent);
 }
-
-body.theme-horde h1 {
-    background: linear-gradient(180deg, #fcf0f0 0%, #e0a3a3 35%, #b83a3a 80%, #5c1818 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    text-shadow: 0 0 15px rgba(184, 58, 58, 0.4);
-}
-
-body.theme-horde .subtitle {
-    color: #e0a3a3;
-}
-
-body.theme-horde .progress-label {
-    color: #d96b6b;
-}
-
-body.theme-horde .progress-bar {
-    background: linear-gradient(180deg, #120404 0%, #2a0808 50%, #0a0202 100%);
-    border: 2px solid #8f2626;
-    box-shadow: inset 0 2px 5px rgba(0,0,0,.85), 0 0 8px rgba(143, 38, 38, 0.35);
-}
-
-/* Modrá výplň XP baru pro Hordu (neutrální modrá jako u neutrálního / základního témata) */
-body.theme-horde .progress-fill {
-    background: linear-gradient(180deg, #9fe3ff 0%, #4fb0f0 18%, #1f78d6 55%, #164f9c 100%);
-    box-shadow: 0 0 12px rgba(79, 176, 240, 0.65), inset 0 1px 0 rgba(255,255,255,.5);
-}
-
+body.theme-horde .subtitle { color: #ab6e5a; }
+body.theme-horde .progress-label { color: #c28878; }
 body.theme-horde .section {
-    background: linear-gradient(180deg, #200d0d 0%, #170909 100%);
-    border: 1px solid #5c1818;
+    background: var(--leather-pattern), linear-gradient(180deg, #181010 0%, #100a0a 100%);
+    border: 1px solid #451b1b;
 }
-
 body.theme-horde .media-category .section-content .section {
-    background: #1a0b0b;
+    background: var(--noise-pattern), #181010;
+    border-color: #451b1b;
 }
-
-body.theme-horde .section-header:hover {
-    background: #2b1212;
-    border-left-color: #b83a3a;
-}
-
-body.theme-horde .section-title {
-    color: #f7e6e6;
-}
-
-body.theme-horde .media-category .section-title {
-    color: #e0a3a3;
-}
-
-body.theme-horde .section-count {
-    color: #8f384a;
-}
-
-body.theme-horde .arrow {
-    border-color: #b83a3a;
-}
-
-body.theme-horde .item {
-    border-top-color: #2b1212;
-    color: #e0c8c8;
-}
-
-body.theme-horde .item input {
-    accent-color: #b83a3a;
-}
-
-body.theme-horde .item.completed label {
-    color: #632424;
-}
-
+body.theme-horde .section-header:hover { background: rgba(80, 25, 25, 0.15); }
+body.theme-horde .section-title { color: #c9bcad; }
+body.theme-horde .media-category .section-title { color: #c28878; }
+body.theme-horde .section-count { color: #593c3c; }
+body.theme-horde .arrow { border-color: #853e2b; }
+body.theme-horde .item { border-top-color: #211313; color: #c9bcad; }
+body.theme-horde .item input { accent-color: #5e2323; }
+body.theme-horde .item.completed label { color: #4a3232; }
 body.theme-horde .category-icon {
-    background: radial-gradient(circle at 35% 30%, #2b1212 0%, #170909 75%);
-    border-color: #b83a3a;
-    box-shadow: inset 0 0 4px rgba(0,0,0,.6), 0 0 8px rgba(184, 58, 58, 0.35);
+    background: var(--noise-pattern), radial-gradient(circle at 35% 30%, #301313 0%, #0a0606 80%);
+    border-color: #853e2b;
+    box-shadow: inset 0 0 5px rgba(0,0,0,.8), 0 0 15px rgba(65, 15, 15, 0.4);
 }
-
 body.theme-horde .footer {
-    background: #0d0404;
-    border-top-color: #5c1818;
+    background: var(--noise-pattern), linear-gradient(180deg, #0a0606 0%, #030202 100%);
+    border-top-color: #5e2323;
 }
-
-body.theme-horde .footer::before {
-    background: linear-gradient(90deg, transparent, #b83a3a 50%, transparent);
-}
-
-body.theme-horde .theme-title {
-    color: #d96b6b;
-}
-
-
-/* =========================
-   MOBILE
-========================= */
+body.theme-horde .footer::before { background: linear-gradient(90deg, transparent, #5e2323 50%, transparent); }
+body.theme-horde .theme-title { color: #853e2b; }
 
 @media (max-width: 700px) {
-
-    h1 {
-        font-size: 23px;
-    }
-
-    .main {
-        padding: 14px 10px 40px;
-    }
-
-    .section-header {
-        padding: 14px 12px;
-    }
-
-    .item {
-        font-size: 13px;
-    }
-
-    .faction-container {
-        gap: 12px;
-    }
-
-    .faction-card {
-        width: 100px;
-        padding: 10px 8px;
-    }
-
-    .faction-icon {
-        width: 42px;
-        height: 42px;
-    }
-
-    .faction-name {
-        font-size: 11px;
-    }
-
+    h1 { font-size: 23px; }
+    .main { padding: 14px 10px 40px; }
+    .section-header { padding: 14px 12px; }
+    .item { font-size: 13px; }
+    .faction-container { gap: 12px; }
+    .faction-card { width: 100px; padding: 10px 8px; }
+    .faction-icon { width: 42px; height: 42px; }
+    .faction-name { font-size: 11px; }
 }
 
 </style>
 </head>
 
-
 <body>
+
+<!-- Detailně zpracovaný pet na ploše -->
+<div id="desktopPet">
+    <div class="pet-speech" id="petSpeech">Mrrglglgl!</div>
+    <div id="petAvatarContainer"></div>
+</div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs>
@@ -826,109 +787,66 @@ body.theme-horde .theme-title {
             <stop offset="0.45" stop-color="#d6a84f"/>
             <stop offset="1" stop-color="#9c7327"/>
         </linearGradient>
-
         <linearGradient id="icon-alliance" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#93c5fd"/>
-            <stop offset="0.5" stop-color="#3b82f6"/>
-            <stop offset="1" stop-color="#1d4ed8"/>
+            <stop offset="0" stop-color="#6a8fae"/>
+            <stop offset="0.5" stop-color="#284c70"/>
+            <stop offset="1" stop-color="#122238"/>
         </linearGradient>
-
         <linearGradient id="icon-horde" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#e0a3a3"/>
-            <stop offset="0.5" stop-color="#b83a3a"/>
-            <stop offset="1" stop-color="#8f2626"/>
+            <stop offset="0" stop-color="#c28878"/>
+            <stop offset="0.5" stop-color="#732b2b"/>
+            <stop offset="1" stop-color="#301313"/>
         </linearGradient>
     </defs>
 </svg>
 
-
-<!-- =========================================================
-     HEADER
-========================================================= -->
-
 <header class="header">
-
     <div class="header-inner">
-
         <h1>WARCRAFT CHECKLIST</h1>
-
-        <div class="subtitle">
-            Kompletní checklist světa Warcraftu
+        <div class="subtitle">Kompletní checklist světa Warcraftu</div>
+        
+        <!-- VÝBĚR PETŮ -->
+        <div class="pet-control-bar">
+            <span class="pet-control-label">Mázlíček na ploše:</span>
+            <button class="pet-btn active" id="petBtn-off" onclick="changePet('off')">Vypnuto</button>
+            <button class="pet-btn" id="petBtn-murloc" onclick="changePet('murloc')">Murloc</button>
+            <button class="pet-btn" id="petBtn-whelpling" onclick="changePet('whelpling')">Whelpling</button>
+            <button class="pet-btn" id="petBtn-cat" onclick="changePet('cat')">Kocour</button>
         </div>
 
         <div class="progress-area">
-
             <div class="progress-label">Postup sbírky</div>
-
             <div class="progress-bar">
-
-                <div
-                    class="progress-fill"
-                    id="progressFill">
-                </div>
-
-                <div
-                    class="progress-text"
-                    id="progressText">
-                    Načítám…
-                </div>
-
+                <div class="progress-fill" id="progressFill"></div>
+                <div class="progress-text" id="progressText">Načítám…</div>
             </div>
-
         </div>
-
     </div>
-
 </header>
 
-
 <main class="main">
-
-
-<!-- =========================================================
-     MÉDIA
-========================================================= -->
-
-<section id="mediaView">
-
-    <div id="mediaContainer"></div>
-
-</section>
-
-
+    <section id="mediaView">
+        <div id="mediaContainer"></div>
+    </section>
 </main>
 
-
-<!-- =========================================================
-     FOOTER & FACTION THEME SELECTOR
-========================================================= -->
-
 <footer class="footer">
-
-    <div class="theme-title">Zvolte svoji frakci (Téma vzhledu)</div>
-
+    <div class="theme-title">Zvolte svoji frakci</div>
     <div class="faction-container">
-
-        <!-- ALLIANCE BUTTON -->
         <div class="faction-card alliance" id="btnAlliance" onclick="setTheme('alliance')" title="Přepnout na téma Aliance">
             <svg class="faction-icon" viewBox="0 0 100 100">
-                <!-- Shield base -->
-                <path d="M50 5 L85 20 V50 C85 72 50 95 50 95 C50 95 15 72 15 50 V20 Z" fill="#1e3a8a" stroke="#f59e0b" stroke-width="4"/>
-                <!-- Inner border -->
-                <path d="M50 12 L78 24 V48 C78 66 50 85 50 85 C50 85 22 66 22 48 V24 Z" fill="none" stroke="#3b82f6" stroke-width="2"/>
-                <!-- Stylized Lion Head (Alliance Emblem) -->
-                <path d="M50 25 C42 25 36 30 34 38 C32 46 36 52 40 54 C38 58 35 60 32 60 C38 65 44 63 46 68 C47 71 45 74 50 78 C55 74 53 71 54 68 C56 63 62 65 68 60 C65 60 62 58 60 54 C64 52 68 46 66 38 C64 30 58 25 50 25 Z" fill="#f59e0b"/>
-                <circle cx="43" cy="40" r="2.5" fill="#1e3a8a"/>
-                <circle cx="57" cy="40" r="2.5" fill="#1e3a8a"/>
-                <path d="M47 48 L50 52 L53 48 Z" fill="#1e3a8a"/>
-                <!-- Crown top -->
-                <path d="M40 22 L44 16 L50 20 L56 16 L60 22 Z" fill="#f0d68a"/>
+                <path d="M50 5 L85 20 V50 C85 72 50 95 50 95 C50 95 15 72 15 50 V20 Z" fill="#0d1b2a" stroke="#8f793b" stroke-width="4"/>
+                <path d="M50 12 L78 24 V48 C78 66 50 85 50 85 C50 85 22 66 22 48 V24 Z" fill="none" stroke="#284c70" stroke-width="2"/>
+                <path d="M50 25 C42 25 36 30 34 38 C32 46 36 52 40 54 C38 58 35 60 32 60 C38 65 44 63 46 68 C47 71 45 74 50 78 C55 74 53 71 54 68 C56 63 62 65 68 60 C65 60 62 58 60 54 C64 52 68 46 66 38 C64 30 58 25 50 25 Z" fill="#b89f56"/>
+                <circle cx="43" cy="40" r="2.5" fill="#0d1b2a"/>
+                <circle cx="57" cy="40" r="2.5" fill="#0d1b2a"/>
+                <path d="M47 48 L50 52 L53 48 Z" fill="#0d1b2a"/>
+                <path d="M40 22 L44 16 L50 20 L56 16 L60 22 Z" fill="#d6a84f"/>
             </svg>
             <div class="faction-name">ALIANCE</div>
             <div class="faction-status" id="statusAlliance">Za Alianci!</div>
         </div>
 
-        <!-- NEUTRAL / DEFAULT BUTTON -->
         <div class="faction-card neutral active" id="btnNeutral" onclick="setTheme('neutral')" title="Přepnout na původní téma">
             <svg class="faction-icon" viewBox="0 0 100 100">
                 <circle cx="50" cy="50" r="40" fill="#14151b" stroke="#7a5a24" stroke-width="4"/>
@@ -939,43 +857,180 @@ body.theme-horde .theme-title {
             <div class="faction-status" id="statusNeutral">Klasické</div>
         </div>
 
-        <!-- HORDE BUTTON -->
         <div class="faction-card horde" id="btnHorde" onclick="setTheme('horde')" title="Přepnout na téma Hordy">
             <svg class="faction-icon" viewBox="0 0 100 100">
-                <!-- Outer shield background -->
-                <path d="M50 5 L85 22 V50 C85 72 50 95 50 95 C50 95 15 72 15 50 V22 Z" fill="#2a0808" stroke="#5c1818" stroke-width="4"/>
-                <!-- Horde Emblem Crest -->
-                <path d="M50 18 C46 18 43 21 43 25 C43 30 47 33 50 35 C53 33 57 30 57 25 C57 21 54 18 50 18 Z" fill="#b83a3a"/>
-                <path d="M50 35 C38 35 25 45 22 62 C30 58 38 58 43 62 C41 52 45 42 50 40 C55 42 59 52 57 62 C62 58 70 58 78 62 C75 45 62 35 50 35 Z" fill="#b83a3a"/>
-                <!-- Spikes -->
-                <path d="M30 25 L20 18 L26 32 Z" fill="#731f1f"/>
-                <path d="M70 25 L80 18 L74 32 Z" fill="#731f1f"/>
-                <path d="M50 68 L46 82 L50 88 L54 82 Z" fill="#b83a3a"/>
-                <circle cx="50" cy="48" r="4" fill="#140808"/>
+                <path d="M50 5 L85 22 V50 C85 72 50 95 50 95 C50 95 15 72 15 50 V22 Z" fill="#1a0a0a" stroke="#451b1b" stroke-width="4"/>
+                <path d="M50 18 C46 18 43 21 43 25 C43 30 47 33 50 35 C53 33 57 30 57 25 C57 21 54 18 50 18 Z" fill="#853e2b"/>
+                <path d="M50 35 C38 35 25 45 22 62 C30 58 38 58 43 62 C41 52 45 42 50 40 C55 42 59 52 57 62 C62 58 70 58 78 62 C75 45 62 35 50 35 Z" fill="#853e2b"/>
+                <path d="M30 25 L20 18 L26 32 Z" fill="#4a1818"/>
+                <path d="M70 25 L80 18 L74 32 Z" fill="#4a1818"/>
+                <path d="M50 68 L46 82 L50 88 L54 82 Z" fill="#853e2b"/>
+                <circle cx="50" cy="48" r="4" fill="#0a0404"/>
             </svg>
             <div class="faction-name">HORDA</div>
             <div class="faction-status" id="statusHorde">Za Hordu!</div>
         </div>
-
     </div>
-
 </footer>
 
-
 <script>
+// =========================================================
+// PROPRACOVANÉ SVG GRAFIKY PETŮ
+// =========================================================
+const PET_KEY = "warcraft_selected_pet";
+
+const petSVGs = {
+    murloc: {
+        text: "Mrrglglgl!",
+        svg: `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <!-- Hřbetní ploutev -->
+            <path d="M28 14 L34 4 L38 16 Z" fill="#208264" stroke="#0d3627" stroke-width="1.5"/>
+            <!-- Tělo / Hlava -->
+            <ellipse cx="32" cy="38" rx="18" ry="16" fill="#31b088" stroke="#0d3627" stroke-width="2"/>
+            <!-- Velká tlama -->
+            <path d="M18 40 Q32 52 46 40 Z" fill="#f0d68a" stroke="#0d3627" stroke-width="1.5"/>
+            <!-- Zuby -->
+            <path d="M24 40 L26 44 L28 40 L30 44 L32 40 L34 44 L36 40 L38 44 L40 40" fill="#fff" stroke="#0d3627" stroke-width="0.8"/>
+            <!-- Velké oči -->
+            <circle cx="23" cy="24" r="7" fill="#ffffff" stroke="#0d3627" stroke-width="1.5"/>
+            <circle cx="23" cy="24" r="3" fill="#111"/>
+            <circle cx="41" cy="24" r="7" fill="#ffffff" stroke="#0d3627" stroke-width="1.5"/>
+            <circle cx="41" cy="24" r="3" fill="#111"/>
+            <!-- Žaberní límec / ušní ploutvičky -->
+            <path d="M14 32 L8 28 L14 38 Z" fill="#208264" stroke="#0d3627" stroke-width="1.5"/>
+            <path d="M50 32 L56 28 L50 38 Z" fill="#208264" stroke="#0d3627" stroke-width="1.5"/>
+        </svg>`
+    },
+    whelpling: {
+        text: "Roar!",
+        svg: `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <!-- Ocas -->
+            <path d="M32 46 Q20 54 14 44 Q10 38 18 40" fill="none" stroke="#9c2727" stroke-width="3" stroke-linecap="round"/>
+            <!-- Křídla -->
+            <path d="M24 30 Q10 20 16 12 Q24 20 28 28 Z" fill="#b84242" stroke="#4a1111" stroke-width="1.5"/>
+            <path d="M40 30 Q54 20 48 12 Q40 20 36 28 Z" fill="#b84242" stroke="#4a1111" stroke-width="1.5"/>
+            <!-- Tělo -->
+            <ellipse cx="32" cy="40" rx="12" ry="14" fill="#c93838" stroke="#4a1111" stroke-width="2"/>
+            <!-- Hlava -->
+            <circle cx="32" cy="24" r="10" fill="#c93838" stroke="#4a1111" stroke-width="2"/>
+            <!-- Rožky -->
+            <path d="M25 18 L20 10 L27 16 Z" fill="#d6a84f" stroke="#4a1111" stroke-width="1"/>
+            <path d="M39 18 L44 10 L37 16 Z" fill="#d6a84f" stroke="#4a1111" stroke-width="1"/>
+            <!-- Čumák a oči -->
+            <circle cx="28" cy="22" r="2" fill="#f5dfa0"/>
+            <circle cx="36" cy="22" r="2" fill="#f5dfa0"/>
+            <path d="M30 28 Q32 30 34 28" fill="none" stroke="#4a1111" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>`
+    },
+    cat: {
+        text: "Meow...",
+        svg: `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <!-- Ocas -->
+            <path d="M46 48 Q54 45 52 30 Q50 20 56 16" fill="none" stroke="#b87333" stroke-width="3.5" stroke-linecap="round"/>
+            <!-- Tělo -->
+            <ellipse cx="32" cy="44" rx="13" ry="12" fill="#d9822b" stroke="#5e3812" stroke-width="2"/>
+            <!-- Hlava -->
+            <circle cx="32" cy="26" r="11" fill="#d9822b" stroke="#5e3812" stroke-width="2"/>
+            <!-- Špičaté uši -->
+            <path d="M22 18 L18 8 L27 15 Z" fill="#d9822b" stroke="#5e3812" stroke-width="1.5"/>
+            <path d="M23 16 L20 10 L25 14 Z" fill="#e8b07d"/>
+            <path d="M42 18 L46 8 L37 15 Z" fill="#d9822b" stroke="#5e3812" stroke-width="1.5"/>
+            <path d="M41 16 L44 10 L39 14 Z" fill="#e8b07d"/>
+            <!-- Oči a čumáček -->
+            <ellipse cx="27" cy="25" rx="1.5" ry="2.5" fill="#222"/>
+            <ellipse cx="37" cy="25" rx="1.5" ry="2.5" fill="#222"/>
+            <polygon points="32,29 30,31 34,31" fill="#5e3812"/>
+            <path d="M32 31 L32 33" stroke="#5e3812" stroke-width="1"/>
+        </svg>`
+    }
+};
+
+let currentPet = "off";
+let petX = 100, petY = 100;
+let targetX = 150, targetY = 150;
+let petSpeed = 1.2;
+let petInterval = null;
+
+function changePet(petName) {
+    currentPet = petName;
+    
+    document.querySelectorAll('.pet-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById('petBtn-' + petName).classList.add('active');
+
+    const petEl = document.getElementById('desktopPet');
+    const containerEl = document.getElementById('petAvatarContainer');
+
+    if (petName === 'off') {
+        petEl.style.display = 'none';
+        if (petInterval) clearInterval(petInterval);
+    } else {
+        petEl.style.display = 'block';
+        containerEl.innerHTML = petSVGs[petName].svg;
+        startPetMovement();
+    }
+
+    try {
+        window.localStorage.setItem(PET_KEY, petName);
+    } catch(e) {}
+}
+
+function startPetMovement() {
+    if (petInterval) clearInterval(petInterval);
+    
+    function pickNewTarget() {
+        const margin = 80;
+        targetX = margin + Math.random() * (window.innerWidth - margin * 2);
+        targetY = margin + Math.random() * (window.innerHeight - margin * 2);
+    }
+    
+    pickNewTarget();
+
+    petInterval = setInterval(() => {
+        if (currentPet === 'off') return;
+
+        let dx = targetX - petX;
+        let dy = targetY - petY;
+        let dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 5) {
+            pickNewTarget();
+        } else {
+            petX += (dx / dist) * petSpeed;
+            petY += (dy / dist) * petSpeed;
+            
+            const petEl = document.getElementById('desktopPet');
+            petEl.style.left = petX + 'px';
+            petEl.style.top = petY + 'px';
+
+            if (dx < 0) {
+                petEl.style.transform = "scaleX(-1)";
+            } else {
+                petEl.style.transform = "scaleX(1)";
+            }
+        }
+    }, 30);
+}
+
+// Občasné hlášky petů
+setInterval(() => {
+    if (currentPet === 'off') return;
+    const speech = document.getElementById('petSpeech');
+    speech.textContent = petSVGs[currentPet].text;
+    speech.style.display = 'block';
+    setTimeout(() => {
+        speech.style.display = 'none';
+    }, 2500);
+}, 12000);
 
 
-/* =========================================================
-   DATA — MÉDIA
-========================================================= */
-
+// =========================================================
+// DATA — MÉDIA
+// =========================================================
 const mediaData = [
-
 {
     title: "HRY",
     icon: "swords",
     groups: [
-
         {
             title: "Warcraft: Orcs & Humans",
             items: [
@@ -983,7 +1038,6 @@ const mediaData = [
                 "Warcraft: Orcs & Humans — Orc Campaign"
             ]
         },
-
         {
             title: "Warcraft II: Tides of Darkness",
             items: [
@@ -991,7 +1045,6 @@ const mediaData = [
                 "Warcraft II: Tides of Darkness — Orc Campaign"
             ]
         },
-
         {
             title: "Warcraft II: Beyond the Dark Portal",
             items: [
@@ -999,7 +1052,6 @@ const mediaData = [
                 "Warcraft II: Beyond the Dark Portal — Horde Campaign"
             ]
         },
-
         {
             title: "Warcraft III: Reign of Chaos",
             items: [
@@ -1009,7 +1061,6 @@ const mediaData = [
                 "Warcraft III: Reign of Chaos — Night Elf Campaign — Eternity’s End"
             ]
         },
-
         {
             title: "Warcraft III: The Frozen Throne",
             items: [
@@ -1019,7 +1070,6 @@ const mediaData = [
                 "Warcraft III: The Frozen Throne — Orc Bonus Campaign — The Founding of Durotar"
             ]
         },
-
         {
             title: "World of Warcraft — Classic",
             items: [
@@ -1040,7 +1090,6 @@ const mediaData = [
                 "Naxxramas / Kel’Thuzad"
             ]
         },
-
         {
             title: "The Burning Crusade",
             items: [
@@ -1055,7 +1104,6 @@ const mediaData = [
                 "Sunwell Plateau — Kael’thas & the Burning Crusade’s End"
             ]
         },
-
         {
             title: "Wrath of the Lich King",
             items: [
@@ -1072,7 +1120,6 @@ const mediaData = [
                 "The Lich King / Icecrown Citadel"
             ]
         },
-
         {
             title: "Cataclysm",
             items: [
@@ -1089,7 +1136,6 @@ const mediaData = [
                 "Dragon Soul — Deathwing"
             ]
         },
-
         {
             title: "Mists of Pandaria",
             items: [
@@ -1106,7 +1152,6 @@ const mediaData = [
                 "Siege of Orgrimmar"
             ]
         },
-
         {
             title: "Warlords of Draenor",
             items: [
@@ -1122,7 +1167,6 @@ const mediaData = [
                 "Archimonde / Hellfire Citadel"
             ]
         },
-
         {
             title: "Legion",
             items: [
@@ -1138,7 +1182,6 @@ const mediaData = [
                 "Antorus — Sargeras"
             ]
         },
-
         {
             title: "Battle for Azeroth",
             items: [
@@ -1158,7 +1201,6 @@ const mediaData = [
                 "Ny’alotha — N’Zoth"
             ]
         },
-
         {
             title: "Shadowlands",
             items: [
@@ -1174,7 +1216,6 @@ const mediaData = [
                 "The Jailer / Sepulcher of the First Ones"
             ]
         },
-
         {
             title: "Dragonflight",
             items: [
@@ -1190,7 +1231,6 @@ const mediaData = [
                 "Amirdrassil / Fyrakk"
             ]
         },
-
         {
             title: "The War Within",
             items: [
@@ -1206,7 +1246,6 @@ const mediaData = [
                 "The Void / End of The War Within"
             ]
         },
-
         {
             title: "Midnight",
             items: [
@@ -1219,481 +1258,101 @@ const mediaData = [
                 "End of Midnight"
             ]
         }
-
     ]
 },
-
-
 {
     title: "KNIHY",
     icon: "book",
     groups: [
-
         {
             title: "Romány / novely",
             items: [
-                "The Last Guardian",
-                "Day of the Dragon",
-                "Lord of the Clans",
-                "Of Blood and Honor",
-                "The Well of Eternity",
-                "The Demon Soul",
-                "The Sundering",
-                "Cycle of Hatred",
-                "Rise of the Horde",
-                "Tides of Darkness",
-                "Beyond the Dark Portal",
-                "Night of the Dragon",
-                "Arthas: Rise of the Lich King",
-                "Stormrage",
-                "The Shattering: Prelude to Cataclysm",
-                "Thrall: Twilight of the Aspects",
-                "Wolfheart",
-                "Jaina Proudmoore: Tides of War",
-                "Dawn of the Aspects",
-                "Vol’jin: Shadows of the Horde",
-                "War Crimes",
-                "Illidan",
-                "Traveler",
-                "Traveler: The Spiral Path",
-                "Traveler: The Shining Blade",
-                "Before the Storm",
-                "Shadows Rising",
-                "Sylvanas",
-                "War of the Scaleborn",
-                "Blood Ties"
+                "The Last Guardian", "Day of the Dragon", "Lord of the Clans", "Of Blood and Honor", "The Well of Eternity", "The Demon Soul", "The Sundering", "Cycle of Hatred", "Rise of the Horde", "Tides of Darkness", "Beyond the Dark Portal", "Night of the Dragon", "Arthas: Rise of the Lich King", "Stormrage", "The Shattering: Prelude to Cataclysm", "Thrall: Twilight of the Aspects", "Wolfheart", "Jaina Proudmoore: Tides of War", "Dawn of the Aspects", "Vol’jin: Shadows of the Horde", "War Crimes", "Illidan", "Traveler", "Traveler: The Spiral Path", "Traveler: The Shining Blade", "Before the Storm", "Shadows Rising", "Sylvanas", "War of the Scaleborn", "Blood Ties"
             ]
         },
-
         {
             title: "Exploring Azeroth",
-            items: [
-                "Exploring Azeroth: The Eastern Kingdoms",
-                "Exploring Azeroth: Kalimdor",
-                "Exploring Azeroth: Northrend",
-                "Exploring Azeroth: Pandaria",
-                "Exploring Azeroth: Islands and Isles"
-            ]
+            items: ["Exploring Azeroth: The Eastern Kingdoms", "Exploring Azeroth: Kalimdor", "Exploring Azeroth: Northrend", "Exploring Azeroth: Pandaria", "Exploring Azeroth: Islands and Isles"]
         },
-
         {
             title: "Chronicle",
-            items: [
-                "World of Warcraft: Chronicle Volume 1",
-                "World of Warcraft: Chronicle Volume 2",
-                "World of Warcraft: Chronicle Volume 3",
-                "World of Warcraft: Chronicle Volume 4"
-            ]
+            items: ["World of Warcraft: Chronicle Volume 1", "World of Warcraft: Chronicle Volume 2", "World of Warcraft: Chronicle Volume 3", "World of Warcraft: Chronicle Volume 4"]
         }
-
     ]
 },
-
-
 {
     title: "KOMIKSY / MANGA",
     icon: "scroll",
     groups: [
-
         {
             title: "Komiksy",
             groups: [
-
                 {
                     title: "World of Warcraft: The Comic series",
                     groups: [
-
-                        {
-                            title: "Volume 1",
-                            items: [
-                                "Issue 0: Prologue",
-                                "Issue 1: Stranger in a Strange Land",
-                                "Issue 2: Killing Ground",
-                                "Issue 3: Destiny Awaits!",
-                                "Issue 4: Balancing the Scales",
-                                "Issue 5: The Beast Within!",
-                                "Issue 6: Blood",
-                                "Issue 7: Revelations"
-                            ]
-                        },
-
-                        {
-                            title: "Volume 2",
-                            items: [
-                                "Issue 8: The Return",
-                                "Issue 9: Through the Mirror Darkly",
-                                "Issue 10: Last of the Line",
-                                "Issue 11: Descent",
-                                "Issue 12: The Enemy Revealed",
-                                "Issue 13: Flashback",
-                                "Issue 14: Into the Jaws of Death!"
-                            ]
-                        },
-
-                        {
-                            title: "Volume 3",
-                            items: [
-                                "Issue 15: Conflicting Loyalties",
-                                "Issue 16: Threat!",
-                                "Issue 17: Gathering Thunder!",
-                                "Issue 18: Showdown!",
-                                "Issue 19: The Winds of War",
-                                "Issue 20: Repercussions",
-                                "Issue 21: Secrets"
-                            ]
-                        },
-
-                        {
-                            title: "Volume 4",
-                            items: [
-                                "Issue 22: Whispers",
-                                "Issue 23: The Gathering",
-                                "Issue 24: Hard Choices",
-                                "Issue 25: Armageddon"
-                            ]
-                        }
-
+                        { title: "Volume 1", items: ["Issue 0: Prologue", "Issue 1: Stranger in a Strange Land", "Issue 2: Killing Ground", "Issue 3: Destiny Awaits!", "Issue 4: Balancing the Scales", "Issue 5: The Beast Within!", "Issue 6: Blood", "Issue 7: Revelations"] },
+                        { title: "Volume 2", items: ["Issue 8: The Return", "Issue 9: Through the Mirror Darkly", "Issue 10: Last of the Line", "Issue 11: Descent", "Issue 12: The Enemy Revealed", "Issue 13: Flashback", "Issue 14: Into the Jaws of Death!"] },
+                        { title: "Volume 3", items: ["Issue 15: Conflicting Loyalties", "Issue 16: Threat!", "Issue 17: Gathering Thunder!", "Issue 18: Showdown!", "Issue 19: The Winds of War", "Issue 20: Repercussions", "Issue 21: Secrets"] },
+                        { title: "Volume 4", items: ["Issue 22: Whispers", "Issue 23: The Gathering", "Issue 24: Hard Choices", "Issue 25: Armageddon"] }
                     ]
                 },
-
-                {
-                    title: "Ashbringer",
-                    items: [
-                        "Ashbringer"
-                    ]
-                },
-
-                {
-                    title: "Wrath of the Lich King",
-                    items: [
-                        "World of Warcraft: The Comic – Special Issue: Beginnings and Ends"
-                    ]
-                },
-
-                {
-                    title: "Cataclysm",
-                    items: [
-                        "Curse of the Worgen",
-                        "Dark Riders",
-                        "Bloodsworn"
-                    ]
-                },
-
-                {
-                    title: "Mists of Pandaria",
-                    items: [
-                        "Pearl of Pandaria"
-                    ]
-                },
-
-                {
-                    title: "Warlords of Draenor",
-                    items: [
-                        "Gul’dan and the Stranger",
-                        "Blackhand",
-                        "Blood and Thunder"
-                    ]
-                },
-
-                {
-                    title: "Legion",
-                    items: [
-                        "Magni: Fault Lines",
-                        "Nightborne: Twilight of Suramar",
-                        "Highmountain: A Mountain Divided",
-                        "Anduin: Son of the Wolf"
-                    ]
-                },
-
-                {
-                    title: "Battle for Azeroth",
-                    items: [
-                        "Jaina: Reunion",
-                        "Magni: The Speaker",
-                        "Windrunner: Three Sisters",
-                        "Mechagon"
-                    ]
-                },
-
-                {
-                    title: "The War Within",
-                    items: [
-                        "Seasons"
-                    ]
-                },
-
-                {
-                    title: "Midnight",
-                    items: [
-                        "Legacy of Rage"
-                    ]
-                }
-
+                { title: "Ashbringer", items: ["Ashbringer"] },
+                { title: "Wrath of the Lich King", items: ["World of Warcraft: The Comic – Special Issue: Beginnings and Ends"] },
+                { title: "Cataclysm", items: ["Curse of the Worgen", "Dark Riders", "Bloodsworn"] },
+                { title: "Mists of Pandaria", items: ["Pearl of Pandaria"] },
+                { title: "Warlords of Draenor", items: ["Gul’dan and the Stranger", "Blackhand", "Blood and Thunder"] },
+                { title: "Legion", items: ["Magni: Fault Lines", "Nightborne: Twilight of Suramar", "Highmountain: A Mountain Divided", "Anduin: Son of the Wolf"] },
+                { title: "Battle for Azeroth", items: ["Jaina: Reunion", "Magni: The Speaker", "Windrunner: Three Sisters", "Mechagon"] },
+                { title: "The War Within", items: ["Seasons"] },
+                { title: "Midnight", items: ["Legacy of Rage"] }
             ]
         },
-
         {
             title: "Manga",
-            items: [
-                "The Sunwell Trilogy: Dragon Hunt",
-                "The Sunwell Trilogy: Shadows of Ice",
-                "The Sunwell Trilogy: Ghostlands",
-                "Warcraft Legends – Volume 1",
-                "Warcraft Legends – Volume 2",
-                "Warcraft Legends – Volume 3",
-                "Warcraft Legends – Volume 4",
-                "Warcraft Legends – Volume 5",
-                "Death Knight",
-                "Mage",
-                "Shaman",
-                "Shadow Wing: The Dragons of Outland",
-                "Shadow Wing: Nexus Point"
-            ]
+            items: ["The Sunwell Trilogy: Dragon Hunt", "The Sunwell Trilogy: Shadows of Ice", "The Sunwell Trilogy: Ghostlands", "Warcraft Legends – Volume 1", "Warcraft Legends – Volume 2", "Warcraft Legends – Volume 3", "Warcraft Legends – Volume 4", "Warcraft Legends – Volume 5", "Death Knight", "Mage", "Shaman", "Shadow Wing: The Dragons of Outland", "Shadow Wing: Nexus Point"]
         }
-
     ]
 },
-
-
 {
     title: "SHORT STORIES",
     icon: "quill",
     groups: [
-
-        {
-            title: "World of Warcraft — Classic",
-            items: [
-                "The War of the Shifting Sands",
-                "Road to Damnation"
-            ]
-        },
-
-        {
-            title: "The Burning Crusade",
-            items: [
-                "Unbroken"
-            ]
-        },
-
-        {
-            title: "Cataclysm",
-            items: [
-                "Charge of the Aspects",
-                "Garrosh Hellscream: Heart of War",
-                "Genn Greymane: Lord of His Pack",
-                "Gallywix: Trade Secrets of a Trade Prince",
-                "The Council of Three Hammers: Fire and Iron",
-                "Vol’jin: The Judgment",
-                "Gelbin Mekkatorque: Cut Short",
-                "Baine Bloodhoof: As Our Fathers Before Us",
-                "Tyrande & Malfurion: Seeds of Faith",
-                "Sylvanas Windrunner: Edge of Night",
-                "Varian Wrynn: Blood of Our Fathers",
-                "Lor’themar Theron: In the Shadow of the Sun",
-                "Velen: Prophet’s Lesson"
-            ]
-        },
-
-        {
-            title: "Mists of Pandaria",
-            items: [
-                "Quest for Pandaria – Part One",
-                "Quest for Pandaria – Part Two",
-                "Quest for Pandaria – Part Three",
-                "Quest for Pandaria – Part Four",
-                "Li Li’s Travel Journal",
-                "The Trial of the Red Blossoms",
-                "Bleeding Sun",
-                "The Blank Scroll",
-                "Death From Above",
-                "The Strength of Steel",
-                "Over Water",
-                "The Untamed Valley",
-                "The Jade Hunters"
-            ]
-        },
-
-        {
-            title: "Warlords of Draenor",
-            items: [
-                "Hellscream",
-                "Code of Rule",
-                "Apocrypha"
-            ]
-        },
-
-        {
-            title: "Legion",
-            items: [
-                "Dark Mirror"
-            ]
-        },
-
-        {
-            title: "Battle for Azeroth",
-            items: [
-                "A Good War",
-                "Elegy",
-                "A Moment in Verse"
-            ]
-        },
-
-        {
-            title: "Shadowlands",
-            items: [
-                "Terror by Torchlight",
-                "We Ride Forth",
-                "Visage Day"
-            ]
-        },
-
-        {
-            title: "Dragonflight",
-            items: [
-                "The Vow Eternal"
-            ]
-        },
-
-        {
-            title: "The War Within",
-            items: [
-                "A Whisper of Warning",
-                "The Calling",
-                "The Goblin Way",
-                "The Lilac and the Stone",
-                "Trials",
-                "The Tipping Point",
-                "Heartlands – Chapter 1",
-                "Heartlands – Chapter 2",
-                "Heartlands – Chapter 3",
-                "Heartlands – Chapter 4",
-                "Heartlands – Chapter 5",
-                "Faith & Flame",
-                "The Doom of K’aresh – Chapter 1",
-                "The Doom of K’aresh – Chapter 2",
-                "The Doom of K’aresh – Chapter 3"
-            ]
-        },
-
-        {
-            title: "Midnight",
-            items: [
-                "The Void Between",
-                "Legacy of the Amani",
-                "The Quiet at the End of Us"
-            ]
-        }
-
+        { title: "World of Warcraft — Classic", items: ["The War of the Shifting Sands", "Road to Damnation"] },
+        { title: "The Burning Crusade", items: ["Unbroken"] },
+        { title: "Cataclysm", items: ["Charge of the Aspects", "Garrosh Hellscream: Heart of War", "Genn Greymane: Lord of His Pack", "Gallywix: Trade Secrets of a Trade Prince", "The Council of Three Hammers: Fire and Iron", "Vol’jin: The Judgment", "Gelbin Mekkatorque: Cut Short", "Baine Bloodhoof: As Our Fathers Before Us", "Tyrande & Malfurion: Seeds of Faith", "Sylvanas Windrunner: Edge of Night", "Varian Wrynn: Blood of Our Fathers", "Lor’themar Theron: In the Shadow of the Sun", "Velen: Prophet’s Lesson"] },
+        { title: "Mists of Pandaria", items: ["Quest for Pandaria – Part One", "Quest for Pandaria – Part Two", "Quest for Pandaria – Part Three", "Quest for Pandaria – Part Four", "Li Li’s Travel Journal", "The Trial of the Red Blossoms", "Bleeding Sun", "The Blank Scroll", "Death From Above", "The Strength of Steel", "Over Water", "The Untamed Valley", "The Jade Hunters"] },
+        { title: "Warlords of Draenor", items: ["Hellscream", "Code of Rule", "Apocrypha"] },
+        { title: "Legion", items: ["Dark Mirror"] },
+        { title: "Battle for Azeroth", items: ["A Good War", "Elegy", "A Moment in Verse"] },
+        { title: "Shadowlands", items: ["Terror by Torchlight", "We Ride Forth", "Visage Day"] },
+        { title: "Dragonflight", items: ["The Vow Eternal"] },
+        { title: "The War Within", items: ["A Whisper of Warning", "The Calling", "The Goblin Way", "The Lilac and the Stone", "Trials", "The Tipping Point", "Heartlands – Chapter 1", "Heartlands – Chapter 2", "Heartlands – Chapter 3", "Heartlands – Chapter 4", "Heartlands – Chapter 5", "Faith & Flame", "The Doom of K’aresh – Chapter 1", "The Doom of K’aresh – Chapter 2", "The Doom of K’aresh – Chapter 3"] },
+        { title: "Midnight", items: ["The Void Between", "Legacy of the Amani", "The Quiet at the End of Us"] }
     ]
 },
-
-
 {
     title: "VIDEA",
     icon: "shield",
     groups: [
-
-        {
-            title: "Mists of Pandaria",
-            items: [
-                "The Burdens of Shaohao Prelude: The Vision",
-                "The Burdens of Shaohao Part 1: Doubt",
-                "The Burdens of Shaohao Part 2: Despair",
-                "The Burdens of Shaohao Part 3: Fear",
-                "The Burdens of Shaohao Part 4: Anger",
-                "The Burdens of Shaohao Part 5: The Sundering"
-            ]
-        },
-
-        {
-            title: "Warlords of Draenor",
-            items: [
-                "Lords of War - Part 1",
-                "Lords of War - Part 2",
-                "Lords of War - Part 3",
-                "Lords of War - Part 4",
-                "Lords of War - Part 5"
-            ]
-        },
-
-        {
-            title: "Legion",
-            items: [
-                "Harbingers: Gul’dan",
-                "Harbingers: Khadgar",
-                "Harbingers: Illidan"
-            ]
-        },
-
-        {
-            title: "Battle for Azeroth",
-            items: [
-                "Warbringers: Jaina",
-                "Warbringers: Sylvanas",
-                "Warbringers: Azshara",
-                "Old Soldier",
-                "Battle for Azeroth Cinematic Trailer",
-                "Battle for Azeroth — Embers of War",
-                "Lost Honor",
-                "Safe Haven",
-                "Terror of Darkshore",
-                "Reckoning",
-                "Visions of N’Zoth - Intro Cinematic"
-            ]
-        },
-
-        {
-            title: "Shadowlands",
-            items: [
-                "Shadowlands Launch Cinematic: “Beyond the Veil”",
-                "Shadowlands Afterlives: Bastion",
-                "Shadowlands Afterlives: Maldraxxus",
-                "Shadowlands Afterlives: Ardenweald",
-                "Shadowlands Afterlives: Revendreth"
-            ]
-        },
-
-        {
-            title: "Dragonflight",
-            items: [
-                "Dragonflight: Legacies, Chapter 1",
-                "Dragonflight: Legacies, Chapter 2"
-            ]
-        },
-
-        {
-            title: "The War Within",
-            items: [
-                "“A Place to Call Home” Featuring AURORA",
-                "Xal’atath Animation: Supremacy"
-            ]
-        },
-
-        {
-            title: "Midnight",
-            items: [
-                "“Midnight Story So Far”",
-                "“The Bitter Truth” Part One",
-                "“The Bitter Truth” Part Two: “A Toast”",
-                "“The Bitter Truth” Part Three: “The Dregs”"
-            ]
-        }
-
+        { title: "Mists of Pandaria", items: ["The Burdens of Shaohao Prelude: The Vision", "The Burdens of Shaohao Part 1: Doubt", "The Burdens of Shaohao Part 2: Despair", "The Burdens of Shaohao Part 3: Fear", "The Burdens of Shaohao Part 4: Anger", "The Burdens of Shaohao Part 5: The Sundering"] },
+        { title: "Warlords of Draenor", items: ["Lords of War - Part 1", "Lords of War - Part 2", "Lords of War - Part 3", "Lords of War - Part 4", "Lords of War - Part 5"] },
+        { title: "Legion", items: ["Harbingers: Gul’dan", "Harbingers: Khadgar", "Harbingers: Illidan"] },
+        { title: "Battle for Azeroth", items: ["Warbringers: Jaina", "Warbringers: Sylvanas", "Warbringers: Azshara", "Old Soldier", "Battle for Azeroth Cinematic Trailer", "Battle for Azeroth — Embers of War", "Lost Honor", "Safe Haven", "Terror of Darkshore", "Reckoning", "Visions of N’Zoth - Intro Cinematic"] },
+        { title: "Shadowlands", items: ["Shadowlands Launch Cinematic: “Beyond the Veil”", "Shadowlands Afterlives: Bastion", "Shadowlands Afterlives: Maldraxxus", "Shadowlands Afterlives: Ardenweald", "Shadowlands Afterlives: Revendreth"] },
+        { title: "Dragonflight", items: ["Dragonflight: Legacies, Chapter 1", "Dragonflight: Legacies, Chapter 2"] },
+        { title: "The War Within", items: ["“A Place to Call Home” Featuring AURORA", "Xal’atath Animation: Supremacy"] },
+        { title: "Midnight", items: ["“Midnight Story So Far”", "“The Bitter Truth” Part One", "“The Bitter Truth” Part Two: “A Toast”", "“The Bitter Truth” Part Three: “The Dregs”"] }
     ]
 }
-
 ];
 
-
-/* =========================================================
-   THEME MANAGER
-========================================================= */
-
+// =========================================================
+// THEME MANAGER
+// =========================================================
 const THEME_KEY = "warcraft_theme_preference";
 
 function setTheme(theme) {
     document.body.classList.remove("theme-alliance", "theme-horde");
-
     document.getElementById("btnAlliance").classList.remove("active");
     document.getElementById("btnHorde").classList.remove("active");
     document.getElementById("btnNeutral").classList.remove("active");
@@ -1703,680 +1362,276 @@ function setTheme(theme) {
     if (theme === "alliance") {
         document.body.classList.add("theme-alliance");
         document.getElementById("btnAlliance").classList.add("active");
-        if (metaTheme) metaTheme.setAttribute("content", "#090e17");
+        if (metaTheme) metaTheme.setAttribute("content", "#070a0e");
     } else if (theme === "horde") {
         document.body.classList.add("theme-horde");
         document.getElementById("btnHorde").classList.add("active");
-        if (metaTheme) metaTheme.setAttribute("content", "#140808");
+        if (metaTheme) metaTheme.setAttribute("content", "#0c0808");
     } else {
         document.getElementById("btnNeutral").classList.add("active");
         if (metaTheme) metaTheme.setAttribute("content", "#111111");
     }
 
-    try {
-        window.localStorage.setItem(THEME_KEY, theme);
-    } catch (e) {
-        console.error("Uložení tématu se nezdařilo:", e);
-    }
+    try { window.localStorage.setItem(THEME_KEY, theme); } catch (e) {}
 }
 
 function loadSavedTheme() {
     try {
         const savedTheme = window.localStorage.getItem(THEME_KEY);
-        if (savedTheme) {
-            setTheme(savedTheme);
-        }
-    } catch (e) {
-        console.error("Načtení tématu se nezdařilo:", e);
-    }
+        if (savedTheme) setTheme(savedTheme);
+    } catch (e) {}
 }
 
-
-/* =========================================================
-   CHECKBOX STORAGE (persistuje mezi sezeními, jen pro tebe)
-========================================================= */
-
+// =========================================================
+// CHECKBOX STORAGE & RENDER
+// =========================================================
 const STORAGE_KEY = "warcraft_storyline_checked_v1";
-
 let checkedItems = {};
-let storageReady = false;
-
-
-async function loadCheckedItems() {
-
-    try {
-
-        const raw = window.localStorage.getItem(STORAGE_KEY);
-
-        checkedItems = raw ? JSON.parse(raw) : {};
-
-    } catch (err) {
-
-        checkedItems = {};
-
-    }
-
-    storageReady = true;
-
-}
-
-
-async function saveCheckedItems() {
-
-    try {
-
-        window.localStorage.setItem(
-            STORAGE_KEY,
-            JSON.stringify(checkedItems)
-        );
-
-    } catch (err) {
-
-        console.error("Uložení se nezdařilo:", err);
-
-    }
-
-}
-
-
-/* =========================================================
-   CHECKBOX
-========================================================= */
-
-function makeId(text) {
-
-    return text
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[̀-ͯ]/g, "")
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-|-$/g, "");
-
-}
-
-
-// Registr všech DOM instancí dané položky, aby se
-// zaškrtnutí propsalo okamžitě všude.
 let itemRegistry = {};
 let idCounters = {};
-
-// Registr sekcí (kategorie a skupiny v médiích), aby
-// šlo označit zelenou fajfkou tu, která je celá hotová.
 let groupRegistry = [];
 
+async function loadCheckedItems() {
+    try {
+        const raw = window.localStorage.getItem(STORAGE_KEY);
+        checkedItems = raw ? JSON.parse(raw) : {};
+    } catch (err) {
+        checkedItems = {};
+    }
+}
+
+async function saveCheckedItems() {
+    try {
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(checkedItems));
+    } catch (err) {}
+}
+
+function makeId(text) {
+    return text.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
 
 function registerGroup(element, ids) {
-
-    if (!ids.length) {
-        return;
-    }
-
-    groupRegistry.push({
-        element: element,
-        ids: ids
-    });
-
+    if (!ids.length) return;
+    groupRegistry.push({ element: element, ids: ids });
 }
-
 
 function updateGroupStates() {
-
     groupRegistry.forEach(function(group) {
-
-        const done = group.ids.every(function(id) {
-            return !!checkedItems[id];
-        });
+        const total = group.ids.length;
+        const checkedCount = group.ids.filter(id => !!checkedItems[id]).length;
+        const done = (checkedCount === total && total > 0);
+        const inProgress = (checkedCount > 0 && checkedCount < total);
 
         group.element.classList.toggle("complete", done);
-
+        group.element.classList.toggle("in-progress-state", inProgress);
     });
-
 }
-
-
-/* =========================================================
-   IKONY KATEGORIÍ (Warcraft styl — tažené zlatou linkou,
-   stejný gradient jako logo v hlavičce)
-========================================================= */
 
 const CATEGORY_ICONS = {
-
-    // Zkřížené meče — HRY
-    swords:
-        '<g fill="none" stroke="url(#icon-gold)" stroke-width="1.7" ' +
-        'stroke-linecap="round" stroke-linejoin="round">' +
-        '<path d="M5 19 L19 5"/>' +
-        '<path d="M19 19 L5 5"/>' +
-        '<path d="M6.6 15.4 L9.8 18.6"/>' +
-        '<path d="M17.4 15.4 L14.2 18.6"/>' +
-        '<circle cx="5" cy="19" r="1.1" fill="url(#icon-gold)" stroke="none"/>' +
-        '<circle cx="19" cy="19" r="1.1" fill="url(#icon-gold)" stroke="none"/>' +
-        "</g>",
-
-    // Kniha s hřbetem a stužkou záložky — KNIHY
-    book:
-        '<g fill="none" stroke="url(#icon-gold)" stroke-width="1.5" ' +
-        'stroke-linecap="round" stroke-linejoin="round">' +
-        '<rect x="5" y="4.2" width="14" height="15.6" rx="1.2"/>' +
-        '<path d="M12 4.2v15.6"/>' +
-        '<path d="M14.6 4.2v5.6l-1.6-1.15-1.6 1.15V4.2" ' +
-        'fill="url(#icon-gold)" stroke="none"/>' +
-        "</g>",
-
-    // Svinutý svitek s pečetí — KOMIKSY / MANGA
-    scroll:
-        '<g fill="none" stroke="url(#icon-gold)" stroke-width="1.5" ' +
-        'stroke-linecap="round" stroke-linejoin="round">' +
-        '<rect x="3.6" y="8.4" width="16.8" height="7.2" rx="3.6"/>' +
-        '<path d="M9.6 8.4v7.2"/>' +
-        '<path d="M14.4 8.4v7.2"/>' +
-        '<circle cx="12" cy="12" r="1.3" fill="url(#icon-gold)" stroke="none"/>' +
-        "</g>",
-
-    // Brk s inkoustovým tahem — SHORT STORIES
-    quill:
-        '<g fill="none" stroke="url(#icon-gold)" stroke-width="1.6" ' +
-        'stroke-linecap="round" stroke-linejoin="round">' +
-        '<path d="M18.5 4.5c-4.2.3-8.7 3-10.6 8.6-.9 2.6-1 4.4-1 4.4s1.8-.1 4.4-1c5.6-1.9 8.3-6.4 8.6-10.6.1-1 .1-1.5-1.4-1.4z"/>' +
-        '<path d="M15.6 6.4 8.7 13.3"/>' +
-        '<path d="M6.9 16.9c-1 1.1-1.6 2-2.1 3.1"/>' +
-        "</g>",
-
-    // Znak štítu s trojúhelníkem přehrávání — VIDEA
-    shield:
-        '<g fill="none" stroke="url(#icon-gold)" stroke-width="1.6" ' +
-        'stroke-linecap="round" stroke-linejoin="round">' +
-        '<path d="M12 3.4 18.6 6v5.4c0 5-2.9 7.9-6.6 9-3.7-1.1-6.6-4-6.6-9V6z"/>' +
-        '<path d="M10 9.2 15 12l-5 2.8z" fill="url(#icon-gold)" stroke="none"/>' +
-        "</g>"
-
+    swords: '<g fill="none" stroke="url(#icon-gold)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19 L19 5"/><path d="M19 19 L5 5"/><path d="M6.6 15.4 L9.8 18.6"/><path d="M17.4 15.4 L14.2 18.6"/><circle cx="5" cy="19" r="1.1" fill="url(#icon-gold)" stroke="none"/><circle cx="19" cy="19" r="1.1" fill="url(#icon-gold)" stroke="none"/></g>',
+    book: '<g fill="none" stroke="url(#icon-gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.2" width="14" height="15.6" rx="1.2"/><path d="M12 4.2v15.6"/><path d="M14.6 4.2v5.6l-1.6-1.15-1.6 1.15V4.2" fill="url(#icon-gold)" stroke="none"/></g>',
+    scroll: '<g fill="none" stroke="url(#icon-gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.6" y="8.4" width="16.8" height="7.2" rx="3.6"/><path d="M9.6 8.4v7.2"/><path d="M14.4 8.4v7.2"/><circle cx="12" cy="12" r="1.3" fill="url(#icon-gold)" stroke="none"/></g>',
+    quill: '<g fill="none" stroke="url(#icon-gold)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18.5 4.5c-4.2.3-8.7 3-10.6 8.6-.9 2.6-1 4.4-1 4.4s1.8-.1 4.4-1c5.6-1.9 8.3-6.4 8.6-10.6.1-1 .1-1.5-1.4-1.4z"/><path d="M15.6 6.4 8.7 13.3"/><path d="M6.9 16.9c-1 1.1-1.6 2-2.1 3.1"/></g>',
+    shield: '<g fill="none" stroke="url(#icon-gold)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.4 18.6 6v5.4c0 5-2.9 7.9-6.6 9-3.7-1.1-6.6-4-6.6-9V6z"/><path d="M10 9.2 15 12l-5 2.8z" fill="url(#icon-gold)" stroke="none"/></g>'
 };
 
-
 function createCategoryIcon(iconName) {
-
     const wrapper = document.createElement("span");
-
     wrapper.className = "category-icon";
-
-    const svgMarkup =
-        '<svg viewBox="0 0 24 24">' +
-        (CATEGORY_ICONS[iconName] || "") +
-        "</svg>";
-
-    wrapper.innerHTML = svgMarkup;
-
+    wrapper.innerHTML = '<svg viewBox="0 0 24 24">' + (CATEGORY_ICONS[iconName] || "") + "</svg>";
     return wrapper;
-
 }
-
 
 function createCheckMark() {
-
     const check = document.createElement("div");
-
     check.className = "check";
-
     check.textContent = "✓";
-
     check.title = "Vše dokončeno";
-
     return check;
-
 }
 
+function createInProgressMark() {
+    const progressMark = document.createElement("div");
+    progressMark.className = "in-progress";
+    progressMark.title = "Částečně rozděláno";
+    progressMark.innerHTML = '<div class="dots"><span></span><span></span><span></span></div>';
+    return progressMark;
+}
 
 function createItem(text) {
-
     const id = makeId(text);
-
-    if (!itemRegistry[id]) {
-        itemRegistry[id] = [];
-        idCounters[id] = 0;
-    }
-
+    if (!itemRegistry[id]) { itemRegistry[id] = []; idCounters[id] = 0; }
     idCounters[id]++;
 
     const wrapper = document.createElement("div");
-
     wrapper.className = "item";
-
-    if (checkedItems[id]) {
-        wrapper.classList.add("completed");
-    }
+    if (checkedItems[id]) wrapper.classList.add("completed");
 
     const checkbox = document.createElement("input");
-
     checkbox.type = "checkbox";
-
     checkbox.checked = !!checkedItems[id];
-
-    // Unikátní DOM id, protože stejná položka se může
-    // objevit ve více pohledech současně.
     checkbox.id = "check-" + id + "-" + idCounters[id];
-
-    checkbox.addEventListener("change", function() {
-
-        setChecked(id, checkbox.checked);
-
-    });
-
+    checkbox.addEventListener("change", () => setChecked(id, checkbox.checked));
 
     const label = document.createElement("label");
-
     label.htmlFor = checkbox.id;
-
     label.textContent = text;
-
 
     wrapper.appendChild(checkbox);
     wrapper.appendChild(label);
-
-    itemRegistry[id].push({
-        wrapper: wrapper,
-        checkbox: checkbox
-    });
-
+    itemRegistry[id].push({ wrapper: wrapper, checkbox: checkbox });
     return wrapper;
-
 }
-
 
 function setChecked(id, value) {
-
     checkedItems[id] = value;
-
     saveCheckedItems();
-
-    (itemRegistry[id] || []).forEach(function(entry) {
-
+    (itemRegistry[id] || []).forEach(entry => {
         entry.checkbox.checked = value;
-
-        entry.wrapper.classList.toggle(
-            "completed",
-            value
-        );
-
+        entry.wrapper.classList.toggle("completed", value);
     });
-
     updateProgress();
-
     updateGroupStates();
-
 }
 
-
-/* =========================================================
-   GENERIC SECTION (rekurzivní — podporuje vnořené skupiny)
-========================================================= */
-
-// Node je buď list ({ items: [...] }), nebo uzel s dalšími
-// vnořenými skupinami ({ groups: [...] }).
 function collectIds(node) {
-
-    if (node.items) {
-        return node.items.map(makeId);
-    }
-
-    return (node.groups || []).reduce(function(ids, group) {
-
-        return ids.concat(collectIds(group));
-
-    }, []);
-
+    if (node.items) return node.items.map(makeId);
+    return (node.groups || []).reduce((ids, group) => ids.concat(collectIds(group)), []);
 }
-
 
 function createSection(title, node) {
-
     const section = document.createElement("div");
-
     section.className = "section";
 
-
     const header = document.createElement("div");
-
     header.className = "section-header";
 
-
     const titleEl = document.createElement("div");
-
     titleEl.className = "section-title";
-
     titleEl.textContent = title;
 
-
     const ids = collectIds(node);
-
     const count = document.createElement("div");
-
     count.className = "section-count";
-
     count.textContent = ids.length + " položek";
 
-
     const arrow = document.createElement("div");
-
     arrow.className = "arrow";
 
-
+    header.appendChild(createInProgressMark());
     header.appendChild(createCheckMark());
     header.appendChild(titleEl);
     header.appendChild(count);
     header.appendChild(arrow);
 
-
     const content = document.createElement("div");
-
     content.className = "section-content";
 
-
     if (node.items) {
-
-        node.items.forEach(function(item) {
-
-            content.appendChild(
-                createItem(item)
-            );
-
-        });
-
+        node.items.forEach(item => content.appendChild(createItem(item)));
     } else {
-
-        (node.groups || []).forEach(function(group) {
-
-            content.appendChild(
-                createSection(group.title, group)
-            );
-
-        });
-
+        (node.groups || []).forEach(group => content.appendChild(createSection(group.title, group)));
     }
 
-
-    header.addEventListener("click", function() {
-
+    header.addEventListener("click", () => {
         const willOpen = !section.classList.contains("open");
-
         section.classList.toggle("open", willOpen);
-
-        // Při zavření kategorie se zavřou i všechny
-        // vnořené podkategorie, aby se příště otevřela
-        // vždy sbalená.
         if (!willOpen) {
-
-            content
-                .querySelectorAll(".section.open")
-                .forEach(function(sub) {
-
-                    sub.classList.remove("open");
-
-                });
-
+            content.querySelectorAll(".section.open").forEach(sub => sub.classList.remove("open"));
         }
-
     });
-
 
     section.appendChild(header);
     section.appendChild(content);
-
     registerGroup(section, ids);
-
     return section;
-
 }
 
-
-/* =========================================================
-   RENDER MÉDIA
-========================================================= */
-
 function renderMedia() {
-
-    const container =
-        document.getElementById("mediaContainer");
-
+    const container = document.getElementById("mediaContainer");
     container.innerHTML = "";
 
+    mediaData.forEach(category => {
+        const categorySection = document.createElement("div");
+        categorySection.className = "media-category";
 
-    mediaData.forEach(function(category) {
-
-        const categorySection =
-            document.createElement("div");
-
-        categorySection.className =
-            "media-category";
-
-
-        const section =
-            document.createElement("div");
-
+        const section = document.createElement("div");
         section.className = "section";
 
+        const header = document.createElement("div");
+        header.className = "section-header";
 
-        const header =
-            document.createElement("div");
+        const title = document.createElement("div");
+        title.className = "section-title";
+        title.appendChild(createCategoryIcon(category.icon));
+        title.appendChild(document.createTextNode(category.title));
 
-        header.className =
-            "section-header";
+        const total = category.groups.reduce((sum, group) => sum + collectIds(group).length, 0);
+        const count = document.createElement("div");
+        count.className = "section-count";
+        count.textContent = total + " položek";
 
+        const arrow = document.createElement("div");
+        arrow.className = "arrow";
 
-        const title =
-            document.createElement("div");
-
-        title.className =
-            "section-title";
-
-        title.appendChild(
-            createCategoryIcon(category.icon)
-        );
-
-        title.appendChild(
-            document.createTextNode(category.title)
-        );
-
-
-        const total =
-            category.groups.reduce(
-                (sum, group) =>
-                    sum + collectIds(group).length,
-                0
-            );
-
-
-        const count =
-            document.createElement("div");
-
-        count.className =
-            "section-count";
-
-        count.textContent =
-            total + " položek";
-
-
-        const arrow =
-            document.createElement("div");
-
-        arrow.className =
-            "arrow";
-
-
-        header.appendChild(createCheckMark());
         header.appendChild(title);
         header.appendChild(count);
         header.appendChild(arrow);
 
+        const content = document.createElement("div");
+        content.className = "section-content";
 
-        const content =
-            document.createElement("div");
-
-        content.className =
-            "section-content";
-
-
-        // Kategorie s jedinou skupinou by jinak měla
-        // zbytečnou podkategorii se stejným názvem —
-        // položky proto vypíšeme rovnou (pokud jde o
-        // plochý seznam a ne o další vnořené skupiny).
         if (category.groups.length === 1 && category.groups[0].items) {
-
-            category.groups[0].items
-                .forEach(function(item) {
-
-                    content.appendChild(
-                        createItem(item)
-                    );
-
-                });
-
+            category.groups[0].items.forEach(item => content.appendChild(createItem(item)));
         } else {
-
-            category.groups.forEach(function(group) {
-
-                const groupSection =
-                    createSection(
-                        group.title,
-                        group
-                    );
-
-                content.appendChild(
-                    groupSection
-                );
-
-            });
-
+            category.groups.forEach(group => content.appendChild(createSection(group.title, group)));
         }
 
-
-        header.addEventListener(
-            "click",
-            function() {
-
-                const willOpen =
-                    !section.classList.contains("open");
-
-                section.classList.toggle(
-                    "open",
-                    willOpen
-                );
-
-                if (!willOpen) {
-
-                    content
-                        .querySelectorAll(".section.open")
-                        .forEach(function(sub) {
-
-                            sub.classList.remove("open");
-
-                        });
-
-                }
-
+        header.addEventListener("click", () => {
+            const willOpen = !section.classList.contains("open");
+            section.classList.toggle("open", willOpen);
+            if (!willOpen) {
+                content.querySelectorAll(".section.open").forEach(sub => sub.classList.remove("open"));
             }
-        );
-
+        });
 
         section.appendChild(header);
         section.appendChild(content);
-
-        registerGroup(
-            section,
-            category.groups.reduce(
-                (ids, group) =>
-                    ids.concat(collectIds(group)),
-                []
-            )
-        );
-
+        registerGroup(section, category.groups.reduce((ids, group) => ids.concat(collectIds(group)), []));
         categorySection.appendChild(section);
-
         container.appendChild(categorySection);
-
     });
-
 }
-
-
-/* =========================================================
-   PROGRESS
-========================================================= */
 
 function updateProgress() {
-
     const ids = Object.keys(itemRegistry);
-
     const total = ids.length;
-
     let completed = 0;
 
-    ids.forEach(function(id) {
+    ids.forEach(id => { if (checkedItems[id]) completed++; });
 
-        if (checkedItems[id]) {
-            completed++;
-        }
+    const percentage = total === 0 ? 0 : Math.round(completed / total * 100);
 
-    });
-
-
-    const percentage =
-        total === 0
-            ? 0
-            : Math.round(
-                completed / total * 100
-            );
-
-
-    document.getElementById(
-        "progressText"
-    ).textContent =
-        completed +
-        " / " +
-        total +
-        " dokončeno";
-
-
-    document.getElementById(
-        "progressFill"
-    ).style.width =
-        percentage + "%";
-
+    document.getElementById("progressText").textContent = completed + " / " + total + " dokončeno";
+    document.getElementById("progressFill").style.width = percentage + "%";
 }
 
-
-/* =========================================================
-   RENDER ALL (čistí registr, aby se nekumulovaly staré
-   odkazy na smazané DOM elementy)
-========================================================= */
-
-function renderAll() {
-
-    itemRegistry = {};
-    idCounters = {};
-    groupRegistry = [];
-
+async function init() {
+    await loadCheckedItems();
     renderMedia();
     updateProgress();
     updateGroupStates();
-
-}
-
-
-/* =========================================================
-   INIT
-========================================================= */
-
-async function init() {
-
-    await loadCheckedItems();
-
-    renderAll();
     loadSavedTheme();
 
+    try {
+        const savedPet = window.localStorage.getItem(PET_KEY);
+        if (savedPet && petSVGs[savedPet] || savedPet === 'off') {
+            changePet(savedPet);
+        }
+    } catch(e) {}
 }
 
 init();
-
 </script>
 
 </body>
