@@ -100,32 +100,102 @@ h1 {
 }
 
 .progress-area {
-    margin-top: 18px;
+    margin-top: 20px;
     max-width: 520px;
     margin-left: auto;
     margin-right: auto;
 }
 
-.progress-text {
-    font-size: 13px;
-    color: #aaa;
-    margin-bottom: 7px;
+.progress-label {
+    font-size: 11px;
+    color: #7a7460;
+    margin-bottom: 6px;
+    text-align: center;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-family: 'Cinzel', Georgia, serif;
 }
 
+/* Rám XP baru — kovový okraj jako u WoW UI panelů */
 .progress-bar {
-    height: 8px;
-    background: #201a10;
-    border: 1px solid #4a3a18;
-    border-radius: 5px;
+    position: relative;
+    height: 26px;
+    background: linear-gradient(180deg, #120d05 0%, #1c1408 50%, #0c0904 100%);
+    border: 2px solid #5c4a24;
+    border-radius: 13px;
     overflow: hidden;
+    box-shadow:
+        inset 0 2px 5px rgba(0,0,0,.85),
+        inset 0 -1px 0 rgba(255,255,255,.04),
+        0 0 0 1px #241b0c,
+        0 1px 0 rgba(255,255,255,.03);
 }
 
+/* Vyplněná část — modrý XP gradient se sklem nahoře */
 .progress-fill {
+    position: relative;
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg, #9c7327, #f0d68a, #d6a84f);
-    box-shadow: 0 0 8px rgba(214,168,79,.5);
-    transition: width .25s ease;
+    min-width: 0;
+    background: linear-gradient(180deg, #9fe3ff 0%, #4fb0f0 18%, #1f78d6 55%, #164f9c 100%);
+    box-shadow:
+        0 0 12px rgba(79,176,240,.65),
+        inset 0 1px 0 rgba(255,255,255,.5),
+        inset 0 -2px 4px rgba(0,20,50,.5);
+    transition: width .5s cubic-bezier(.22,.7,.2,1);
+    border-radius: 11px;
+}
+
+/* Jemný lesklý pruh přes horní třetinu výplně */
+.progress-fill::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 45%;
+    background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,0));
+    border-radius: 11px 11px 0 0;
+}
+
+/* Dělicí rysky po 10 % jako na WoW liště zkušeností */
+.progress-bar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: repeating-linear-gradient(
+        90deg,
+        rgba(0,0,0,.5) 0,
+        rgba(0,0,0,.5) 1px,
+        transparent 1px,
+        transparent 10%
+    );
+    z-index: 2;
+    pointer-events: none;
+}
+
+.progress-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .3px;
+    color: #fff;
+    text-shadow:
+        0 1px 2px rgba(0,0,0,.9),
+        0 0 6px rgba(0,0,0,.6);
+    z-index: 3;
+    pointer-events: none;
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
 }
 
 .loading-note {
@@ -263,6 +333,30 @@ h1 {
 .media-category .section-title {
     font-size: 18px;
     color: #f0d68a;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.category-icon {
+    flex: 0 0 auto;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 35% 30%, #23262f 0%, #14151b 75%);
+    border: 1.5px solid #6e5223;
+    border-radius: 6px;
+    box-shadow:
+        inset 0 0 4px rgba(0,0,0,.6),
+        0 0 6px rgba(214,168,79,.25);
+}
+
+.category-icon svg {
+    width: 15px;
+    height: 15px;
+    display: block;
 }
 
 .media-category > .section {
@@ -340,6 +434,16 @@ h1 {
 
 <body>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+        <linearGradient id="icon-gold" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#f5dfa0"/>
+            <stop offset="0.45" stop-color="#d6a84f"/>
+            <stop offset="1" stop-color="#9c7327"/>
+        </linearGradient>
+    </defs>
+</svg>
+
 
 <!-- =========================================================
      HEADER
@@ -357,17 +461,19 @@ h1 {
 
         <div class="progress-area">
 
-            <div
-                class="progress-text"
-                id="progressText">
-                Načítám…
-            </div>
+            <div class="progress-label">Postup sbírky</div>
 
             <div class="progress-bar">
 
                 <div
                     class="progress-fill"
                     id="progressFill">
+                </div>
+
+                <div
+                    class="progress-text"
+                    id="progressText">
+                    Načítám…
                 </div>
 
             </div>
@@ -406,7 +512,8 @@ h1 {
 const mediaData = [
 
 {
-    title: "🎮 HRY",
+    title: "HRY",
+    icon: "swords",
     groups: [
 
         {
@@ -658,7 +765,8 @@ const mediaData = [
 
 
 {
-    title: "📚 KNIHY",
+    title: "KNIHY",
+    icon: "book",
     groups: [
 
         {
@@ -723,37 +831,144 @@ const mediaData = [
 
 
 {
-    title: "📖 KOMIKSY / MANGA",
+    title: "KOMIKSY / MANGA",
+    icon: "scroll",
     groups: [
 
         {
             title: "Komiksy",
-            items: [
-                "World of Warcraft: The Comic – Prologue",
-                "World of Warcraft: The Comic – Volume 1",
-                "World of Warcraft: The Comic – Volume 2",
-                "World of Warcraft: The Comic – Volume 3",
-                "World of Warcraft: The Comic – Volume 4",
-                "World of Warcraft: The Comic – Special Issue: Beginnings and Ends",
-                "Ashbringer",
-                "Curse of the Worgen",
-                "Warcraft Saga",
-                "Pearl of Pandaria",
-                "Dark Riders",
-                "Bloodsworn",
-                "Gul’dan and the Stranger",
-                "Blackhand",
-                "Blood and Thunder",
-                "Magni: Fault Lines",
-                "Nightborne: Twilight of Suramar",
-                "Highmountain: A Mountain Divided",
-                "Anduin: Son of the Wolf",
-                "Jaina: Reunion",
-                "Magni: The Speaker",
-                "Windrunner: Three Sisters",
-                "Mechagon",
-                "Seasons",
-                "Legacy of Rage"
+            groups: [
+
+                {
+                    title: "World of Warcraft: The Comic series",
+                    groups: [
+
+                        {
+                            title: "Volume 1",
+                            items: [
+                                "Issue 0: Prologue",
+                                "Issue 1: Stranger in a Strange Land",
+                                "Issue 2: Killing Ground",
+                                "Issue 3: Destiny Awaits!",
+                                "Issue 4: Balancing the Scales",
+                                "Issue 5: The Beast Within!",
+                                "Issue 6: Blood",
+                                "Issue 7: Revelations"
+                            ]
+                        },
+
+                        {
+                            title: "Volume 2",
+                            items: [
+                                "Issue 8: The Return",
+                                "Issue 9: Through the Mirror Darkly",
+                                "Issue 10: Last of the Line",
+                                "Issue 11: Descent",
+                                "Issue 12: The Enemy Revealed",
+                                "Issue 13: Flashback",
+                                "Issue 14: Into the Jaws of Death!"
+                            ]
+                        },
+
+                        {
+                            title: "Volume 3",
+                            items: [
+                                "Issue 15: Conflicting Loyalties",
+                                "Issue 16: Threat!",
+                                "Issue 17: Gathering Thunder!",
+                                "Issue 18: Showdown!",
+                                "Issue 19: The Winds of War",
+                                "Issue 20: Repercussions",
+                                "Issue 21: Secrets"
+                            ]
+                        },
+
+                        {
+                            title: "Volume 4",
+                            items: [
+                                "Issue 22: Whispers",
+                                "Issue 23: The Gathering",
+                                "Issue 24: Hard Choices",
+                                "Issue 25: Armageddon"
+                            ]
+                        }
+
+                    ]
+                },
+
+                {
+                    title: "Ashbringer",
+                    items: [
+                        "Ashbringer"
+                    ]
+                },
+
+                {
+                    title: "Wrath of the Lich King",
+                    items: [
+                        "World of Warcraft: The Comic – Special Issue: Beginnings and Ends"
+                    ]
+                },
+
+                {
+                    title: "Cataclysm",
+                    items: [
+                        "Curse of the Worgen",
+                        "Dark Riders",
+                        "Bloodsworn"
+                    ]
+                },
+
+                {
+                    title: "Mists of Pandaria",
+                    items: [
+                        "Pearl of Pandaria"
+                    ]
+                },
+
+                {
+                    title: "Warlords of Draenor",
+                    items: [
+                        "Gul’dan and the Stranger",
+                        "Blackhand",
+                        "Blood and Thunder"
+                    ]
+                },
+
+                {
+                    title: "Legion",
+                    items: [
+                        "Magni: Fault Lines",
+                        "Nightborne: Twilight of Suramar",
+                        "Highmountain: A Mountain Divided",
+                        "Anduin: Son of the Wolf"
+                    ]
+                },
+
+                {
+                    title: "Battle for Azeroth",
+                    items: [
+                        "Jaina: Reunion",
+                        "Magni: The Speaker",
+                        "Windrunner: Three Sisters",
+                        "Mechagon"
+                    ]
+                },
+
+                {
+                    title: "The War Within",
+                    items: [
+                        "Seasons"
+                    ]
+                },
+
+                {
+                    title: "Midnight",
+                    items: [
+                        "Legacy of Rage"
+                    ]
+                }
+
             ]
         },
 
@@ -781,7 +996,8 @@ const mediaData = [
 
 
 {
-    title: "📜 SHORT STORIES",
+    title: "SHORT STORIES",
+    icon: "quill",
     groups: [
 
         {
@@ -913,7 +1129,8 @@ const mediaData = [
 
 
 {
-    title: "🎬 VIDEA",
+    title: "VIDEA",
+    icon: "shield",
     groups: [
 
         {
@@ -1110,6 +1327,83 @@ function updateGroupStates() {
 }
 
 
+/* =========================================================
+   IKONY KATEGORIÍ (Warcraft styl — tažené zlatou linkou,
+   stejný gradient jako logo v hlavičce)
+========================================================= */
+
+const CATEGORY_ICONS = {
+
+    // Zkřížené meče — HRY
+    swords:
+        '<g fill="none" stroke="url(#icon-gold)" stroke-width="1.7" ' +
+        'stroke-linecap="round" stroke-linejoin="round">' +
+        '<path d="M5 19 L19 5"/>' +
+        '<path d="M19 19 L5 5"/>' +
+        '<path d="M6.6 15.4 L9.8 18.6"/>' +
+        '<path d="M17.4 15.4 L14.2 18.6"/>' +
+        '<circle cx="5" cy="19" r="1.1" fill="url(#icon-gold)" stroke="none"/>' +
+        '<circle cx="19" cy="19" r="1.1" fill="url(#icon-gold)" stroke="none"/>' +
+        "</g>",
+
+    // Kniha s hřbetem a stužkou záložky — KNIHY
+    book:
+        '<g fill="none" stroke="url(#icon-gold)" stroke-width="1.5" ' +
+        'stroke-linecap="round" stroke-linejoin="round">' +
+        '<rect x="5" y="4.2" width="14" height="15.6" rx="1.2"/>' +
+        '<path d="M12 4.2v15.6"/>' +
+        '<path d="M14.6 4.2v5.6l-1.6-1.15-1.6 1.15V4.2" ' +
+        'fill="url(#icon-gold)" stroke="none"/>' +
+        "</g>",
+
+    // Svinutý svitek s pečetí — KOMIKSY / MANGA
+    scroll:
+        '<g fill="none" stroke="url(#icon-gold)" stroke-width="1.5" ' +
+        'stroke-linecap="round" stroke-linejoin="round">' +
+        '<rect x="3.6" y="8.4" width="16.8" height="7.2" rx="3.6"/>' +
+        '<path d="M9.6 8.4v7.2"/>' +
+        '<path d="M14.4 8.4v7.2"/>' +
+        '<circle cx="12" cy="12" r="1.3" fill="url(#icon-gold)" stroke="none"/>' +
+        "</g>",
+
+    // Brk s inkoustovým tahem — SHORT STORIES
+    quill:
+        '<g fill="none" stroke="url(#icon-gold)" stroke-width="1.6" ' +
+        'stroke-linecap="round" stroke-linejoin="round">' +
+        '<path d="M18.5 4.5c-4.2.3-8.7 3-10.6 8.6-.9 2.6-1 4.4-1 4.4s1.8-.1 4.4-1c5.6-1.9 8.3-6.4 8.6-10.6.1-1 .1-1.5-1.4-1.4z"/>' +
+        '<path d="M15.6 6.4 8.7 13.3"/>' +
+        '<path d="M6.9 16.9c-1 1.1-1.6 2-2.1 3.1"/>' +
+        "</g>",
+
+    // Znak štítu s trojúhelníkem přehrávání — VIDEA
+    shield:
+        '<g fill="none" stroke="url(#icon-gold)" stroke-width="1.6" ' +
+        'stroke-linecap="round" stroke-linejoin="round">' +
+        '<path d="M12 3.4 18.6 6v5.4c0 5-2.9 7.9-6.6 9-3.7-1.1-6.6-4-6.6-9V6z"/>' +
+        '<path d="M10 9.2 15 12l-5 2.8z" fill="url(#icon-gold)" stroke="none"/>' +
+        "</g>"
+
+};
+
+
+function createCategoryIcon(iconName) {
+
+    const wrapper = document.createElement("span");
+
+    wrapper.className = "category-icon";
+
+    const svgMarkup =
+        '<svg viewBox="0 0 24 24">' +
+        (CATEGORY_ICONS[iconName] || "") +
+        "</svg>";
+
+    wrapper.innerHTML = svgMarkup;
+
+    return wrapper;
+
+}
+
+
 function createCheckMark() {
 
     const check = document.createElement("div");
@@ -1206,10 +1500,27 @@ function setChecked(id, value) {
 
 
 /* =========================================================
-   GENERIC SECTION
+   GENERIC SECTION (rekurzivní — podporuje vnořené skupiny)
 ========================================================= */
 
-function createSection(title, items) {
+// Node je buď list ({ items: [...] }), nebo uzel s dalšími
+// vnořenými skupinami ({ groups: [...] }).
+function collectIds(node) {
+
+    if (node.items) {
+        return node.items.map(makeId);
+    }
+
+    return (node.groups || []).reduce(function(ids, group) {
+
+        return ids.concat(collectIds(group));
+
+    }, []);
+
+}
+
+
+function createSection(title, node) {
 
     const section = document.createElement("div");
 
@@ -1228,11 +1539,13 @@ function createSection(title, items) {
     titleEl.textContent = title;
 
 
+    const ids = collectIds(node);
+
     const count = document.createElement("div");
 
     count.className = "section-count";
 
-    count.textContent = items.length + " položek";
+    count.textContent = ids.length + " položek";
 
 
     const arrow = document.createElement("div");
@@ -1251,18 +1564,49 @@ function createSection(title, items) {
     content.className = "section-content";
 
 
-    items.forEach(function(item) {
+    if (node.items) {
 
-        content.appendChild(
-            createItem(item)
-        );
+        node.items.forEach(function(item) {
 
-    });
+            content.appendChild(
+                createItem(item)
+            );
+
+        });
+
+    } else {
+
+        (node.groups || []).forEach(function(group) {
+
+            content.appendChild(
+                createSection(group.title, group)
+            );
+
+        });
+
+    }
 
 
     header.addEventListener("click", function() {
 
-        section.classList.toggle("open");
+        const willOpen = !section.classList.contains("open");
+
+        section.classList.toggle("open", willOpen);
+
+        // Při zavření kategorie se zavřou i všechny
+        // vnořené podkategorie, aby se příště otevřela
+        // vždy sbalená.
+        if (!willOpen) {
+
+            content
+                .querySelectorAll(".section.open")
+                .forEach(function(sub) {
+
+                    sub.classList.remove("open");
+
+                });
+
+        }
 
     });
 
@@ -1270,10 +1614,7 @@ function createSection(title, items) {
     section.appendChild(header);
     section.appendChild(content);
 
-    registerGroup(
-        section,
-        items.map(makeId)
-    );
+    registerGroup(section, ids);
 
     return section;
 
@@ -1320,14 +1661,19 @@ function renderMedia() {
         title.className =
             "section-title";
 
-        title.textContent =
-            category.title;
+        title.appendChild(
+            createCategoryIcon(category.icon)
+        );
+
+        title.appendChild(
+            document.createTextNode(category.title)
+        );
 
 
         const total =
             category.groups.reduce(
                 (sum, group) =>
-                    sum + group.items.length,
+                    sum + collectIds(group).length,
                 0
             );
 
@@ -1364,8 +1710,9 @@ function renderMedia() {
 
         // Kategorie s jedinou skupinou by jinak měla
         // zbytečnou podkategorii se stejným názvem —
-        // položky proto vypíšeme rovnou.
-        if (category.groups.length === 1) {
+        // položky proto vypíšeme rovnou (pokud jde o
+        // plochý seznam a ne o další vnořené skupiny).
+        if (category.groups.length === 1 && category.groups[0].items) {
 
             category.groups[0].items
                 .forEach(function(item) {
@@ -1383,7 +1730,7 @@ function renderMedia() {
                 const groupSection =
                     createSection(
                         group.title,
-                        group.items
+                        group
                     );
 
                 content.appendChild(
@@ -1399,9 +1746,25 @@ function renderMedia() {
             "click",
             function() {
 
+                const willOpen =
+                    !section.classList.contains("open");
+
                 section.classList.toggle(
-                    "open"
+                    "open",
+                    willOpen
                 );
+
+                if (!willOpen) {
+
+                    content
+                        .querySelectorAll(".section.open")
+                        .forEach(function(sub) {
+
+                            sub.classList.remove("open");
+
+                        });
+
+                }
 
             }
         );
@@ -1414,7 +1777,7 @@ function renderMedia() {
             section,
             category.groups.reduce(
                 (ids, group) =>
-                    ids.concat(group.items.map(makeId)),
+                    ids.concat(collectIds(group)),
                 []
             )
         );
