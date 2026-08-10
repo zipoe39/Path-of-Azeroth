@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WARCRAFT CHECKLIST</title>
+<meta name="theme-color" content="#111111">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet">
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Cdefs%3E%3ClinearGradient%20id%3D%27g%27%20x1%3D%270%27%20y1%3D%270%27%20x2%3D%270%27%20y2%3D%271%27%3E%3Cstop%20offset%3D%270%27%20stop-color%3D%27%23f5dfa0%27%2F%3E%3Cstop%20offset%3D%270.45%27%20stop-color%3D%27%23d6a84f%27%2F%3E%3Cstop%20offset%3D%271%27%20stop-color%3D%27%239c7327%27%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2713%27%20fill%3D%27%2314151b%27%2F%3E%3Crect%20x%3D%272%27%20y%3D%272%27%20width%3D%2760%27%20height%3D%2760%27%20rx%3D%2711%27%20fill%3D%27none%27%20stroke%3D%27%237a5a24%27%20stroke-width%3D%273%27%2F%3E%3Crect%20x%3D%276%27%20y%3D%2716%27%20width%3D%2712%27%20height%3D%273.6%27%20rx%3D%271.2%27%20fill%3D%27url(%23g)%27%2F%3E%3Crect%20x%3D%2746%27%20y%3D%2716%27%20width%3D%2712%27%20height%3D%273.6%27%20rx%3D%271.2%27%20fill%3D%27url(%23g)%27%2F%3E%3Cpath%20d%3D%27M11%2018%20L21.5%2046%20L32%2028%20L42.5%2046%20L53%2018%27%20fill%3D%27none%27%20stroke%3D%27url(%23g)%27%20stroke-width%3D%276.5%27%20stroke-linejoin%3D%27miter%27%2F%3E%3C%2Fsvg%3E">
+
+<style>
+:root {
+    --noise-pattern: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C%2Ffilter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.07'/%3E%3C%2Fsvg%3E");
+    --leather-pattern: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='leather'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.15' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C%2Ffilter%3E%3Crect width='100%25' height='100%25' filter='url(%23leather)' opacity='0.04'/%3E%3C%2Fsvg%3E");
+}
+
+* { box-sizing: border-box; }
+
+html {
+    scroll-behavior: smooth;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background-color: #0b0c0f;
+    background-image: var(--noise-pattern);
+    color: #e4dfd2;
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+    transition: background 0.5s ease, color 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse at 20% 0%, rgba(130, 80, 30, 0.15) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 10%, rgba(0, 0, 0, 0.8) 0%, transparent 55%),
+        #0b0c0f;
+    transition: background 0.5s ease;
+}
+
+.header {
+    background:
+        var(--noise-pattern),
+        linear-gradient(180deg, rgba(30,22,15,0.9) 0%, rgba(15,16,21,0.95) 60%),
+        #14151b;
+    border-bottom: 3px solid #6b4e1b;
+    box-shadow: inset 0 -2px 10px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,0.8), 0 0 15px rgba(107, 78, 27, 0.3);
+    position: relative;
+    transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #8f6924 20%, #f0d68a 50%, #8f6924 80%, transparent);
+    opacity: .9;
+}
+
+.header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 26px 18px 20px;
+    text-align: center;
+}
+
+.header-logo {
+    max-width: 320px;
+    width: 100%;
+    height: auto;
+    margin: 0 auto 5px auto;
+    display: block;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.9));
+}
+
+.subtitle {
+    margin-top: 8px;
+    color: #9e8f6c;
+    font-size: 16px;
+    font-weight: bold;
+    font-style: normal;
+    letter-spacing: .5px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+}
+
+.progress-area {
+    margin: 15px auto 0;
+    max-width: 520px;
+}
+
+.progress-label {
+    font-size: 11px;
+    color: #918263;
+    margin-bottom: 6px;
+    text-align: center;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-family: 'Cinzel', Georgia, serif;
+    text-shadow: 0 1px 2px #000;
+}
+
+.progress-bar {
+    position: relative;
+    height: 26px;
+    background: var(--noise-pattern), linear-gradient(180deg, #050505 0%, #17120a 50%, #0c0904 100%);
+    border: 2px solid #5c4a24;
+    border-radius: 13px;
+    overflow: hidden;
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.9), inset 0 -1px 0 rgba(255,255,255,.04), 0 0 0 1px #241b0c, 0 1px 0 rgba(255,255,255,.1);
+}
+
+.progress-fill {
+    position: relative;
+    height: 100%;
+    width: 0%;
+    background: var(--leather-pattern), linear-gradient(180deg, #5bb3ff 0%, #1e73e8 50%, #0042a5 100%);
+    box-shadow: 0 0 14px rgba(66, 153, 225, 0.7), 0 0 4px rgba(147, 197, 253, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.6), inset 0 -2px 4px rgba(0, 20, 50, 0.4);
+    transition: width .5s cubic-bezier(.22,.7,.2,1);
+    border-radius: 11px;
+}
+
+.progress-fill::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 45%;
+    background: linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0));
+    border-radius: 11px 11px 0 0;
+}
+
+.progress-bar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(90deg, rgba(0,0,0,.5) 0, rgba(0,0,0,.5) 1px, transparent 1px, transparent 10%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.progress-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .3px;
+    color: #ffffff;
+    text-shadow: 0 1px 3px rgba(0,0,0,1), 0 0 6px rgba(0,0,0,0.9);
+    z-index: 3;
+    pointer-events: none;
+}
+
+.main {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 18px 60px;
+    flex: 1 0 auto;
+}
+
+.section {
+    margin-bottom: 10px;
+    background: var(--leather-pattern), linear-gradient(180deg, #16171d 0%, #111216 100%);
+    border: 1px solid #3d311d;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.05), 0 4px 10px rgba(0,0,0,0.5);
+    transition: background 0.5s ease, border-color 0.5s ease;
+}
+
+/* Active Quests Category Styling */
+#activeQuestsCategory .section {
+    background: var(--leather-pattern), linear-gradient(180deg, #2c2514 0%, #1f1a0e 100%);
+    border: 1px solid #c99836;
+    box-shadow: inset 0 1px 2px rgba(255,220,130,0.15), 0 4px 12px rgba(0,0,0,0.6);
+}
+
+#activeQuestsCategory .section-title {
+    color: #f5dfa0;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#activeQuestsCategory .section-count { color: #d6a84f; }
+#activeQuestsCategory .arrow { color: #f5dfa0; }
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    user-select: none;
+    border-left: 3px solid transparent !important;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0.2) 100%);
+    transition: background .15s ease;
+}
+
+.section-header:hover { background: rgba(212, 175, 55, 0.05); }
+
+.section-title {
+    font-family: 'Cinzel', Georgia, serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: #dcd3be;
+    letter-spacing: .3px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+}
+
+.section-count {
+    color: #6e6754;
+    font-size: 11px;
+    margin-left: auto;
+    letter-spacing: .3px;
+}
+
+.arrow {
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    font-size: 19px;
+    font-weight: bold;
+    color: #a37c33;
+    transition: transform .2s ease;
+    margin-right: 3px;
+}
+
+.arrow::before { content: "+"; }
+
+.section.open > .section-header > .arrow {
+    width: 9px;
+    height: 9px;
+    border-right: 2px solid #a37c33;
+    border-bottom: 2px solid #a37c33;
+    transform: rotate(225deg);
+    font-size: 0;
+}
+
+.section.open > .section-header > .arrow::before { content: ""; }
+
+.section-content {
+    display: none;
+    padding: 10px 12px 12px;
+    background: rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.6);
+}
+
+.section.open > .section-content { display: block; }
+
+.item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 9px 8px;
+    border-top: 1px solid #211e17;
+    line-height: 1.4;
+    font-size: 14px;
+    color: #c0b8a3;
+}
+
+.item:first-child { border-top: 0; }
+
+.item input {
+    flex: 0 0 auto;
+    margin-top: 3px;
+    width: 16px;
+    height: 16px;
+    accent-color: #c99836;
+    cursor: pointer;
+}
+
+.item label {
+    cursor: pointer;
+    flex: 1;
+}
+
+.item.completed label {
+    color: #544e40;
+    text-decoration: line-through;
+}
+
+.media-category { margin-bottom: 12px; }
+
+.media-category .section-title {
+    font-size: 18px;
+    color: #f3dd98;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.category-icon {
+    flex: 0 0 auto;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.category-icon svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+.media-category > .section {
+    border-color: #54421e;
+    background: var(--leather-pattern), linear-gradient(180deg, #1c1d24 0%, #14151a 100%);
+}
+
+.media-category .section-content .section {
+    background: var(--noise-pattern), #14151b;
+    border: 1px solid #3d311d;
+    border-radius: 4px;
+    margin: 6px 0 6px 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+.check, .in-progress {
+    display: none;
+    flex: 0 0 auto;
+    width: 17px;
+    height: 17px;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.check {
+    line-height: 17px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #051408;
+    background: #3cd070;
+    box-shadow: 0 0 10px rgba(60, 208, 112, 0.4);
+}
+
+.section.complete > .section-header > .check { display: block; }
+.section.complete > .section-header > .section-title { color: #4ade80; }
+.section.complete > .section-header { border-left-color: #4ade80; }
+
+.in-progress {
+    background: radial-gradient(circle at 35% 35%, #5a1c1c 0%, #300a0a 70%, #150202 100%);
+    border: 1.5px solid #d6a84f;
+    box-shadow: 0 0 8px rgba(214, 168, 79, 0.4), inset 0 1px 2px rgba(0,0,0,0.8);
+    align-items: center;
+    justify-content: center;
+}
+
+.in-progress .dots {
+    display: flex;
+    gap: 1.5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.in-progress .dots span {
+    width: 2px;
+    height: 2px;
+    background-color: #f5dfa0;
+    border-radius: 50%;
+    box-shadow: 0 0 2px #f5dfa0;
+}
+
+.section.in-progress-state > .section-header > .in-progress { display: flex; }
+.section.in-progress-state > .section-header > .section-title { color: #f3dd98; }
+.section.in-progress-state > .section-header { border-left-color: #d6a84f; }
+
+.footer {
+    border-top: 2px solid #4a3819;
+    background: var(--noise-pattern), linear-gradient(180deg, #0d0e11 0%, #050507 100%);
+    padding: 30px 18px 40px;
+    text-align: center;
+    position: relative;
+    margin-top: auto;
+    width: 100%;
+}
+
+.footer::before {
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #d6a84f 50%, transparent);
+    opacity: 0.7;
+}
+
+.theme-title {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8c7e62;
+    margin-bottom: 18px;
+    text-shadow: 0 1px 2px #000;
+}
+
+.faction-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.faction-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    background: var(--leather-pattern), linear-gradient(180deg, rgba(25, 27, 36, 0.8) 0%, rgba(12, 13, 18, 0.9) 100%);
+    border: 2px solid #3d3019;
+    border-radius: 10px;
+    padding: 12px 20px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    user-select: none;
+    width: 140px;
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.05), 0 4px 10px rgba(0,0,0,0.6);
+}
+
+.faction-card:hover { transform: translateY(-4px) scale(1.03); }
+
+.faction-card.alliance:hover, .faction-card.alliance.active {
+    border-color: #8f793b;
+    box-shadow: 0 0 15px rgba(23, 42, 69, 0.8), inset 0 0 10px rgba(15, 28, 48, 0.8);
+    background: linear-gradient(135deg, #09121d 0%, #102136 60%, #08111a 100%);
+}
+
+.faction-card.horde:hover, .faction-card.horde.active {
+    border-color: #853e2b;
+    box-shadow: 0 0 15px rgba(64, 18, 18, 0.8), inset 0 0 10px rgba(45, 12, 12, 0.8);
+    background: linear-gradient(135deg, #120b0b 0%, #301313 60%, #1a0808 100%);
+}
+
+.faction-card.neutral:hover, .faction-card.neutral.active {
+    border-color: #d6a84f;
+    box-shadow: 0 0 20px rgba(214, 168, 79, 0.3), inset 0 0 10px rgba(214, 168, 79, 0.2);
+}
+
+.faction-icon {
+    width: 54px;
+    height: 54px;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
+    object-fit: contain;
+}
+
+.faction-card:hover .faction-icon { transform: scale(1.1); }
+
+.faction-name {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 8px;
+    letter-spacing: 1px;
+    z-index: 2;
+}
+
+.faction-card.alliance .faction-name { color: #b89f56; }
+.faction-card.horde .faction-name { color: #ab7967; }
+.faction-card.neutral .faction-name { color: #f0d68a; }
+
+/* Alliance Theme Overrides */
+body.theme-alliance { background-color: #070a0e; color: #c5cbd3; }
+body.theme-alliance::before {
+    background:
+        radial-gradient(ellipse at 20% 0%, rgba(20, 45, 80, 0.25) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, rgba(120, 100, 40, 0.08) 0%, transparent 55%),
+        repeating-linear-gradient(45deg, rgba(15, 25, 45, 0.03) 0px, rgba(15, 25, 45, 0.03) 2px, transparent 2px, transparent 8px),
+        #070a0e;
+}
+body.theme-alliance .header {
+    background: var(--noise-pattern), linear-gradient(135deg, #09121d 0%, #122238 60%, #0a1524 100%);
+    border-bottom: 3px solid #8f793b;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.9), 0 0 15px rgba(20, 50, 90, 0.3);
+}
+body.theme-alliance .header::after { background: linear-gradient(90deg, transparent, #284c70 20%, #8f793b 50%, #284c70 80%, transparent); }
+body.theme-alliance .subtitle { color: #6a8fae; }
+body.theme-alliance .progress-label { color: #b89f56; }
+body.theme-alliance .section { background: var(--leather-pattern), linear-gradient(180deg, #0c1421 0%, #080d17 100%); border: 1px solid #1a2b42; }
+body.theme-alliance .media-category .section-content .section { background: var(--noise-pattern), #0c1421; border-color: #1a2b42; }
+body.theme-alliance .section-header:hover { background: rgba(40, 76, 112, 0.12); }
+body.theme-alliance .section-title { color: #c5cbd3; }
+body.theme-alliance .media-category .section-title { color: #b89f56; }
+body.theme-alliance .section-count { color: #435263; }
+body.theme-alliance .arrow { border-color: #8f793b; }
+body.theme-alliance .item { border-top-color: #131e2d; color: #c5cbd3; }
+body.theme-alliance .item input { accent-color: #8f793b; }
+body.theme-alliance .item.completed label { color: #435263; }
+body.theme-alliance .footer { background: var(--noise-pattern), linear-gradient(180deg, #06090e 0%, #020406 100%); border-top-color: #8f793b; }
+body.theme-alliance .footer::before { background: linear-gradient(90deg, transparent, #284c70 50%, transparent); }
+body.theme-alliance .theme-title { color: #8f793b; }
+
+/* Horde Theme Overrides */
+body.theme-horde { background-color: #0c0808; color: #c9bcad; }
+body.theme-horde::before {
+    background:
+        radial-gradient(ellipse at 20% 0%, rgba(85, 20, 20, 0.25) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, rgba(40, 15, 15, 0.15) 0%, transparent 55%),
+        repeating-linear-gradient(-45deg, rgba(35, 12, 12, 0.04) 0px, rgba(35, 12, 12, 0.04) 3px, transparent 3px, transparent 10px),
+        #0c0808;
+}
+body.theme-horde .header {
+    background: var(--noise-pattern), linear-gradient(135deg, #120b0b 0%, #301313 60%, #1a0808 100%);
+    border-bottom: 3px solid #5e2323;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.9), 0 0 15px rgba(65, 15, 15, 0.4);
+}
+body.theme-horde .header::after { background: linear-gradient(90deg, transparent, #5e2323 20%, #853e2b 50%, #5e2323 80%, transparent); }
+body.theme-horde .subtitle { color: #ab6e5a; }
+body.theme-horde .progress-label { color: #c28878; }
+body.theme-horde .section { background: var(--leather-pattern), linear-gradient(180deg, #181010 0%, #100a0a 100%); border: 1px solid #451b1b; }
+body.theme-horde .media-category .section-content .section { background: var(--noise-pattern), #181010; border-color: #451b1b; }
+body.theme-horde .section-header:hover { background: rgba(80, 25, 25, 0.15); }
+body.theme-horde .section-title { color: #c9bcad; }
+body.theme-horde .media-category .section-title { color: #c28878; }
+body.theme-horde .section-count { color: #593c3c; }
+body.theme-horde .arrow { border-color: #853e2b; }
+body.theme-horde .item { border-top-color: #211313; color: #c9bcad; }
+body.theme-horde .item input { accent-color: #5e2323; }
+body.theme-horde .item.completed label { color: #4a3232; }
+body.theme-horde .footer { background: var(--noise-pattern), linear-gradient(180deg, #0a0606 0%, #030202 100%); border-top-color: #5e2323; }
+body.theme-horde .footer::before { background: linear-gradient(90deg, transparent, #5e2323 50%, transparent); }
+body.theme-horde .theme-title { color: #853e2b; }
+
+@media (max-width: 700px) {
+    .header-logo { max-width: 220px; }
+    .main { padding: 14px 10px 40px; }
+    .section-header { padding: 14px 12px; }
+    .item { font-size: 13px; }
+    .faction-container { gap: 12px; }
+    .faction-card { width: 100px; padding: 10px 8px; }
+    .faction-icon { width: 42px; height: 42px; }
+    .faction-name { font-size: 11px; }
+}
+</style>
+</head>
+
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+        <linearGradient id="icon-gold" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#f5dfa0"/>
+            <stop offset="0.45" stop-color="#d6a84f"/>
+            <stop offset="1" stop-color="#9c7327"/>
+        </linearGradient>
+    </defs>
+</svg>
+
+<header class="header">
+    <div class="header-inner">
+        <img class="header-logo" src="76-767609_world-of-warcraft-logo-png-loot-crate-world.png" alt="World of Warcraft">
+        <div class="subtitle">Fanouškovský checklist světa Warcraftu</div>
+
+        <div class="progress-area">
+            <div class="progress-label">Postup sbírky</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+                <div class="progress-text" id="progressText">Načítám…</div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="main">
+    <section id="mediaView">
+        <div class="media-category" id="activeQuestsCategory">
+            <div class="section">
+                <div class="section-header" id="activeQuestsHeader">
+                    <div class="section-title">
+                        <span class="category-icon">
+                            <svg viewBox="0 0 24 24">
+                                <g fill="none" stroke="url(#icon-gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="9"/>
+                                    <path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-1.5 2.25-2.5 3v1"/>
+                                    <circle cx="12" cy="16.5" r="0.8" fill="url(#icon-gold)" stroke="none"/>
+                                </g>
+                            </svg>
+                        </span>
+                        <span>Aktuální úkoly</span>
+                    </div>
+                    <div class="section-count" id="activeQuestsCount">0 rozdělaných</div>
+                    <div class="arrow"></div>
+                </div>
+                <div class="section-content" id="activeQuestsContent">
+                    <div style="padding: 10px; font-style: italic; color: #8c7e62; text-align: center;">Zatím nemáš rozdělané žádné položky. Zaškrtni libovolný úkol v seznamu níže.</div>
+                </div>
+            </div>
+        </div>
+        <div id="mediaContainer"></div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="theme-title">Zvolte svoji frakci</div>
+    <div class="faction-container">
+        <div class="faction-card alliance" id="btnAlliance" onclick="setTheme('alliance')" title="Přepnout na téma Aliance">
+            <img class="faction-icon" src="alliance.png" alt="Aliance">
+            <div class="faction-name">ALIANCE</div>
+        </div>
+
+        <div class="faction-card neutral active" id="btnNeutral" onclick="setTheme('neutral')" title="Přepnout na původní téma">
+            <img class="faction-icon" src="world-of-warcraft-logo-png_seeklogo-503088.png" alt="Neutrální">
+            <div class="faction-name">NEUTRÁLNÍ</div>
+        </div>
+
+        <div class="faction-card horde" id="btnHorde" onclick="setTheme('horde')" title="Přepnout na téma Hordy">
+            <img class="faction-icon" src="horde.png" alt="Horda">
+            <div class="faction-name">HORDA</div>
+        </div>
+    </div>
+</footer>
+
+<script>
+const mediaData = [
+{
+    title: "HRY",
+    icon: "swords",
+    groups: [
+        { title: "Warcraft: Orcs & Humans", items: ["Warcraft: Orcs & Humans — Human Campaign", "Warcraft: Orcs & Humans — Orc Campaign"] },
+        { title: "Warcraft II: Tides of Darkness", items: ["Warcraft II: Tides of Darkness — Human Campaign", "Warcraft II: Tides of Darkness — Orc Campaign"] },
+        { title: "Warcraft II: Beyond the Dark Portal", items: ["Warcraft II: Beyond the Dark Portal — Alliance Campaign", "Warcraft II: Beyond the Dark Portal — Horde Campaign"] },
+        { title: "Warcraft III: Reign of Chaos", items: ["Warcraft III: Reign of Chaos — Human Campaign — The Scourge of Lordaeron", "Warcraft III: Reign of Chaos — Undead Campaign — Path of the Damned", "Warcraft III: Reign of Chaos — Orc Campaign — The Invasion of Kalimdor", "Warcraft III: Reign of Chaos — Night Elf Campaign — Eternity’s End"] },
+        { title: "Warcraft III: The Frozen Throne", items: ["Warcraft III: The Frozen Throne — Night Elf Campaign — Terror of the Tides", "Warcraft III: The Frozen Throne — Human Campaign — Curse of the Blood Elves", "Warcraft III: The Frozen Throne — Undead Campaign — Legacy of the Damned", "Warcraft III: The Frozen Throne — Orc Bonus Campaign — The Founding of Durotar"] },
+        { title: "World of Warcraft — Classic", items: ["Alliance — Stormwind & Defias Brotherhood", "Alliance — Dwarves, Gnomes & Ironforge", "Alliance — Night Elves", "Horde — Orcs & Trolls", "Horde — Tauren", "Horde — Forsaken", "The Missing Diplomat", "The Scarlet Crusade", "The Black Dragonflight / Onyxia", "The Dark Iron Dwarves / Blackrock", "Ragnaros / Molten Core", "The Scourge / Argent Dawn", "Hakkar / Zul’Gurub", "The War of the Shifting Sands / Ahn’Qiraj", "Naxxramas / Kel’Thuzad"] },
+        { title: "The Burning Crusade", items: ["The Dark Portal / Invasion of Outland", "Hellfire Peninsula — Burning Legion", "Zangarmarsh — Coilfang & Naga", "Terokkar Forest — Arakkoa & Auchindoun", "Nagrand — Garrosh & the Mag’har", "Blade’s Edge Mountains — Gruul & the Gronn", "Netherstorm — Tempest Keep & Kael’thas", "Shadowmoon Valley — Illidan", "Sunwell Plateau — Kael’thas & the Burning Crusade’s End"] },
+        { title: "Wrath of the Lich King", items: ["Arrival in Northrend", "Borean Tundra — Warsong Expedition / Valiance Expedition", "Howling Fjord — Vrykul & Lich King", "Dragonblight — Wrathgate", "Grizzly Hills — Drakkari & Arugal", "Zul’Drak — Drakkari", "Sholazar Basin — Titans & the Frenzied Heart", "The Storm Peaks — Titans & Loken", "Icecrown — Assault on the Scourge", "The Argent Tournament", "The Lich King / Icecrown Citadel"] },
+        { title: "Cataclysm", items: ["The Shattering", "Kezan — Goblin Starting Experience", "Gilneas — Worgen Starting Experience", "Mount Hyjal — Guardians of Nordrassil", "Vashj’ir — Naga & Neptulon", "Deepholm — World Pillar", "Uldum — Tol’vir & the Curse", "Twilight Highlands — Twilight’s Hammer", "The War Against Deathwing", "Firelands — Ragnaros", "Dragon Soul — Deathwing"] },
+        { title: "Mists of Pandaria", items: ["The Wandering Isle / Pandaren Introduction", "Arrival in Pandaria", "The Jade Forest", "Valley of the Four Winds / Halfhill", "Krasarang Wilds", "Kun-Lai Summit", "Townlong Steppes", "Dread Wastes / Klaxxi", "The Thunder King / Isle of Thunder", "Vale of Eternal Blossoms — Garrosh Hellscream", "Siege of Orgrimmar"] },
+        { title: "Warlords of Draenor", items: ["Tanaan Jungle — The Dark Portal", "Frostfire Ridge — Horde", "Shadowmoon Valley — Alliance", "Gorgrond", "Talador", "Spires of Arak", "Nagrand", "Garrison Campaign", "Tanaan Jungle — The Iron Horde", "Archimonde / Hellfire Citadel"] },
+        { title: "Legion", items: ["The Broken Shore — Fall of the Legion", "Artifact & Class Order Campaign", "Azsuna", "Val’sharah", "Highmountain", "Stormheim", "Suramar", "The Broken Shore — Tomb of Sargeras", "Argus", "Antorus — Sargeras"] },
+        { title: "Battle for Azeroth", items: ["Battle for Lordaeron", "Kul Tiras — Tiragarde Sound", "Drustvar", "Stormsong Valley", "Zandalar — Zuldazar", "Nazmir", "Vol’dun", "The War Campaign", "Battle for Darkshore", "Battle for Arathi", "The Fate of Rastakhan / War Campaign", "Nazjatar — Azshara", "Mechagon", "Ny’alotha — N’Zoth"] },
+        { title: "Shadowlands", items: ["The Maw — Introduction", "Bastion", "Maldraxxus", "Ardenweald", "Revendreth", "Covenant Campaign", "The Maw / Torghast", "Chains of Domination / Korthia", "Zereth Mortis", "The Jailer / Sepulcher of the First Ones"] },
+        { title: "Dragonflight", items: ["The Dragon Isles — Arrival", "The Waking Shores", "Ohn’ahran Plains", "The Azure Span", "Thaldraszus", "The Forbidden Reach", "The Incarnates", "Zaralek Cavern / Aberrus", "The Emerald Dream", "Amirdrassil / Fyrakk"] },
+        { title: "The War Within", items: ["Khaz Algar — Arrival", "Isle of Dorn", "The Ringing Deeps", "Hallowfall", "Azj-Kahet", "The War Within Campaign", "Siren Isle", "Undermine", "K’aresh", "The Void / End of The War Within"] },
+        { title: "Midnight", items: ["Quel’Thalas — Arrival", "Eversong Woods", "Zul’Aman", "Harandar", "Voidstorm", "Midnight Campaign", "End of Midnight"] }
+    ]
+},
+{
+    title: "KNIHY",
+    icon: "book",
+    groups: [
+        { title: "Romány / novely", items: ["The Last Guardian", "Day of the Dragon", "Lord of the Clans", "Of Blood and Honor", "The Well of Eternity", "The Demon Soul", "The Sundering", "Cycle of Hatred", "Rise of the Horde", "Tides of Darkness", "Beyond the Dark Portal", "Night of the Dragon", "Arthas: Rise of the Lich King", "Stormrage", "The Shattering: Prelude to Cataclysm", "Thrall: Twilight of the Aspects", "Wolfheart", "Jaina Proudmoore: Tides of War", "Dawn of the Aspects", "Vol’jin: Shadows of the Horde", "War Crimes", "Illidan", "Traveler", "Traveler: The Spiral Path", "Traveler: The Shining Blade", "Before the Storm", "Shadows Rising", "Sylvanas", "War of the Scaleborn", "Blood Ties"] },
+        { title: "Exploring Azeroth", items: ["Exploring Azeroth: The Eastern Kingdoms", "Exploring Azeroth: Kalimdor", "Exploring Azeroth: Northrend", "Exploring Azeroth: Pandaria", "Exploring Azeroth: Islands and Isles"] },
+        { title: "Chronicle", items: ["World of Warcraft: Chronicle Volume 1", "World of Warcraft: Chronicle Volume 2", "World of Warcraft: Chronicle Volume 3", "World of Warcraft: Chronicle Volume 4"] }
+    ]
+},
+{
+    title: "KOMIKSY / MANGA",
+    icon: "scroll",
+    groups: [
+        {
+            title: "Komiksy",
+            groups: [
+                {
+                    title: "World of Warcraft: The Comic series",
+                    groups: [
+                        { title: "Volume 1", items: ["Issue 0: Prologue", "Issue 1: Stranger in a Strange Land", "Issue 2: Killing Ground", "Issue 3: Destiny Awaits!", "Issue 4: Balancing the Scales", "Issue 5: The Beast Within!", "Issue 6: Blood", "Issue 7: Revelations"] },
+                        { title: "Volume 2", items: ["Issue 8: The Return", "Issue 9: Through the Mirror Darkly", "Issue 10: Last of the Line", "Issue 11: Descent", "Issue 12: The Enemy Revealed", "Issue 13: Flashback", "Issue 14: Into the Jaws of Death!"] },
+                        { title: "Volume 3", items: ["Issue 15: Conflicting Loyalties", "Issue 16: Threat!", "Issue 17: Gathering Thunder!", "Issue 18: Showdown!", "Issue 19: The Winds of War", "Issue 20: Repercussions", "Issue 21: Secrets"] },
+                        { title: "Volume 4", items: ["Issue 22: Whispers", "Issue 23: The Gathering", "Issue 24: Hard Choices", "Issue 25: Armageddon"] }
+                    ]
+                },
+                { title: "Ashbringer", items: ["Ashbringer"] },
+                { title: "Wrath of the Lich King", items: ["World of Warcraft: The Comic – Special Issue: Beginnings and Ends"] },
+                { title: "Cataclysm", items: ["Curse of the Worgen", "Dark Riders", "Bloodsworn"] },
+                { title: "Mists of Pandaria", items: ["Pearl of Pandaria"] },
+                { title: "Warlords of Draenor", items: ["Gul’dan and the Stranger", "Blackhand", "Blood and Thunder"] },
+                { title: "Legion", items: ["Magni: Fault Lines", "Nightborne: Twilight of Suramar", "Highmountain: A Mountain Divided", "Anduin: Son of the Wolf"] },
+                { title: "Battle for Azeroth", items: ["Jaina: Reunion", "Magni: The Speaker", "Windrunner: Three Sisters", "Mechagon"] },
+                { title: "The War Within", items: ["Seasons"] },
+                { title: "Midnight", items: ["Legacy of Rage"] }
+            ]
+        },
+        {
+            title: "Manga",
+            items: ["The Sunwell Trilogy: Dragon Hunt", "The Sunwell Trilogy: Shadows of Ice", "The Sunwell Trilogy: Ghostlands", "Warcraft Legends – Volume 1", "Warcraft Legends – Volume 2", "Warcraft Legends – Volume 3", "Warcraft Legends – Volume 4", "Warcraft Legends – Volume 5", "Death Knight", "Mage", "Shaman", "Shadow Wing: The Dragons of Outland", "Shadow Wing: Nexus Point"]
+        }
+    ]
+},
+{
+    title: "SHORT STORIES",
+    icon: "quill",
+    groups: [
+        { title: "World of Warcraft — Classic", items: ["The War of the Shifting Sands", "Road to Damnation"] },
+        { title: "The Burning Crusade", items: ["Unbroken"] },
+        { title: "Cataclysm", items: ["Charge of the Aspects", "Garrosh Hellscream: Heart of War", "Genn Greymane: Lord of His Pack", "Gallywix: Trade Secrets of a Trade Prince", "The Council of Three Hammers: Fire and Iron", "Vol’jin: The Judgment", "Gelbin Mekkatorque: Cut Short", "Baine Bloodhoof: As Our Fathers Before Us", "Tyrande & Malfurion: Seeds of Faith", "Sylvanas Windrunner: Edge of Night", "Varian Wrynn: Blood of Our Fathers", "Lor’themar Theron: In the Shadow of the Sun", "Velen: Prophet’s Lesson"] },
+        { title: "Mists of Pandaria", items: ["Quest for Pandaria – Part One", "Quest for Pandaria – Part Two", "Quest for Pandaria – Part Three", "Quest for Pandaria – Part Four", "Li Li’s Travel Journal", "The Trial of the Red Blossoms", "Bleeding Sun", "The Blank Scroll", "Death From Above", "The Strength of Steel", "Over Water", "The Untamed Valley", "The Jade Hunters"] },
+        { title: "Warlords of Draenor", items: ["Hellscream", "Code of Rule", "Apocrypha"] },
+        { title: "Legion", items: ["Dark Mirror"] },
+        { title: "Battle for Azeroth", items: ["A Good War", "Elegy", "A Moment in Verse"] },
+        { title: "Shadowlands", items: ["Terror by Torchlight", "We Ride Forth", "Visage Day"] },
+        { title: "Dragonflight", items: ["The Vow Eternal"] },
+        { title: "The War Within", items: ["A Whisper of Warning", "The Calling", "The Goblin Way", "The Lilac and the Stone", "Trials", "The Tipping Point", "Heartlands – Chapter 1", "Heartlands – Chapter 2", "Heartlands – Chapter 3", "Heartlands – Chapter 4", "Heartlands – Chapter 5", "Faith & Flame", "The Doom of K’aresh – Chapter 1", "The Doom of K’aresh – Chapter 2", "The Doom of K’aresh – Chapter 3"] },
+        { title: "Midnight", items: ["The Void Between", "Legacy of the Amani", "The Quiet at the End of Us"] }
+    ]
+},
+{
+    title: "VIDEA",
+    icon: "shield",
+    groups: [
+        { title: "Mists of Pandaria", items: ["The Burdens of Shaohao Prelude: The Vision", "The Burdens of Shaohao Part 1: Doubt", "The Burdens of Shaohao Part 2: Despair", "The Burdens of Shaohao Part 3: Fear", "The Burdens of Shaohao Part 4: Anger", "The Burdens of Shaohao Part 5: The Sundering"] },
+        { title: "Warlords of Draenor", items: ["Lords of War - Part 1", "Lords of War - Part 2", "Lords of War - Part 3", "Lords of War - Part 4", "Lords of War - Part 5"] },
+        { title: "Legion", items: ["Harbingers: Gul’dan", "Harbingers: Khadgar", "Harbingers: Illidan"] },
+        { title: "Battle for Azeroth", items: ["Warbringers: Jaina", "Warbringers: Sylvanas", "Warbringers: Azshara", "Old Soldier", "Battle for Azeroth Cinematic Trailer", "Battle for Azeroth — Embers of War", "Lost Honor", "Safe Haven", "Terror of Darkshore", "Reckoning", "Visions of N’Zoth - Intro Cinematic"] },
+        { title: "Shadowlands", items: ["Shadowlands Launch Cinematic: “Beyond the Veil”", "Shadowlands Afterlives: Bastion", "Shadowlands Afterlives: Maldraxxus", "Shadowlands Afterlives: Ardenweald", "Shadowlands Afterlives: Revendreth"] },
+        { title: "Dragonflight", items: ["Dragonflight: Legacies, Chapter 1", "Dragonflight: Legacies, Chapter 2"] },
+        { title: "The War Within", items: ["“A Place to Call Home” Featuring AURORA", "Xal’atath Animation: Supremacy"] },
+        { title: "Midnight", items: ["“Midnight Story So Far”", "“The Bitter Truth” Part One", "“The Bitter Truth” Part Two: “A Toast”", "“The Bitter Truth” Part Three: “The Dregs”"] }
+    ]
+}
+];
+
+const THEME_KEY = "warcraft_theme_preference";
+
+function setTheme(theme) {
+    document.body.classList.remove("theme-alliance", "theme-horde");
+    document.getElementById("btnAlliance").classList.remove("active");
+    document.getElementById("btnHorde").classList.remove("active");
+    document.getElementById("btnNeutral").classList.remove("active");
+
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+
+    if (theme === "alliance") {
+        document.body.classList.add("theme-alliance");
+        document.getElementById("btnAlliance").classList.add("active");
+        if (metaTheme) metaTheme.setAttribute("content", "#070a0e");
+    } else if (theme === "horde") {
+        document.body.classList.add("theme-horde");
+        document.getElementById("btnHorde").classList.add("active");
+        if (metaTheme) metaTheme.setAttribute("content", "#0c0808");
+    } else {
+        document.getElementById("btnNeutral").classList.add("active");
+        if (metaTheme) metaTheme.setAttribute("content", "#111111");
+    }
+
+    try { window.localStorage.setItem(THEME_KEY, theme); } catch (e) {}
+}
+
+function loadSavedTheme() {
+    try {
+        const savedTheme = window.localStorage.getItem(THEME_KEY);
+        if (savedTheme) setTheme(savedTheme);
+    } catch (e) {}
+}
+
+const STORAGE_KEY = "warcraft_storyline_checked_v1";
+let checkedItems = {};
+let itemRegistry = {};
+let idCounters = {};
+let groupRegistry = [];
+
+async function loadCheckedItems() {
+    try {
+        const raw = window.localStorage.getItem(STORAGE_KEY);
+        checkedItems = raw ? JSON.parse(raw) : {};
+    } catch (err) {
+        checkedItems = {};
+    }
+}
+
+async function saveCheckedItems() {
+    try {
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(checkedItems));
+    } catch (err) {}
+}
+
+function makeId(text) {
+    return text.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
+function registerGroup(element, ids, title, categoryName, nodeData) {
+    if (!ids.length) return;
+    groupRegistry.push({ element: element, ids: ids, title: title, categoryName: categoryName, nodeData: nodeData });
+}
+
+function updateGroupStates() {
+    let activeSectionsCount = 0;
+    const activeContentContainer = document.getElementById("activeQuestsContent");
+    activeContentContainer.innerHTML = "";
+
+    const addedTitles = new Set();
+
+    function collectActiveNodes(nodeData) {
+        if (!nodeData) return;
+        
+        if (nodeData.items) {
+            const ids = nodeData.items.map(makeId);
+            const checkedCount = ids.filter(id => !!checkedItems[id]).length;
+            if (checkedCount > 0 && checkedCount < ids.length) {
+                if (nodeData.title && !addedTitles.has(nodeData.title)) {
+                    addedTitles.add(nodeData.title);
+                    activeSectionsCount++;
+                    activeContentContainer.appendChild(createSectionCopy(nodeData.title, nodeData));
+                }
+            }
+        }
+        
+        if (nodeData.groups) {
+            nodeData.groups.forEach(sub => {
+                const subIds = collectIds(sub);
+                const subChecked = subIds.filter(id => !!checkedItems[id]).length;
+                
+                if (subChecked > 0 && subChecked < subIds.length) {
+                    collectActiveNodes(sub);
+                }
+            });
+        }
+    }
+
+    groupRegistry.forEach(function(group) {
+        const total = group.ids.length;
+        const checkedCount = group.ids.filter(id => !!checkedItems[id]).length;
+        const done = (checkedCount === total && total > 0);
+        const inProgress = (checkedCount > 0 && checkedCount < total);
+
+        group.element.classList.toggle("complete", done);
+        group.element.classList.toggle("in-progress-state", inProgress);
+
+        if (inProgress) {
+            collectActiveNodes(group.nodeData);
+        }
+    });
+
+    if (activeSectionsCount === 0) {
+        activeContentContainer.innerHTML = '<div style="padding: 10px; font-style: italic; color: #8c7e62; text-align: center;">Zatím nemáš rozdělané žádné položky. Zaškrtni libovolný úkol v seznamu níže.</div>';
+    }
+
+    document.getElementById("activeQuestsCount").textContent = activeSectionsCount + " rozdělaných";
+}
+
+const CATEGORY_ICONS = {
+    swords: '<g fill="none" stroke="url(#icon-gold)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19 L19 5"/><path d="M19 19 L5 5"/><path d="M6.6 15.4 L9.8 18.6"/><path d="M17.4 15.4 L14.2 18.6"/><circle cx="5" cy="19" r="1.1" fill="url(#icon-gold)" stroke="none"/><circle cx="19" cy="19" r="1.1" fill="url(#icon-gold)" stroke="none"/></g>',
+    book: '<g fill="none" stroke="url(#icon-gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.2" width="14" height="15.6" rx="1.2"/><path d="M12 4.2v15.6"/><path d="M14.6 4.2v5.6l-1.6-1.15-1.6 1.15V4.2" fill="url(#icon-gold)" stroke="none"/></g>',
+    scroll: '<g fill="none" stroke="url(#icon-gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.6" y="8.4" width="16.8" height="7.2" rx="3.6"/><path d="M9.6 8.4v7.2"/><path d="M14.4 8.4v7.2"/><circle cx="12" cy="12" r="1.3" fill="url(#icon-gold)" stroke="none"/></g>',
+    quill: '<g fill="none" stroke="url(#icon-gold)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18.5 4.5c-4.2.3-8.7 3-10.6 8.6-.9 2.6-1 4.4-1 4.4s1.8-.1 4.4-1c5.6-1.9 8.3-6.4 8.6-10.6.1-1 .1-1.5-1.4-1.4z"/><path d="M15.6 6.4 8.7 13.3"/><path d="M6.9 16.9c-1 1.1-1.6 2-2.1 3.1"/></g>',
+    shield: '<g fill="none" stroke="url(#icon-gold)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.4 18.6 6v5.4c0 5-2.9 7.9-6.6 9-3.7-1.1-6.6-4-6.6-9V6z"/><path d="M10 9.2 15 12l-5 2.8z" fill="url(#icon-gold)" stroke="none"/></g>'
+};
+
+function createCategoryIcon(iconName) {
+    const wrapper = document.createElement("span");
+    wrapper.className = "category-icon";
+    wrapper.innerHTML = '<svg viewBox="0 0 24 24">' + (CATEGORY_ICONS[iconName] || "") + "</svg>";
+    return wrapper;
+}
+
+function createCheckMark() {
+    const check = document.createElement("div");
+    check.className = "check";
+    check.textContent = "✓";
+    check.title = "Vše dokončeno";
+    return check;
+}
+
+function createInProgressMark() {
+    const progressMark = document.createElement("div");
+    progressMark.className = "in-progress";
+    progressMark.title = "Částečně rozděláno";
+    progressMark.innerHTML = '<div class="dots"><span></span><span></span><span></span></div>';
+    return progressMark;
+}
+
+function createItem(text) {
+    const id = makeId(text);
+    if (!itemRegistry[id]) { itemRegistry[id] = []; idCounters[id] = 0; }
+    idCounters[id]++;
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "item";
+    if (checkedItems[id]) wrapper.classList.add("completed");
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = !!checkedItems[id];
+    checkbox.id = "check-" + id + "-" + idCounters[id];
+    checkbox.addEventListener("change", () => setChecked(id, checkbox.checked));
+
+    const label = document.createElement("label");
+    label.htmlFor = checkbox.id;
+    label.textContent = text;
+
+    wrapper.appendChild(checkbox);
+    wrapper.appendChild(label);
+    itemRegistry[id].push({ wrapper: wrapper, checkbox: checkbox });
+    return wrapper;
+}
+
+function setChecked(id, value) {
+    checkedItems[id] = value;
+    saveCheckedItems();
+    (itemRegistry[id] || []).forEach(entry => {
+        entry.checkbox.checked = value;
+        entry.wrapper.classList.toggle("completed", value);
+    });
+    updateProgress();
+    updateGroupStates();
+}
+
+function collectIds(node) {
+    if (node.items) return node.items.map(makeId);
+    return (node.groups || []).reduce((ids, group) => ids.concat(collectIds(group)), []);
+}
+
+function createSection(title, node, categoryName) {
+    const section = document.createElement("div");
+    section.className = "section";
+
+    const header = document.createElement("div");
+    header.className = "section-header";
+
+    const titleEl = document.createElement("div");
+    titleEl.className = "section-title";
+    titleEl.textContent = title;
+
+    const ids = collectIds(node);
+    const count = document.createElement("div");
+    count.className = "section-count";
+    count.textContent = ids.length + " položek";
+
+    const arrow = document.createElement("div");
+    arrow.className = "arrow";
+
+    header.appendChild(createInProgressMark());
+    header.appendChild(createCheckMark());
+    header.appendChild(titleEl);
+    header.appendChild(count);
+    header.appendChild(arrow);
+
+    const content = document.createElement("div");
+    content.className = "section-content";
+
+    if (node.items) {
+        node.items.forEach(item => content.appendChild(createItem(item)));
+    } else {
+        (node.groups || []).forEach(group => content.appendChild(createSection(group.title, group, categoryName)));
+    }
+
+    header.addEventListener("click", () => {
+        const willOpen = !section.classList.contains("open");
+        section.classList.toggle("open", willOpen);
+        if (!willOpen) {
+            content.querySelectorAll(".section.open").forEach(sub => sub.classList.remove("open"));
+        }
+    });
+
+    section.appendChild(header);
+    section.appendChild(content);
+    registerGroup(section, ids, title, categoryName, Object.assign({ title: title }, node));
+    return section;
+}
+
+function createSectionCopy(title, node) {
+    const section = document.createElement("div");
+    section.className = "section";
+
+    const header = document.createElement("div");
+    header.className = "section-header";
+
+    const titleEl = document.createElement("div");
+    titleEl.className = "section-title";
+    titleEl.textContent = title;
+
+    const ids = collectIds(node);
+    const count = document.createElement("div");
+    count.className = "section-count";
+    count.textContent = ids.length + " položek";
+
+    const arrow = document.createElement("div");
+    arrow.className = "arrow";
+
+    header.appendChild(createInProgressMark());
+    header.appendChild(createCheckMark());
+    header.appendChild(titleEl);
+    header.appendChild(count);
+    header.appendChild(arrow);
+
+    const content = document.createElement("div");
+    content.className = "section-content";
+
+    if (node.items) {
+        node.items.forEach(item => content.appendChild(createItem(item)));
+    } else {
+        (node.groups || []).forEach(group => content.appendChild(createSectionCopy(group.title, group)));
+    }
+
+    header.addEventListener("click", () => {
+        const willOpen = !section.classList.contains("open");
+        section.classList.toggle("open", willOpen);
+        if (!willOpen) {
+            content.querySelectorAll(".section.open").forEach(sub => sub.classList.remove("open"));
+        }
+    });
+
+    section.appendChild(header);
+    section.appendChild(content);
+    
+    const checkedCount = ids.filter(id => !!checkedItems[id]).length;
+    const total = ids.length;
+    section.classList.toggle("complete", checkedCount === total && total > 0);
+    section.classList.toggle("in-progress-state", checkedCount > 0 && checkedCount < total);
+
+    return section;
+}
+
+function renderMedia() {
+    const container = document.getElementById("mediaContainer");
+    container.innerHTML = "";
+    groupRegistry = [];
+
+    mediaData.forEach(category => {
+        const categorySection = document.createElement("div");
+        categorySection.className = "media-category";
+
+        const section = document.createElement("div");
+        section.className = "section";
+
+        const header = document.createElement("div");
+        header.className = "section-header";
+
+        const title = document.createElement("div");
+        title.className = "section-title";
+        title.appendChild(createCategoryIcon(category.icon));
+        title.appendChild(document.createTextNode(category.title));
+
+        const total = category.groups.reduce((sum, group) => sum + collectIds(group).length, 0);
+        const count = document.createElement("div");
+        count.className = "section-count";
+        count.textContent = total + " položek";
+
+        const arrow = document.createElement("div");
+        arrow.className = "arrow";
+
+        header.appendChild(title);
+        header.appendChild(count);
+        header.appendChild(arrow);
+
+        const content = document.createElement("div");
+        content.className = "section-content";
+
+        if (category.groups.length === 1 && category.groups[0].items) {
+            category.groups[0].items.forEach(item => content.appendChild(createItem(item)));
+        } else {
+            category.groups.forEach(group => content.appendChild(createSection(group.title, group, category.title)));
+        }
+
+        header.addEventListener("click", () => {
+            const willOpen = !section.classList.contains("open");
+            section.classList.toggle("open", willOpen);
+            if (!willOpen) {
+                content.querySelectorAll(".section.open").forEach(sub => sub.classList.remove("open"));
+            }
+        });
+
+        section.appendChild(header);
+        section.appendChild(content);
+        registerGroup(section, category.groups.reduce((ids, group) => ids.concat(collectIds(group)), []), category.title, category.title, { title: category.title, groups: category.groups });
+        categorySection.appendChild(section);
+        container.appendChild(categorySection);
+    });
+
+    const aqHeader = document.getElementById("activeQuestsHeader");
+    const aqSection = aqHeader.parentElement;
+    aqHeader.addEventListener("click", () => {
+        aqSection.classList.toggle("open");
+    });
+}
+
+function updateProgress() {
+    const ids = Object.keys(itemRegistry);
+    const total = ids.length;
+    let completed = 0;
+
+    ids.forEach(id => { if (checkedItems[id]) completed++; });
+
+    const percentage = total === 0 ? 0 : Math.round(completed / total * 100);
+
+    document.getElementById("progressText").textContent = percentage + "% XP";
+    document.getElementById("progressFill").style.width = percentage + "%";
+}
+
+async function init() {
+    await loadCheckedItems();
+    renderMedia();
+    updateProgress();
+    updateGroupStates();
+    loadSavedTheme();
+}
+
+init();
+</script>
+
+</body>
+</html>
