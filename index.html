@@ -29,6 +29,7 @@ body {
     background: #0d0e12;
     color: #e4dfd2;
     font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+    transition: background 0.5s ease, color 0.5s ease;
 }
 
 /* Dekorativní pozadí je v samostatné, k viewportu ukotvené
@@ -49,6 +50,7 @@ body::before {
         radial-gradient(ellipse at 20% 0%, rgba(120, 40, 20, 0.12) 0%, transparent 55%),
         radial-gradient(ellipse at 80% 10%, rgba(20, 60, 90, 0.10) 0%, transparent 55%),
         #0d0e12;
+    transition: background 0.5s ease;
 }
 
 .header {
@@ -58,6 +60,7 @@ body::before {
     border-bottom: 3px solid #7a5a24;
     box-shadow: 0 2px 0 #2c220d, 0 4px 18px rgba(0,0,0,.5);
     position: relative;
+    transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
 }
 
 .header::after {
@@ -69,6 +72,7 @@ body::before {
     height: 3px;
     background: linear-gradient(90deg, transparent, #d6a84f 20%, #f0d68a 50%, #d6a84f 80%, transparent);
     opacity: .8;
+    transition: background 0.5s ease;
 }
 
 .header-inner {
@@ -89,6 +93,7 @@ h1 {
     background-clip: text;
     color: transparent;
     text-shadow: 0 2px 10px rgba(214,168,79,.15);
+    transition: background 0.5s ease;
 }
 
 .subtitle {
@@ -97,6 +102,7 @@ h1 {
     font-size: 13px;
     letter-spacing: .5px;
     font-style: italic;
+    transition: color 0.5s ease;
 }
 
 .progress-area {
@@ -114,6 +120,7 @@ h1 {
     letter-spacing: 1.5px;
     text-transform: uppercase;
     font-family: 'Cinzel', Georgia, serif;
+    transition: color 0.5s ease;
 }
 
 /* Rám XP baru — kovový okraj jako u WoW UI panelů */
@@ -129,6 +136,7 @@ h1 {
         inset 0 -1px 0 rgba(255,255,255,.04),
         0 0 0 1px #241b0c,
         0 1px 0 rgba(255,255,255,.03);
+    transition: background 0.5s ease, border-color 0.5s ease;
 }
 
 /* Vyplněná část — modrý XP gradient se sklem nahoře */
@@ -142,7 +150,7 @@ h1 {
         0 0 12px rgba(79,176,240,.65),
         inset 0 1px 0 rgba(255,255,255,.5),
         inset 0 -2px 4px rgba(0,20,50,.5);
-    transition: width .5s cubic-bezier(.22,.7,.2,1);
+    transition: width .5s cubic-bezier(.22,.7,.2,1), background 0.5s ease, box-shadow 0.5s ease;
     border-radius: 11px;
 }
 
@@ -226,6 +234,7 @@ h1 {
     border: 1px solid #322818;
     border-radius: 5px;
     overflow: hidden;
+    transition: background 0.5s ease, border-color 0.5s ease;
 }
 
 .section-header {
@@ -251,6 +260,7 @@ h1 {
     font-size: 14px;
     color: #d9cfb5;
     letter-spacing: .3px;
+    transition: color 0.5s ease;
 }
 
 .section-count {
@@ -258,6 +268,7 @@ h1 {
     font-size: 11px;
     margin-left: auto;
     letter-spacing: .3px;
+    transition: color 0.5s ease;
 }
 
 .arrow {
@@ -266,7 +277,7 @@ h1 {
     border-right: 2px solid #b08a3e;
     border-bottom: 2px solid #b08a3e;
     transform: rotate(45deg);
-    transition: transform .2s ease;
+    transition: transform .2s ease, border-color 0.5s ease;
     margin-right: 3px;
 }
 
@@ -297,6 +308,7 @@ h1 {
     line-height: 1.4;
     font-size: 14px;
     color: #c9c2ae;
+    transition: border-color 0.5s ease, color 0.5s ease;
 }
 
 .item:first-child {
@@ -351,6 +363,7 @@ h1 {
     box-shadow:
         inset 0 0 4px rgba(0,0,0,.6),
         0 0 6px rgba(214,168,79,.25);
+    transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
 }
 
 .category-icon svg {
@@ -405,6 +418,360 @@ h1 {
 
 
 /* =========================
+   FOOTER & THEME SELECTOR
+========================= */
+
+.footer {
+    border-top: 2px solid #3a2e18;
+    background: #0f1015;
+    padding: 30px 18px 40px;
+    text-align: center;
+    position: relative;
+    transition: background 0.5s ease, border-color 0.5s ease;
+}
+
+.footer::before {
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #d6a84f 50%, transparent);
+    opacity: 0.6;
+    transition: background 0.5s ease;
+}
+
+.theme-title {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8c7e62;
+    margin-bottom: 18px;
+    transition: color 0.5s ease;
+}
+
+.faction-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.faction-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    background: rgba(20, 22, 30, 0.7);
+    border: 2px solid #4a3a1d;
+    border-radius: 10px;
+    padding: 12px 20px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+    width: 140px;
+}
+
+.faction-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.faction-card:hover {
+    transform: translateY(-4px) scale(1.03);
+}
+
+.faction-card.alliance:hover, .faction-card.alliance.active {
+    border-color: #3b82f6;
+    box-shadow: 0 0 18px rgba(59, 130, 246, 0.4), inset 0 0 10px rgba(59, 130, 246, 0.2);
+}
+
+.faction-card.horde:hover, .faction-card.horde.active {
+    border-color: #b83a3a;
+    box-shadow: 0 0 18px rgba(184, 58, 58, 0.4), inset 0 0 10px rgba(184, 58, 58, 0.2);
+}
+
+.faction-card.neutral:hover, .faction-card.neutral.active {
+    border-color: #eab308;
+    box-shadow: 0 0 18px rgba(234, 179, 8, 0.4), inset 0 0 10px rgba(234, 179, 8, 0.2);
+}
+
+.faction-icon {
+    width: 54px;
+    height: 54px;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.faction-card:hover .faction-icon {
+    transform: scale(1.1);
+}
+
+.faction-name {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 8px;
+    letter-spacing: 1px;
+    z-index: 2;
+}
+
+.faction-card.alliance .faction-name { color: #60a5fa; }
+.faction-card.horde .faction-name { color: #d96b6b; }
+.faction-card.neutral .faction-name { color: #facc15; }
+
+.faction-status {
+    font-size: 10px;
+    color: #888;
+    margin-top: 2px;
+    z-index: 2;
+    font-style: italic;
+}
+
+
+/* =========================
+   THEME STYLES — ALLIANCE
+========================= */
+
+body.theme-alliance {
+    background: #090e17;
+    color: #e2e8f0;
+}
+
+body.theme-alliance::before {
+    background:
+        radial-gradient(ellipse at 20% 0%, rgba(30, 80, 160, 0.22) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, rgba(200, 160, 60, 0.12) 0%, transparent 55%),
+        repeating-linear-gradient(45deg, rgba(20, 40, 80, 0.03) 0px, rgba(20, 40, 80, 0.03) 2px, transparent 2px, transparent 8px),
+        #090e17;
+}
+
+body.theme-alliance .header {
+    background: linear-gradient(180deg, rgba(15, 35, 75, 0.85) 0%, rgba(9, 14, 23, 0.95) 100%), #0d1527;
+    border-bottom: 3px solid #2563eb;
+    box-shadow: 0 2px 0 #1e3a8a, 0 4px 20px rgba(37, 99, 235, 0.25);
+}
+
+body.theme-alliance .header::after {
+    background: linear-gradient(90deg, transparent, #3b82f6 20%, #f59e0b 50%, #3b82f6 80%, transparent);
+}
+
+body.theme-alliance h1 {
+    background: linear-gradient(180deg, #ffffff 0%, #93c5fd 40%, #2563eb 85%, #1e40af 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+}
+
+body.theme-alliance .subtitle {
+    color: #93c5fd;
+}
+
+body.theme-alliance .progress-label {
+    color: #60a5fa;
+}
+
+body.theme-alliance .progress-bar {
+    background: linear-gradient(180deg, #070c14 0%, #0f1d36 50%, #050a12 100%);
+    border: 2px solid #2563eb;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,.85), 0 0 8px rgba(37,99,235,.4);
+}
+
+body.theme-alliance .progress-fill {
+    background: linear-gradient(180deg, #fef08a 0%, #eab308 30%, #ca8a04 70%, #854d0e 100%);
+    box-shadow: 0 0 14px rgba(234, 179, 8, 0.7), inset 0 1px 0 rgba(255,255,255,.6);
+}
+
+body.theme-alliance .section {
+    background: linear-gradient(180deg, #111a2e 0%, #0d1424 100%);
+    border: 1px solid #1e3a8a;
+}
+
+body.theme-alliance .media-category .section-content .section {
+    background: #0f172a;
+}
+
+body.theme-alliance .section-header:hover {
+    background: #1e293b;
+    border-left-color: #3b82f6;
+}
+
+body.theme-alliance .section-title {
+    color: #e0f2fe;
+}
+
+body.theme-alliance .media-category .section-title {
+    color: #93c5fd;
+}
+
+body.theme-alliance .section-count {
+    color: #64748b;
+}
+
+body.theme-alliance .arrow {
+    border-color: #3b82f6;
+}
+
+body.theme-alliance .item {
+    border-top-color: #1e293b;
+    color: #cbd5e1;
+}
+
+body.theme-alliance .item input {
+    accent-color: #3b82f6;
+}
+
+body.theme-alliance .item.completed label {
+    color: #475569;
+}
+
+body.theme-alliance .category-icon {
+    background: radial-gradient(circle at 35% 30%, #1e293b 0%, #0f172a 75%);
+    border-color: #3b82f6;
+    box-shadow: inset 0 0 4px rgba(0,0,0,.6), 0 0 8px rgba(59, 130, 246, 0.4);
+}
+
+body.theme-alliance .footer {
+    background: #070a12;
+    border-top-color: #1e3a8a;
+}
+
+body.theme-alliance .footer::before {
+    background: linear-gradient(90deg, transparent, #3b82f6 50%, transparent);
+}
+
+body.theme-alliance .theme-title {
+    color: #60a5fa;
+}
+
+
+/* =========================
+   THEME STYLES — HORDE
+========================= */
+
+body.theme-horde {
+    background: #140808;
+    color: #e6cece;
+}
+
+body.theme-horde::before {
+    background:
+        radial-gradient(ellipse at 20% 0%, rgba(135, 30, 30, 0.2) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, rgba(70, 15, 15, 0.18) 0%, transparent 55%),
+        repeating-linear-gradient(-45deg, rgba(60, 15, 15, 0.04) 0px, rgba(60, 15, 15, 0.04) 3px, transparent 3px, transparent 10px),
+        #140808;
+}
+
+body.theme-horde .header {
+    background: linear-gradient(180deg, rgba(65, 15, 15, 0.85) 0%, rgba(20, 8, 8, 0.95) 100%), #1c0a0a;
+    border-bottom: 3px solid #a83232;
+    box-shadow: 0 2px 0 #5c1818, 0 4px 20px rgba(168, 50, 50, 0.25);
+}
+
+body.theme-horde .header::after {
+    background: linear-gradient(90deg, transparent, #b83a3a 20%, #d97736 50%, #b83a3a 80%, transparent);
+}
+
+body.theme-horde h1 {
+    background: linear-gradient(180deg, #fcf0f0 0%, #e0a3a3 35%, #b83a3a 80%, #5c1818 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 0 0 15px rgba(184, 58, 58, 0.4);
+}
+
+body.theme-horde .subtitle {
+    color: #e0a3a3;
+}
+
+body.theme-horde .progress-label {
+    color: #d96b6b;
+}
+
+body.theme-horde .progress-bar {
+    background: linear-gradient(180deg, #120404 0%, #2a0808 50%, #0a0202 100%);
+    border: 2px solid #8f2626;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,.85), 0 0 8px rgba(143, 38, 38, 0.35);
+}
+
+/* Modrá výplň XP baru pro Hordu (neutrální modrá jako u neutrálního / základního témata) */
+body.theme-horde .progress-fill {
+    background: linear-gradient(180deg, #9fe3ff 0%, #4fb0f0 18%, #1f78d6 55%, #164f9c 100%);
+    box-shadow: 0 0 12px rgba(79, 176, 240, 0.65), inset 0 1px 0 rgba(255,255,255,.5);
+}
+
+body.theme-horde .section {
+    background: linear-gradient(180deg, #200d0d 0%, #170909 100%);
+    border: 1px solid #5c1818;
+}
+
+body.theme-horde .media-category .section-content .section {
+    background: #1a0b0b;
+}
+
+body.theme-horde .section-header:hover {
+    background: #2b1212;
+    border-left-color: #b83a3a;
+}
+
+body.theme-horde .section-title {
+    color: #f7e6e6;
+}
+
+body.theme-horde .media-category .section-title {
+    color: #e0a3a3;
+}
+
+body.theme-horde .section-count {
+    color: #8f384a;
+}
+
+body.theme-horde .arrow {
+    border-color: #b83a3a;
+}
+
+body.theme-horde .item {
+    border-top-color: #2b1212;
+    color: #e0c8c8;
+}
+
+body.theme-horde .item input {
+    accent-color: #b83a3a;
+}
+
+body.theme-horde .item.completed label {
+    color: #632424;
+}
+
+body.theme-horde .category-icon {
+    background: radial-gradient(circle at 35% 30%, #2b1212 0%, #170909 75%);
+    border-color: #b83a3a;
+    box-shadow: inset 0 0 4px rgba(0,0,0,.6), 0 0 8px rgba(184, 58, 58, 0.35);
+}
+
+body.theme-horde .footer {
+    background: #0d0404;
+    border-top-color: #5c1818;
+}
+
+body.theme-horde .footer::before {
+    background: linear-gradient(90deg, transparent, #b83a3a 50%, transparent);
+}
+
+body.theme-horde .theme-title {
+    color: #d96b6b;
+}
+
+
+/* =========================
    MOBILE
 ========================= */
 
@@ -426,6 +793,24 @@ h1 {
         font-size: 13px;
     }
 
+    .faction-container {
+        gap: 12px;
+    }
+
+    .faction-card {
+        width: 100px;
+        padding: 10px 8px;
+    }
+
+    .faction-icon {
+        width: 42px;
+        height: 42px;
+    }
+
+    .faction-name {
+        font-size: 11px;
+    }
+
 }
 
 </style>
@@ -440,6 +825,18 @@ h1 {
             <stop offset="0" stop-color="#f5dfa0"/>
             <stop offset="0.45" stop-color="#d6a84f"/>
             <stop offset="1" stop-color="#9c7327"/>
+        </linearGradient>
+
+        <linearGradient id="icon-alliance" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#93c5fd"/>
+            <stop offset="0.5" stop-color="#3b82f6"/>
+            <stop offset="1" stop-color="#1d4ed8"/>
+        </linearGradient>
+
+        <linearGradient id="icon-horde" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#e0a3a3"/>
+            <stop offset="0.5" stop-color="#b83a3a"/>
+            <stop offset="1" stop-color="#8f2626"/>
         </linearGradient>
     </defs>
 </svg>
@@ -500,6 +897,69 @@ h1 {
 
 
 </main>
+
+
+<!-- =========================================================
+     FOOTER & FACTION THEME SELECTOR
+========================================================= -->
+
+<footer class="footer">
+
+    <div class="theme-title">Zvolte svoji frakci (Téma vzhledu)</div>
+
+    <div class="faction-container">
+
+        <!-- ALLIANCE BUTTON -->
+        <div class="faction-card alliance" id="btnAlliance" onclick="setTheme('alliance')" title="Přepnout na téma Aliance">
+            <svg class="faction-icon" viewBox="0 0 100 100">
+                <!-- Shield base -->
+                <path d="M50 5 L85 20 V50 C85 72 50 95 50 95 C50 95 15 72 15 50 V20 Z" fill="#1e3a8a" stroke="#f59e0b" stroke-width="4"/>
+                <!-- Inner border -->
+                <path d="M50 12 L78 24 V48 C78 66 50 85 50 85 C50 85 22 66 22 48 V24 Z" fill="none" stroke="#3b82f6" stroke-width="2"/>
+                <!-- Stylized Lion Head (Alliance Emblem) -->
+                <path d="M50 25 C42 25 36 30 34 38 C32 46 36 52 40 54 C38 58 35 60 32 60 C38 65 44 63 46 68 C47 71 45 74 50 78 C55 74 53 71 54 68 C56 63 62 65 68 60 C65 60 62 58 60 54 C64 52 68 46 66 38 C64 30 58 25 50 25 Z" fill="#f59e0b"/>
+                <circle cx="43" cy="40" r="2.5" fill="#1e3a8a"/>
+                <circle cx="57" cy="40" r="2.5" fill="#1e3a8a"/>
+                <path d="M47 48 L50 52 L53 48 Z" fill="#1e3a8a"/>
+                <!-- Crown top -->
+                <path d="M40 22 L44 16 L50 20 L56 16 L60 22 Z" fill="#f0d68a"/>
+            </svg>
+            <div class="faction-name">ALIANCE</div>
+            <div class="faction-status" id="statusAlliance">Za Alianci!</div>
+        </div>
+
+        <!-- NEUTRAL / DEFAULT BUTTON -->
+        <div class="faction-card neutral active" id="btnNeutral" onclick="setTheme('neutral')" title="Přepnout na původní téma">
+            <svg class="faction-icon" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" fill="#14151b" stroke="#7a5a24" stroke-width="4"/>
+                <circle cx="50" cy="50" r="32" fill="none" stroke="#d6a84f" stroke-width="2"/>
+                <path d="M30 35 L42 70 L50 48 L58 70 L70 35" fill="none" stroke="url(#icon-gold)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div class="faction-name">NEUTRÁLNÍ</div>
+            <div class="faction-status" id="statusNeutral">Klasické</div>
+        </div>
+
+        <!-- HORDE BUTTON -->
+        <div class="faction-card horde" id="btnHorde" onclick="setTheme('horde')" title="Přepnout na téma Hordy">
+            <svg class="faction-icon" viewBox="0 0 100 100">
+                <!-- Outer shield background -->
+                <path d="M50 5 L85 22 V50 C85 72 50 95 50 95 C50 95 15 72 15 50 V22 Z" fill="#2a0808" stroke="#5c1818" stroke-width="4"/>
+                <!-- Horde Emblem Crest -->
+                <path d="M50 18 C46 18 43 21 43 25 C43 30 47 33 50 35 C53 33 57 30 57 25 C57 21 54 18 50 18 Z" fill="#b83a3a"/>
+                <path d="M50 35 C38 35 25 45 22 62 C30 58 38 58 43 62 C41 52 45 42 50 40 C55 42 59 52 57 62 C62 58 70 58 78 62 C75 45 62 35 50 35 Z" fill="#b83a3a"/>
+                <!-- Spikes -->
+                <path d="M30 25 L20 18 L26 32 Z" fill="#731f1f"/>
+                <path d="M70 25 L80 18 L74 32 Z" fill="#731f1f"/>
+                <path d="M50 68 L46 82 L50 88 L54 82 Z" fill="#b83a3a"/>
+                <circle cx="50" cy="48" r="4" fill="#140808"/>
+            </svg>
+            <div class="faction-name">HORDA</div>
+            <div class="faction-status" id="statusHorde">Za Hordu!</div>
+        </div>
+
+    </div>
+
+</footer>
 
 
 <script>
@@ -1226,6 +1686,53 @@ const mediaData = [
 
 
 /* =========================================================
+   THEME MANAGER
+========================================================= */
+
+const THEME_KEY = "warcraft_theme_preference";
+
+function setTheme(theme) {
+    document.body.classList.remove("theme-alliance", "theme-horde");
+
+    document.getElementById("btnAlliance").classList.remove("active");
+    document.getElementById("btnHorde").classList.remove("active");
+    document.getElementById("btnNeutral").classList.remove("active");
+
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+
+    if (theme === "alliance") {
+        document.body.classList.add("theme-alliance");
+        document.getElementById("btnAlliance").classList.add("active");
+        if (metaTheme) metaTheme.setAttribute("content", "#090e17");
+    } else if (theme === "horde") {
+        document.body.classList.add("theme-horde");
+        document.getElementById("btnHorde").classList.add("active");
+        if (metaTheme) metaTheme.setAttribute("content", "#140808");
+    } else {
+        document.getElementById("btnNeutral").classList.add("active");
+        if (metaTheme) metaTheme.setAttribute("content", "#111111");
+    }
+
+    try {
+        window.localStorage.setItem(THEME_KEY, theme);
+    } catch (e) {
+        console.error("Uložení tématu se nezdařilo:", e);
+    }
+}
+
+function loadSavedTheme() {
+    try {
+        const savedTheme = window.localStorage.getItem(THEME_KEY);
+        if (savedTheme) {
+            setTheme(savedTheme);
+        }
+    } catch (e) {
+        console.error("Načtení tématu se nezdařilo:", e);
+    }
+}
+
+
+/* =========================================================
    CHECKBOX STORAGE (persistuje mezi sezeními, jen pro tebe)
 ========================================================= */
 
@@ -1281,7 +1788,7 @@ function makeId(text) {
     return text
         .toLowerCase()
         .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[̀-ͯ]/g, "")
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/^-|-$/g, "");
 
@@ -1864,6 +2371,7 @@ async function init() {
     await loadCheckedItems();
 
     renderAll();
+    loadSavedTheme();
 
 }
 
