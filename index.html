@@ -55,9 +55,42 @@ body::before {
     background: linear-gradient(90deg, transparent, #8f6924 20%, #f0d68a 50%, #8f6924 80%, transparent);
     opacity: .9;
 }
-.header-inner { max-width: 1100px; margin: 0 auto; padding: 26px 18px 20px; text-align: center; }
+.header-inner { max-width: 1100px; margin: 0 auto; padding: 26px 18px 20px; text-align: center; position: relative; }
 
-/* Úprava loga: ztlumený filtr, aby žlutá nebyla tak agresivní[cite: 3] */
+/* Tlačítko nastavení (ozubené kolo) v pravém horním rohu */
+.settings-btn {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: rgba(20, 21, 27, 0.8);
+    border: 2px solid #6b4e1b;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+.settings-btn:hover {
+    border-color: #f5dfa0;
+    transform: scale(1.05);
+    background: rgba(40, 35, 25, 0.9);
+}
+.settings-btn svg {
+    width: 22px;
+    height: 22px;
+    fill: #d6a84f;
+    transition: transform 0.3s ease;
+}
+.settings-btn:hover svg {
+    transform: rotate(90deg);
+}
+
+/* Úprava loga: ztlumený filtr, aby žlutá nebyla tak agresivní */
 .header-logo { 
     max-width: 320px; 
     width: 100%; 
@@ -194,7 +227,6 @@ body.theme-horde { background-color: #0c0808; color: #c9bcad; }
 body.theme-horde::before { background: radial-gradient(ellipse at 20% 0%, rgba(85, 20, 20, 0.25) 0%, transparent 60%), radial-gradient(ellipse at 80% 80%, rgba(40, 15, 15, 0.15) 0%, transparent 55%), repeating-linear-gradient(-45deg, rgba(35, 12, 12, 0.04) 0px, rgba(35, 12, 12, 0.04) 3px, transparent 3px, transparent 10px), #0c0808; }
 body.theme-horde .header { background: var(--noise-pattern), linear-gradient(135deg, #120b0b 0%, #301313 60%, #1a0808 100%); border-bottom: 3px solid #5e2323; box-shadow: 0 4px 20px rgba(0,0,0,0.9), 0 0 15px rgba(65, 15, 15, 0.4); }
 body.theme-horde .header::after { background: linear-gradient(90deg, transparent, #5e2323 20%, #853e2b 50%, #5e2323 80%, transparent); }
-/* Změněné logo pro Hordu na šedou, tmavší variantu */
 body.theme-horde .header-logo { filter: drop-shadow(0 4px 12px rgba(0,0,0,0.9)) grayscale(0.85) brightness(0.65) contrast(1.2); }
 body.theme-horde .subtitle { color: #ab6e5a; }
 body.theme-horde .progress-label { color: #c28878; }
@@ -213,7 +245,7 @@ body.theme-horde .footer::before { background: linear-gradient(90deg, transparen
 body.theme-horde .theme-title { color: #853e2b; }
 
 /* Styly pro nápovědné vyskakovací okno */
-#installModal {
+#installModal, #settingsModal {
     display: none;
     position: fixed;
     inset: 0;
@@ -290,6 +322,42 @@ body.theme-horde .theme-title { color: #853e2b; }
     filter: brightness(1.1);
 }
 
+/* Styly pro výběr jazyka v nastavení */
+.settings-group {
+    margin-bottom: 15px;
+}
+.settings-label {
+    font-size: 13px;
+    color: #a37c33;
+    font-family: 'Cinzel', Georgia, serif;
+    margin-bottom: 8px;
+    display: block;
+}
+.lang-options {
+    display: flex;
+    gap: 10px;
+}
+.lang-btn {
+    flex: 1;
+    padding: 10px;
+    background: #14151b;
+    border: 1px solid #5c4a24;
+    color: #dcd3be;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Cinzel', Georgia, serif;
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+.lang-btn:hover {
+    border-color: #d6a84f;
+}
+.lang-btn.active {
+    background: linear-gradient(180deg, #d6a84f 0%, #9c7327 100%);
+    color: #111;
+    border-color: #f5dfa0;
+}
+
 @media (max-width: 700px) {
     .header-logo { max-width: 220px; }
     .main { padding: 14px 10px 40px; }
@@ -299,17 +367,35 @@ body.theme-horde .theme-title { color: #853e2b; }
     .faction-card { width: 100px; padding: 10px 8px; }
     .faction-icon { width: 42px; height: 42px; }
     .faction-name { font-size: 11px; }
+    .settings-btn { top: 12px; right: 12px; width: 36px; height: 36px; }
+    .settings-btn svg { width: 18px; height: 18px; }
 }
 </style>
 </head>
 <body>
 
-<!-- Vyskakovací okno (Modál) -->
+<!-- Vyskakovací okno (Modál) pro instalaci -->
 <div id="installModal">
     <div class="modal-dialog">
         <button class="modal-close" onclick="closeInstallModal()">&times;</button>
-        <div class="modal-title">Ulož si aplikaci na plochu</div>
-        <div class="modal-body">Pro pohodlnější používání si Warcraft Checklist přidej na plochu jako webovou aplikaci.
+        <div class="modal-title" data-cs="Ulož si aplikaci na plochu" data-en="Save App to Home Screen">Ulož si aplikaci na plochu</div>
+        <div class="modal-body" data-cs="Pro pohodlnější používání si Warcraft Checklist přidej na plochu jako webovou aplikaci.
+
+🍎 iPhone / iPad:
+V Safari klepni na Sdílet → Přidat na plochu.
+
+🤖 Android:
+V prohlížeči klepni na ⋮ → Přidat na plochu nebo Nainstalovat aplikaci.
+
+Pak ji budeš mít kdykoliv po ruce. ⚔️" data-en="For easier use, add Warcraft Checklist to your home screen as a web app.
+
+🍎 iPhone / iPad:
+In Safari, tap Share → Add to Home Screen.
+
+🤖 Android:
+In your browser, tap ⋮ → Add to Home Screen or Install App.
+
+Then you'll have it ready at any time. ⚔️">Pro pohodlnější používání si Warcraft Checklist přidej na plochu jako webovou aplikaci.
 
 🍎 iPhone / iPad:
 V Safari klepni na Sdílet → Přidat na plochu.
@@ -318,7 +404,25 @@ V Safari klepni na Sdílet → Přidat na plochu.
 V prohlížeči klepni na ⋮ → Přidat na plochu nebo Nainstalovat aplikaci.
 
 Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
-        <button class="modal-btn" onclick="closeInstallModal()">Rozumím, skrýt nápovědu</button>
+        <button class="modal-btn" onclick="closeInstallModal()" data-cs="Rozumím, skrýt nápovědu" data-en="Understood, hide help">Rozumím, skrýt nápovědu</button>
+    </div>
+</div>
+
+<!-- Vyskakovací okno pro Nastavení -->
+<div id="settingsModal">
+    <div class="modal-dialog">
+        <button class="modal-close" onclick="closeSettingsModal()">&times;</button>
+        <div class="modal-title" id="settingsTitleText">Nastavení</div>
+        <div class="modal-body">
+            <div class="settings-group">
+                <span class="settings-label" id="langLabelText">Jazyk / Language</span>
+                <div class="lang-options">
+                    <button class="lang-btn active" id="btnLangCs" onclick="setLanguage('cs')">Čeština</button>
+                    <button class="lang-btn" id="btnLangEn" onclick="setLanguage('en')">English</button>
+                </div>
+            </div>
+        </div>
+        <button class="modal-btn" onclick="closeSettingsModal()" id="settingsCloseBtn">Uložit a zavřít</button>
     </div>
 </div>
 
@@ -333,11 +437,17 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
 </svg>
 
 <header class="header">
+    <!-- Tlačítko nastavení v pravém horním rohu (ozubené kolo) -->
+    <button class="settings-btn" onclick="openSettingsModal()" title="Nastavení">
+        <svg viewBox="0 0 24 24">
+            <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87 c-0.11,0.2-0.06,0.47,0.12,0.61l2.03,1.58c-0.05,0.3-0.07,0.62-0.07,0.94s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.11-0.2,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+        </svg>
+    </button>
     <div class="header-inner">
         <img class="header-logo" src="76-767609_world-of-warcraft-logo-png-loot-crate-world.png" alt="World of Warcraft">
-        <div class="subtitle">Fanouškovský checklist světa Warcraftu</div>
+        <div class="subtitle" id="subtitleText" data-cs="Fanouškovský checklist světa Warcraftu" data-en="World of Warcraft Fan Checklist">Fanouškovský checklist světa Warcraftu</div>
         <div class="progress-area">
-            <div class="progress-label">Postup sbírky</div>
+            <div class="progress-label" id="progressLabelText" data-cs="Postup sbírky" data-en="Collection Progress">Postup sbírky</div>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
                 <div class="progress-text" id="progressText">Načítám…</div>
@@ -361,13 +471,13 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
                                 </g>
                             </svg>
                         </span>
-                        <span>AKTUÁLNÍ QUESTY</span>
+                        <span id="activeQuestsTitleText">AKTUÁLNÍ QUESTY</span>
                     </div>
                     <div class="section-count" id="activeQuestsCount">0 rozdělaných</div>
                     <div class="arrow"></div>
                 </div>
                 <div class="section-content" id="activeQuestsContent">
-                    <div style="padding: 10px; font-style: italic; color: #8c7e62; text-align: center;">Zatím nemáš rozdělané žádné položky. Zaškrtni libovolný úkol v seznamu níže.</div>
+                    <div style="padding: 10px; font-style: italic; color: #8c7e62; text-align: center;" id="activeQuestsEmptyText">Zatím nemáš rozdělané žádné položky. Zaškrtni libovolný úkol v seznamu níže.</div>
                 </div>
             </div>
         </div>
@@ -376,7 +486,7 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
 </main>
 
 <footer class="footer">
-    <div class="theme-title">Zvolte svoji frakci</div>
+    <div class="theme-title" id="themeTitleText" data-cs="Zvolte svoji frakci" data-en="Choose Your Faction">Zvolte svoji frakci</div>
     <div class="faction-container">
         <div class="faction-card alliance" id="btnAlliance" onclick="setTheme('alliance')" title="Přepnout na téma Aliance">
             <img class="faction-icon" src="alliance.png" alt="Aliance">
@@ -384,7 +494,7 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
         </div>
         <div class="faction-card neutral active" id="btnNeutral" onclick="setTheme('neutral')" title="Přepnout na původní téma">
             <img class="faction-icon" src="world-of-warcraft-logo-png_seeklogo-503088.png" alt="Neutrální">
-            <div class="faction-name">NEUTRÁLNÍ</div>
+            <div class="faction-name" id="factionNeutralName" data-cs="NEUTRÁLNÍ" data-en="NEUTRAL">NEUTRÁLNÍ</div>
         </div>
         <div class="faction-card horde" id="btnHorde" onclick="setTheme('horde')" title="Přepnout na téma Hordy">
             <img class="faction-icon" src="horde.png" alt="Horda">
@@ -394,123 +504,330 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
 </footer>
 
 <script>
-const mediaData = [
-{
-    title: "HRY",
-    icon: "swords",
-    groups: [
-        { title: "Warcraft: Orcs & Humans", items: ["Warcraft: Orcs & Humans — Human Campaign", "Warcraft: Orcs & Humans — Orc Campaign"] },
-        { title: "Warcraft II: Tides of Darkness", items: ["Warcraft II: Tides of Darkness — Human Campaign", "Warcraft II: Tides of Darkness — Orc Campaign"] },
-        { title: "Warcraft II: Beyond the Dark Portal", items: ["Warcraft II: Beyond the Dark Portal — Alliance Campaign", "Warcraft II: Beyond the Dark Portal — Horde Campaign"] },
-        { title: "Warcraft III: Reign of Chaos", items: ["Warcraft III: Reign of Chaos — Human Campaign — The Scourge of Lordaeron", "Warcraft III: Reign of Chaos — Undead Campaign — Path of the Damned", "Warcraft III: Reign of Chaos — Orc Campaign — The Invasion of Kalimdor", "Warcraft III: Reign of Chaos — Night Elf Campaign — Eternity’s End"] },
-        { title: "Warcraft III: The Frozen Throne", items: ["Warcraft III: The Frozen Throne — Night Elf Campaign — Terror of the Tides", "Warcraft III: The Frozen Throne — Human Campaign — Curse of the Blood Elves", "Warcraft III: The Frozen Throne — Undead Campaign — Legacy of the Damned", "Warcraft III: The Frozen Throne — Orc Bonus Campaign — The Founding of Durotar"] },
-        { title: "World of Warcraft — Classic", items: ["Alliance — Stormwind & Defias Brotherhood", "Alliance — Dwarves, Gnomes & Ironforge", "Alliance — Night Elves", "Horde — Orcs & Trolls", "Horde — Tauren", "Horde — Forsaken", "The Missing Diplomat", "The Scarlet Crusade", "The Black Dragonflight / Onyxia", "The Dark Iron Dwarves / Blackrock", "Ragnaros / Molten Core", "The Scourge / Argent Dawn", "Hakkar / Zul’Gurub", "The War of the Shifting Sands / Ahn’Qiraj", "Naxxramas / Kel’Thuzad"] },
-        { title: "The Burning Crusade", items: ["The Dark Portal / Invasion of Outland", "Hellfire Peninsula — Burning Legion", "Zangarmarsh — Coilfang & Naga", "Terokkar Forest — Arakkoa & Auchindoun", "Nagrand — Garrosh & the Mag’har", "Blade’s Edge Mountains — Gruul & the Gronn", "Netherstorm — Tempest Keep & Kael’thas", "Shadowmoon Valley — Illidan", "Sunwell Plateau — Kael’thas & the Burning Crusade’s End"] },
-        { title: "Wrath of the Lich King", items: ["Arrival in Northrend", "Borean Tundra — Warsong Expedition / Valiance Expedition", "Howling Fjord — Vrykul & Lich King", "Dragonblight — Wrathgate", "Grizzly Hills — Drakkari & Arugal", "Zul’Drak — Drakkari", "Sholazar Basin — Titans & the Frenzied Heart", "The Storm Peaks — Titans & Loken", "Icecrown — Assault on the Scourge", "The Argent Tournament", "The Lich King / Icecrown Citadel"] },
-        { title: "Cataclysm", items: ["The Shattering", "Kezan — Goblin Starting Experience", "Gilneas — Worgen Starting Experience", "Mount Hyjal — Guardians of Nordrassil", "Vashj’ir — Naga & Neptulon", "Deepholm — World Pillar", "Uldum — Tol’vir & the Curse", "Twilight Highlands — Twilight’s Hammer", "The War Against Deathwing", "Firelands — Ragnaros", "Dragon Soul — Deathwing"] },
-        { title: "Mists of Pandaria", items: ["The Wandering Isle / Pandaren Introduction", "Arrival in Pandaria", "The Jade Forest", "Valley of the Four Winds / Halfhill", "Krasarang Wilds", "Kun-Lai Summit", "Townlong Steppes", "Dread Wastes / Klaxxi", "The Thunder King / Isle of Thunder", "Vale of Eternal Blossoms — Garrosh Hellscream", "Siege of Orgrimmar"] },
-        { title: "Warlords of Draenor", items: ["Tanaan Jungle — The Dark Portal", "Frostfire Ridge — Horde", "Shadowmoon Valley — Alliance", "Gorgrond", "Talador", "Spires of Arak", "Nagrand", "Garrison Campaign", "Tanaan Jungle — The Iron Horde", "Archimonde / Hellfire Citadel"] },
-        { title: "Legion", items: ["The Broken Shore — Fall of the Legion", "Artifact & Class Order Campaign", "Azsuna", "Val’sharah", "Highmountain", "Stormheim", "Suramar", "The Broken Shore — Tomb of Sargeras", "Argus", "Antorus — Sargeras"] },
-        { title: "Battle for Azeroth", items: ["Battle for Lordaeron", "Kul Tiras — Tiragarde Sound", "Drustvar", "Stormsong Valley", "Zandalar — Zuldazar", "Nazmir", "Vol’dun", "The War Campaign", "Battle for Darkshore", "Battle for Arathi", "The Fate of Rastakhan / War Campaign", "Nazjatar — Azshara", "Mechagon", "Ny’alotha — N’Zoth"] },
-        { title: "Shadowlands", items: ["The Maw — Introduction", "Bastion", "Maldraxxus", "Ardenweald", "Revendreth", "Covenant Campaign", "The Maw / Torghast", "Chains of Domination / Korthia", "Zereth Mortis", "The Jailer / Sepulcher of the First Ones"] },
-        { title: "Dragonflight", items: ["The Dragon Isles — Arrival", "The Waking Shores", "Ohn’ahran Plains", "The Azure Span", "Thaldraszus", "The Forbidden Reach", "The Incarnates", "Zaralek Cavern / Aberrus", "The Emerald Dream", "Amirdrassil / Fyrakk"] },
-        { title: "The War Within", items: ["Khaz Algar — Arrival", "Isle of Dorn", "The Ringing Deeps", "Hallowfall", "Azj-Kahet", "The War Within Campaign", "Siren Isle", "Undermine", "K’aresh", "The Void / End of The War Within"] },
-        { title: "Midnight", items: ["Quel’Thalas — Arrival", "Eversong Woods", "Zul’Aman", "Harandar", "Voidstorm", "Midnight Campaign", "End of Midnight"] }
-    ]
-},
-{
-    title: "KNIHY",
-    icon: "book",
-    groups: [
-        { 
-            title: "Romány / novely", 
+const mediaData = {
+    cs: [
+        {
+            title: "HRY",
+            icon: "swords",
+            groups: [
+                { title: "Warcraft: Orcs & Humans", items: ["Warcraft: Orcs & Humans — Human Campaign", "Warcraft: Orcs & Humans — Orc Campaign"] },
+                { title: "Warcraft II: Tides of Darkness", items: ["Warcraft II: Tides of Darkness — Human Campaign", "Warcraft II: Tides of Darkness — Orc Campaign"] },
+                { title: "Warcraft II: Beyond the Dark Portal", items: ["Warcraft II: Beyond the Dark Portal — Alliance Campaign", "Warcraft II: Beyond the Dark Portal — Horde Campaign"] },
+                { title: "Warcraft III: Reign of Chaos", items: ["Warcraft III: Reign of Chaos — Human Campaign — The Scourge of Lordaeron", "Warcraft III: Reign of Chaos — Undead Campaign — Path of the Damned", "Warcraft III: Reign of Chaos — Orc Campaign — The Invasion of Kalimdor", "Warcraft III: Reign of Chaos — Night Elf Campaign — Eternity’s End"] },
+                { title: "Warcraft III: The Frozen Throne", items: ["Warcraft III: The Frozen Throne — Night Elf Campaign — Terror of the Tides", "Warcraft III: The Frozen Throne — Human Campaign — Curse of the Blood Elves", "Warcraft III: The Frozen Throne — Undead Campaign — Legacy of the Damned", "Warcraft III: The Frozen Throne — Orc Bonus Campaign — The Founding of Durotar"] },
+                { title: "World of Warcraft — Classic", items: ["Alliance — Stormwind & Defias Brotherhood", "Alliance — Dwarves, Gnomes & Ironforge", "Alliance — Night Elves", "Horde — Orcs & Trolls", "Horde — Tauren", "Horde — Forsaken", "The Missing Diplomat", "The Scarlet Crusade", "The Black Dragonflight / Onyxia", "The Dark Iron Dwarves / Blackrock", "Ragnaros / Molten Core", "The Scourge / Argent Dawn", "Hakkar / Zul’Gurub", "The War of the Shifting Sands / Ahn’Qiraj", "Naxxramas / Kel’Thuzad"] },
+                { title: "The Burning Crusade", items: ["The Dark Portal / Invasion of Outland", "Hellfire Peninsula — Burning Legion", "Zangarmarsh — Coilfang & Naga", "Terokkar Forest — Arakkoa & Auchindoun", "Nagrand — Garrosh & the Mag’har", "Blade’s Edge Mountains — Gruul & the Gronn", "Netherstorm — Tempest Keep & Kael’thas", "Shadowmoon Valley — Illidan", "Sunwell Plateau — Kael’thas & the Burning Crusade’s End"] },
+                { title: "Wrath of the Lich King", items: ["Arrival in Northrend", "Borean Tundra — Warsong Expedition / Valiance Expedition", "Howling Fjord — Vrykul & Lich King", "Dragonblight — Wrathgate", "Grizzly Hills — Drakkari & Arugal", "Zul’Drak — Drakkari", "Sholazar Basin — Titans & the Frenzied Heart", "The Storm Peaks — Titans & Loken", "Icecrown — Assault on the Scourge", "The Argent Tournament", "The Lich King / Icecrown Citadel"] },
+                { title: "Cataclysm", items: ["The Shattering", "Kezan — Goblin Starting Experience", "Gilneas — Worgen Starting Experience", "Mount Hyjal — Guardians of Nordrassil", "Vashj’ir — Naga & Neptulon", "Deepholm — World Pillar", "Uldum — Tol’vir & the Curse", "Twilight Highlands — Twilight’s Hammer", "The War Against Deathwing", "Firelands — Ragnaros", "Dragon Soul — Deathwing"] },
+                { title: "Mists of Pandaria", items: ["The Wandering Isle / Pandaren Introduction", "Arrival in Pandaria", "The Jade Forest", "Valley of the Four Winds / Halfhill", "Krasarang Wilds", "Kun-Lai Summit", "Townlong Steppes", "Dread Wastes / Klaxxi", "The Thunder King / Isle of Thunder", "Vale of Eternal Blossoms — Garrosh Hellscream", "Siege of Orgrimmar"] },
+                { title: "Warlords of Draenor", items: ["Tanaan Jungle — The Dark Portal", "Frostfire Ridge — Horde", "Shadowmoon Valley — Alliance", "Gorgrond", "Talador", "Spires of Arak", "Nagrand", "Garrison Campaign", "Tanaan Jungle — The Iron Horde", "Archimonde / Hellfire Citadel"] },
+                { title: "Legion", items: ["The Broken Shore — Fall of the Legion", "Artifact & Class Order Campaign", "Azsuna", "Val’sharah", "Highmountain", "Stormheim", "Suramar", "The Broken Shore — Tomb of Sargeras", "Argus", "Antorus — Sargeras"] },
+                { title: "Battle for Azeroth", items: ["Battle for Lordaeron", "Kul Tiras — Tiragarde Sound", "Drustvar", "Stormsong Valley", "Zandalar — Zuldazar", "Nazmir", "Vol’dun", "The War Campaign", "Battle for Darkshore", "Battle for Arathi", "The Fate of Rastakhan / War Campaign", "Nazjatar — Azshara", "Mechagon", "Ny’alotha — N’Zoth"] },
+                { title: "Shadowlands", items: ["The Maw — Introduction", "Bastion", "Maldraxxus", "Ardenweald", "Revendreth", "Covenant Campaign", "The Maw / Torghast", "Chains of Domination / Korthia", "Zereth Mortis", "The Jailer / Sepulcher of the First Ones"] },
+                { title: "Dragonflight", items: ["The Dragon Isles — Arrival", "The Waking Shores", "Ohn’ahran Plains", "The Azure Span", "Thaldraszus", "The Forbidden Reach", "The Incarnates", "Zaralek Cavern / Aberrus", "The Emerald Dream", "Amirdrassil / Fyrakk"] },
+                { title: "The War Within", items: ["Khaz Algar — Arrival", "Isle of Dorn", "The Ringing Deeps", "Hallowfall", "Azj-Kahet", "The War Within Campaign", "Siren Isle", "Undermine", "K’aresh", "The Void / End of The War Within"] },
+                { title: "Midnight", items: ["Quel’Thalas — Arrival", "Eversong Woods", "Zul’Aman", "Harandar", "Voidstorm", "Midnight Campaign", "End of Midnight"] }
+            ]
+        },
+        {
+            title: "KNIHY",
+            icon: "book",
+            groups: [
+                { 
+                    title: "novely", 
+                    groups: [
+                        {
+                            title: "Warcraft",
+                            items: ["The Last Guardian", "Day of the Dragon", "Lord of the Clans", "Of Blood and Honor"]
+                        },
+                        {
+                            title: "Válka prastarých",
+                            items: ["The Well of Eternity", "The Demon Soul", "The Sundering"]
+                        },
+                        {
+                            title: "World of Warcraft",
+                            items: ["Cycle of Hatred", "Rise of the Horde", "Tides of Darkness", "Beyond the Dark Portal", "Night of the Dragon", "Arthas: Rise of the Lich King", "Stormrage", "The Shattering: Prelude to Cataclysm", "Thrall: Twilight of the Aspects", "Wolfheart", "Jaina Proudmoore: Tides of War", "Dawn of the Aspects", "Vol’jin: Shadows of the Horde", "War Crimes", "Illidan", "Traveler", "Traveler: The Spiral Path", "Traveler: The Shining Blade", "Before the Storm", "Shadows Rising", "Sylvanas", "War of the Scaleborn", "Blood Ties"]
+                        }
+                    ]
+                },
+                { title: "Putování Azerothem", items: ["Exploring Azeroth: The Eastern Kingdoms", "Exploring Azeroth: Kalimdor", "Exploring Azeroth: Northrend", "Exploring Azeroth: Pandaria", "Exploring Azeroth: Islands and Isles"] },
+                { title: "Kroniky", items: ["World of Warcraft: Chronicle Volume 1", "World of Warcraft: Chronicle Volume 2", "World of Warcraft: Chronicle Volume 3", "World of Warcraft: Chronicle Volume 4"] }
+            ]
+        },
+        {
+            title: "KOMIKSY A MANGA",
+            icon: "scroll",
             groups: [
                 {
-                    title: "Warcraft",
-                    items: ["The Last Guardian", "Day of the Dragon", "Lord of the Clans", "Of Blood and Honor"]
+                    title: "Komiksy",
+                    groups: [
+                        {
+                            title: "World of Warcraft: The Comic series",
+                            groups: [
+                                { title: "Volume 1", items: ["Issue 0: Prologue", "Issue 1: Stranger in a Strange Land", "Issue 2: Killing Ground", "Issue 3: Destiny Awaits!", "Issue 4: Balancing the Scales", "Issue 5: The Beast Within!", "Issue 6: Blood", "Issue 7: Revelations"] },
+                                { title: "Volume 2", items: ["Issue 8: The Return", "Issue 9: Through the Mirror Darkly", "Issue 10: Last of the Line", "Issue 11: Descent", "Issue 12: The Enemy Revealed", "Issue 13: Flashback", "Issue 14: Into the Jaws of Death!"] },
+                                { title: "Volume 3", items: ["Issue 15: Conflicting Loyalties", "Issue 16: Threat!", "Issue 17: Gathering Thunder!", "Issue 18: Showdown!", "Issue 19: The Winds of War", "Issue 20: Repercussions", "Issue 21: Secrets"] },
+                                { title: "Volume 4", items: ["Issue 22: Whispers", "Issue 23: The Gathering", "Issue 24: Hard Choices", "Issue 25: Armageddon"] }
+                            ]
+                        },
+                        { title: "Ashbringer", items: ["Ashbringer"] },
+                        { title: "Wrath of the Lich King", items: ["World of Warcraft: The Comic – Special Issue: Beginnings and Ends"] },
+                        { title: "Cataclysm", items: ["Curse of the Worgen", "Dark Riders", "Bloodsworn"] },
+                        { title: "Mists of Pandaria", items: ["Pearl of Pandaria"] },
+                        { title: "Warlords of Draenor", items: ["Gul’dan and the Stranger", "Blackhand", "Blood and Thunder"] },
+                        { title: "Legion", items: ["Magni: Fault Lines", "Nightborne: Twilight of Suramar", "Highmountain: A Mountain Divided", "Anduin: Son of the Wolf"] },
+                        { title: "Battle for Azeroth", items: ["Jaina: Reunion", "Magni: The Speaker", "Windrunner: Three Sisters", "Mechagon"] },
+                        { title: "The War Within", items: ["Seasons"] },
+                        { title: "Midnight", items: ["Legacy of Rage"] }
+                    ]
                 },
                 {
-                    title: "War of the Ancients Trilogy",
-                    items: ["The Well of Eternity", "The Demon Soul", "The Sundering"]
-                },
-                {
-                    title: "World of Warcraft",
-                    items: ["Cycle of Hatred", "Rise of the Horde", "Tides of Darkness", "Beyond the Dark Portal", "Night of the Dragon", "Arthas: Rise of the Lich King", "Stormrage", "The Shattering: Prelude to Cataclysm", "Thrall: Twilight of the Aspects", "Wolfheart", "Jaina Proudmoore: Tides of War", "Dawn of the Aspects", "Vol’jin: Shadows of the Horde", "War Crimes", "Illidan", "Traveler", "Traveler: The Spiral Path", "Traveler: The Shining Blade", "Before the Storm", "Shadows Rising", "Sylvanas", "War of the Scaleborn", "Blood Ties"]
+                    title: "Manga",
+                    items: ["The Sunwell Trilogy: Dragon Hunt", "The Sunwell Trilogy: Shadows of Ice", "The Sunwell Trilogy: Ghostlands", "Warcraft Legends – Volume 1", "Warcraft Legends – Volume 2", "Warcraft Legends – Volume 3", "Warcraft Legends – Volume 4", "Warcraft Legends – Volume 5", "Death Knight", "Mage", "Shaman", "Shadow Wing: The Dragons of Outland", "Shadow Wing: Nexus Point"]
                 }
             ]
         },
-        { title: "Exploring Azeroth", items: ["Exploring Azeroth: The Eastern Kingdoms", "Exploring Azeroth: Kalimdor", "Exploring Azeroth: Northrend", "Exploring Azeroth: Pandaria", "Exploring Azeroth: Islands and Isles"] },
-        { title: "Chronicle", items: ["World of Warcraft: Chronicle Volume 1", "World of Warcraft: Chronicle Volume 2", "World of Warcraft: Chronicle Volume 3", "World of Warcraft: Chronicle Volume 4"] }
-    ]
-},
-{
-    title: "KOMIKSY / MANGA",
-    icon: "scroll",
-    groups: [
         {
-            title: "Komiksy",
+            title: "KRÁTKÉ PŘÍBĚHY",
+            icon: "quill",
             groups: [
-                {
-                    title: "World of Warcraft: The Comic series",
-                    groups: [
-                        { title: "Volume 1", items: ["Issue 0: Prologue", "Issue 1: Stranger in a Strange Land", "Issue 2: Killing Ground", "Issue 3: Destiny Awaits!", "Issue 4: Balancing the Scales", "Issue 5: The Beast Within!", "Issue 6: Blood", "Issue 7: Revelations"] },
-                        { title: "Volume 2", items: ["Issue 8: The Return", "Issue 9: Through the Mirror Darkly", "Issue 10: Last of the Line", "Issue 11: Descent", "Issue 12: The Enemy Revealed", "Issue 13: Flashback", "Issue 14: Into the Jaws of Death!"] },
-                        { title: "Volume 3", items: ["Issue 15: Conflicting Loyalties", "Issue 16: Threat!", "Issue 17: Gathering Thunder!", "Issue 18: Showdown!", "Issue 19: The Winds of War", "Issue 20: Repercussions", "Issue 21: Secrets"] },
-                        { title: "Volume 4", items: ["Issue 22: Whispers", "Issue 23: The Gathering", "Issue 24: Hard Choices", "Issue 25: Armageddon"] }
-                    ]
-                },
-                { title: "Ashbringer", items: ["Ashbringer"] },
-                { title: "Wrath of the Lich King", items: ["World of Warcraft: The Comic – Special Issue: Beginnings and Ends"] },
-                { title: "Cataclysm", items: ["Curse of the Worgen", "Dark Riders", "Bloodsworn"] },
-                { title: "Mists of Pandaria", items: ["Pearl of Pandaria"] },
-                { title: "Warlords of Draenor", items: ["Gul’dan and the Stranger", "Blackhand", "Blood and Thunder"] },
-                { title: "Legion", items: ["Magni: Fault Lines", "Nightborne: Twilight of Suramar", "Highmountain: A Mountain Divided", "Anduin: Son of the Wolf"] },
-                { title: "Battle for Azeroth", items: ["Jaina: Reunion", "Magni: The Speaker", "Windrunner: Three Sisters", "Mechagon"] },
-                { title: "The War Within", items: ["Seasons"] },
-                { title: "Midnight", items: ["Legacy of Rage"] }
+                { title: "World of Warcraft — Classic", items: ["The War of the Shifting Sands", "Road to Damnation"] },
+                { title: "The Burning Crusade", items: ["Unbroken"] },
+                { title: "Cataclysm", items: ["Charge of the Aspects", "Garrosh Hellscream: Heart of War", "Genn Greymane: Lord of His Pack", "Gallywix: Trade Secrets of a Trade Prince", "The Council of Three Hammers: Fire and Iron", "Vol’jin: The Judgment", "Gelbin Mekkatorque: Cut Short", "Baine Bloodhoof: As Our Fathers Before Us", "Tyrande & Malfurion: Seeds of Faith", "Sylvanas Windrunner: Edge of Night", "Varian Wrynn: Blood of Our Fathers", "Lor’themar Theron: In the Shadow of the Sun", "Velen: Prophet’s Lesson"] },
+                { title: "Mists of Pandaria", items: ["Quest for Pandaria – Part One", "Quest for Pandaria – Part Two", "Quest for Pandaria – Part Three", "Quest for Pandaria – Part Four", "Li Li’s Travel Journal", "The Trial of the Red Blossoms", "Bleeding Sun", "The Blank Scroll", "Death From Above", "The Strength of Steel", "Over Water", "The Untamed Valley", "The Jade Hunters"] },
+                { title: "Warlords of Draenor", items: ["Hellscream", "Code of Rule", "Apocrypha"] },
+                { title: "Legion", items: ["Dark Mirror"] },
+                { title: "Battle for Azeroth", items: ["A Good War", "Elegy", "A Moment in Verse"] },
+                { title: "Shadowlands", items: ["Terror by Torchlight", "We Ride Forth", "Visage Day"] },
+                { title: "Dragonflight", items: ["The Vow Eternal"] },
+                { title: "The War Within", items: ["A Whisper of Warning", "The Calling", "The Goblin Way", "The Lilac and the Stone", "Trials", "The Tipping Point", "Heartlands – Chapter 1", "Heartlands – Chapter 2", "Heartlands – Chapter 3", "Heartlands – Chapter 4", "Heartlands – Chapter 5", "Faith & Flame", "The Doom of K’aresh – Chapter 1", "The Doom of K’aresh – Chapter 2", "The Doom of K’aresh – Chapter 3"] },
+                { title: "Midnight", items: ["The Void Between", "Legacy of the Amani", "The Quiet at the End of Us"] }
             ]
         },
         {
-            title: "Manga",
-            items: ["The Sunwell Trilogy: Dragon Hunt", "The Sunwell Trilogy: Shadows of Ice", "The Sunwell Trilogy: Ghostlands", "Warcraft Legends – Volume 1", "Warcraft Legends – Volume 2", "Warcraft Legends – Volume 3", "Warcraft Legends – Volume 4", "Warcraft Legends – Volume 5", "Death Knight", "Mage", "Shaman", "Shadow Wing: The Dragons of Outland", "Shadow Wing: Nexus Point"]
+            title: "VIDEA",
+            icon: "shield",
+            groups: [
+                { title: "Mists of Pandaria", items: ["The Burdens of Shaohao Prelude: The Vision", "The Burdens of Shaohao Part 1: Doubt", "The Burdens of Shaohao Part 2: Despair", "The Burdens of Shaohao Part 3: Fear", "The Burdens of Shaohao Part 4: Anger", "The Burdens of Shaohao Part 5: The Sundering"] },
+                { title: "Warlords of Draenor", items: ["Lords of War - Part 1", "Lords of War - Part 2", "Lords of War - Part 3", "Lords of War - Part 4", "Lords of War - Part 5"] },
+                { title: "Legion", items: ["Harbingers: Gul’dan", "Harbingers: Khadgar", "Harbingers: Illidan"] },
+                { title: "Battle for Azeroth", items: ["Warbringers: Jaina", "Warbringers: Sylvanas", "Warbringers: Azshara", "Old Soldier", "Battle for Azeroth Cinematic Trailer", "Battle for Azeroth — Embers of War", "Lost Honor", "Safe Haven", "Terror of Darkshore", "Reckoning", "Visions of N’Zoth - Intro Cinematic"] },
+                { title: "Shadowlands", items: ["Shadowlands Launch Cinematic: “Beyond the Veil”", "Shadowlands Afterlives: Bastion", "Shadowlands Afterlives: Maldraxxus", "Shadowlands Afterlives: Ardenweald", "Shadowlands Afterlives: Revendreth"] },
+                { title: "Dragonflight", items: ["Dragonflight: Legacies, Chapter 1", "Dragonflight: Legacies, Chapter 2"] },
+                { title: "The War Within", items: ["“A Place to Call Home” Featuring AURORA", "Xal’atath Animation: Supremacy"] },
+                { title: "Midnight", items: ["“Midnight Story So Far”", "“The Bitter Truth” Part One", "“The Bitter Truth” Part Two: “A Toast”", "“The Bitter Truth” Part Three: “The Dregs”"] }
+            ]
+        }
+    ],
+    en: [
+        {
+            title: "GAMES",
+            icon: "swords",
+            groups: [
+                { title: "Warcraft: Orcs & Humans", items: ["Warcraft: Orcs & Humans — Human Campaign", "Warcraft: Orcs & Humans — Orc Campaign"] },
+                { title: "Warcraft II: Tides of Darkness", items: ["Warcraft II: Tides of Darkness — Human Campaign", "Warcraft II: Tides of Darkness — Orc Campaign"] },
+                { title: "Warcraft II: Beyond the Dark Portal", items: ["Warcraft II: Beyond the Dark Portal — Alliance Campaign", "Warcraft II: Beyond the Dark Portal — Horde Campaign"] },
+                { title: "Warcraft III: Reign of Chaos", items: ["Warcraft III: Reign of Chaos — Human Campaign — The Scourge of Lordaeron", "Warcraft III: Reign of Chaos — Undead Campaign — Path of the Damned", "Warcraft III: Reign of Chaos — Orc Campaign — The Invasion of Kalimdor", "Warcraft III: Reign of Chaos — Night Elf Campaign — Eternity’s End"] },
+                { title: "Warcraft III: The Frozen Throne", items: ["Warcraft III: The Frozen Throne — Night Elf Campaign — Terror of the Tides", "Warcraft III: The Frozen Throne — Human Campaign — Curse of the Blood Elves", "Warcraft III: The Frozen Throne — Undead Campaign — Legacy of the Damned", "Warcraft III: The Frozen Throne — Orc Bonus Campaign — The Founding of Durotar"] },
+                { title: "World of Warcraft — Classic", items: ["Alliance — Stormwind & Defias Brotherhood", "Alliance — Dwarves, Gnomes & Ironforge", "Alliance — Night Elves", "Horde — Orcs & Trolls", "Horde — Tauren", "Horde — Forsaken", "The Missing Diplomat", "The Scarlet Crusade", "The Black Dragonflight / Onyxia", "The Dark Iron Dwarves / Blackrock", "Ragnaros / Molten Core", "The Scourge / Argent Dawn", "Hakkar / Zul’Gurub", "The War of the Shifting Sands / Ahn’Qiraj", "Naxxramas / Kel’Thuzad"] },
+                { title: "The Burning Crusade", items: ["The Dark Portal / Invasion of Outland", "Hellfire Peninsula — Burning Legion", "Zangarmarsh — Coilfang & Naga", "Terokkar Forest — Arakkoa & Auchindoun", "Nagrand — Garrosh & the Mag’har", "Blade’s Edge Mountains — Gruul & the Gronn", "Netherstorm — Tempest Keep & Kael’thas", "Shadowmoon Valley — Illidan", "Sunwell Plateau — Kael’thas & the Burning Crusade’s End"] },
+                { title: "Wrath of the Lich King", items: ["Arrival in Northrend", "Borean Tundra — Warsong Expedition / Valiance Expedition", "Howling Fjord — Vrykul & Lich King", "Dragonblight — Wrathgate", "Grizzly Hills — Drakkari & Arugal", "Zul’Drak — Drakkari", "Sholazar Basin — Titans & the Frenzied Heart", "The Storm Peaks — Titans & Loken", "Icecrown — Assault on the Scourge", "The Argent Tournament", "The Lich King / Icecrown Citadel"] },
+                { title: "Cataclysm", items: ["The Shattering", "Kezan — Goblin Starting Experience", "Gilneas — Worgen Starting Experience", "Mount Hyjal — Guardians of Nordrassil", "Vashj’ir — Naga & Neptulon", "Deepholm — World Pillar", "Uldum — Tol’vir & the Curse", "Twilight Highlands — Twilight’s Hammer", "The War Against Deathwing", "Firelands — Ragnaros", "Dragon Soul — Deathwing"] },
+                { title: "Mists of Pandaria", items: ["The Wandering Isle / Pandaren Introduction", "Arrival in Pandaria", "The Jade Forest", "Valley of the Four Winds / Halfhill", "Krasarang Wilds", "Kun-Lai Summit", "Townlong Steppes", "Dread Wastes / Klaxxi", "The Thunder King / Isle of Thunder", "Vale of Eternal Blossoms — Garrosh Hellscream", "Siege of Orgrimmar"] },
+                { title: "Warlords of Draenor", items: ["Tanaan Jungle — The Dark Portal", "Frostfire Ridge — Horde", "Shadowmoon Valley — Alliance", "Gorgrond", "Talador", "Spires of Arak", "Nagrand", "Garrison Campaign", "Tanaan Jungle — The Iron Horde", "Archimonde / Hellfire Citadel"] },
+                { title: "Legion", items: ["The Broken Shore — Fall of the Legion", "Artifact & Class Order Campaign", "Azsuna", "Val’sharah", "Highmountain", "Stormheim", "Suramar", "The Broken Shore — Tomb of Sargeras", "Argus", "Antorus — Sargeras"] },
+                { title: "Battle for Azeroth", items: ["Battle for Lordaeron", "Kul Tiras — Tiragarde Sound", "Drustvar", "Stormsong Valley", "Zandalar — Zuldazar", "Nazmir", "Vol’dun", "The War Campaign", "Battle for Darkshore", "Battle for Arathi", "The Fate of Rastakhan / War Campaign", "Nazjatar — Azshara", "Mechagon", "Ny’alotha — N’Zoth"] },
+                { title: "Shadowlands", items: ["The Maw — Introduction", "Bastion", "Maldraxxus", "Ardenweald", "Revendreth", "Covenant Campaign", "The Maw / Torghast", "Chains of Domination / Korthia", "Zereth Mortis", "The Jailer / Sepulcher of the First Ones"] },
+                { title: "Dragonflight", items: ["The Dragon Isles — Arrival", "The Waking Shores", "Ohn’ahran Plains", "The Azure Span", "Thaldraszus", "The Forbidden Reach", "The Incarnates", "Zaralek Cavern / Aberrus", "The Emerald Dream", "Amirdrassil / Fyrakk"] },
+                { title: "The War Within", items: ["Khaz Algar — Arrival", "Isle of Dorn", "The Ringing Deeps", "Hallowfall", "Azj-Kahet", "The War Within Campaign", "Siren Isle", "Undermine", "K’aresh", "The Void / End of The War Within"] },
+                { title: "Midnight", items: ["Quel’Thalas — Arrival", "Eversong Woods", "Zul’Aman", "Harandar", "Voidstorm", "Midnight Campaign", "End of Midnight"] }
+            ]
+        },
+        {
+            title: "BOOKS",
+            icon: "book",
+            groups: [
+                { 
+                    title: "Novels", 
+                    groups: [
+                        {
+                            title: "Warcraft",
+                            items: ["The Last Guardian", "Day of the Dragon", "Lord of the Clans", "Of Blood and Honor"]
+                        },
+                        {
+                            title: "War of the Ancients Trilogy",
+                            items: ["The Well of Eternity", "The Demon Soul", "The Sundering"]
+                        },
+                        {
+                            title: "World of Warcraft",
+                            items: ["Cycle of Hatred", "Rise of the Horde", "Tides of Darkness", "Beyond the Dark Portal", "Night of the Dragon", "Arthas: Rise of the Lich King", "Stormrage", "The Shattering: Prelude to Cataclysm", "Thrall: Twilight of the Aspects", "Wolfheart", "Jaina Proudmoore: Tides of War", "Dawn of the Aspects", "Vol’jin: Shadows of the Horde", "War Crimes", "Illidan", "Traveler", "Traveler: The Spiral Path", "Traveler: The Shining Blade", "Before the Storm", "Shadows Rising", "Sylvanas", "War of the Scaleborn", "Blood Ties"]
+                        }
+                    ]
+                },
+                { title: "Exploring Azeroth", items: ["Exploring Azeroth: The Eastern Kingdoms", "Exploring Azeroth: Kalimdor", "Exploring Azeroth: Northrend", "Exploring Azeroth: Pandaria", "Exploring Azeroth: Islands and Isles"] },
+                { title: "Chronicle", items: ["World of Warcraft: Chronicle Volume 1", "World of Warcraft: Chronicle Volume 2", "World of Warcraft: Chronicle Volume 3", "World of Warcraft: Chronicle Volume 4"] }
+            ]
+        },
+        {
+            title: "COMICS AND MANGA",
+            icon: "scroll",
+            groups: [
+                {
+                    title: "Comics",
+                    groups: [
+                        {
+                            title: "World of Warcraft: The Comic series",
+                            groups: [
+                                { title: "Volume 1", items: ["Issue 0: Prologue", "Issue 1: Stranger in a Strange Land", "Issue 2: Killing Ground", "Issue 3: Destiny Awaits!", "Issue 4: Balancing the Scales", "Issue 5: The Beast Within!", "Issue 6: Blood", "Issue 7: Revelations"] },
+                                { title: "Volume 2", items: ["Issue 8: The Return", "Issue 9: Through the Mirror Darkly", "Issue 10: Last of the Line", "Issue 11: Descent", "Issue 12: The Enemy Revealed", "Issue 13: Flashback", "Issue 14: Into the Jaws of Death!"] },
+                                { title: "Volume 3", items: ["Issue 15: Conflicting Loyalties", "Issue 16: Threat!", "Issue 17: Gathering Thunder!", "Issue 18: Showdown!", "Issue 19: The Winds of War", "Issue 20: Repercussions", "Issue 21: Secrets"] },
+                                { title: "Volume 4", items: ["Issue 22: Whispers", "Issue 23: The Gathering", "Issue 24: Hard Choices", "Issue 25: Armageddon"] }
+                            ]
+                        },
+                        { title: "Ashbringer", items: ["Ashbringer"] },
+                        { title: "Wrath of the Lich King", items: ["World of Warcraft: The Comic – Special Issue: Beginnings and Ends"] },
+                        { title: "Cataclysm", items: ["Curse of the Worgen", "Dark Riders", "Bloodsworn"] },
+                        { title: "Mists of Pandaria", items: ["Pearl of Pandaria"] },
+                        { title: "Warlords of Draenor", items: ["Gul’dan and the Stranger", "Blackhand", "Blood and Thunder"] },
+                        { title: "Legion", items: ["Magni: Fault Lines", "Nightborne: Twilight of Suramar", "Highmountain: A Mountain Divided", "Anduin: Son of the Wolf"] },
+                        { title: "Battle for Azeroth", items: ["Jaina: Reunion", "Magni: The Speaker", "Windrunner: Three Sisters", "Mechagon"] },
+                        { title: "The War Within", items: ["Seasons"] },
+                        { title: "Midnight", items: ["Legacy of Rage"] }
+                    ]
+                },
+                {
+                    title: "Manga",
+                    items: ["The Sunwell Trilogy: Dragon Hunt", "The Sunwell Trilogy: Shadows of Ice", "The Sunwell Trilogy: Ghostlands", "Warcraft Legends – Volume 1", "Warcraft Legends – Volume 2", "Warcraft Legends – Volume 3", "Warcraft Legends – Volume 4", "Warcraft Legends – Volume 5", "Death Knight", "Mage", "Shaman", "Shadow Wing: The Dragons of Outland", "Shadow Wing: Nexus Point"]
+                }
+            ]
+        },
+        {
+            title: "SHORT STORIES",
+            icon: "quill",
+            groups: [
+                { title: "World of Warcraft — Classic", items: ["The War of the Shifting Sands", "Road to Damnation"] },
+                { title: "The Burning Crusade", items: ["Unbroken"] },
+                { title: "Cataclysm", items: ["Charge of the Aspects", "Garrosh Hellscream: Heart of War", "Genn Greymane: Lord of His Pack", "Gallywix: Trade Secrets of a Trade Prince", "The Council of Three Hammers: Fire and Iron", "Vol’jin: The Judgment", "Gelbin Mekkatorque: Cut Short", "Baine Bloodhoof: As Our Fathers Before Us", "Tyrande & Malfurion: Seeds of Faith", "Sylvanas Windrunner: Edge of Night", "Varian Wrynn: Blood of Our Fathers", "Lor’themar Theron: In the Shadow of the Sun", "Velen: Prophet’s Lesson"] },
+                { title: "Mists of Pandaria", items: ["Quest for Pandaria – Part One", "Quest for Pandaria – Part Two", "Quest for Pandaria – Part Three", "Quest for Pandaria – Part Four", "Li Li’s Travel Journal", "The Trial of the Red Blossoms", "Bleeding Sun", "The Blank Scroll", "Death From Above", "The Strength of Steel", "Over Water", "The Untamed Valley", "The Jade Hunters"] },
+                { title: "Warlords of Draenor", items: ["Hellscream", "Code of Rule", "Apocrypha"] },
+                { title: "Legion", items: ["Dark Mirror"] },
+                { title: "Battle for Azeroth", items: ["A Good War", "Elegy", "A Moment in Verse"] },
+                { title: "Shadowlands", items: ["Terror by Torchlight", "We Ride Forth", "Visage Day"] },
+                { title: "Dragonflight", items: ["The Vow Eternal"] },
+                { title: "The War Within", items: ["A Whisper of Warning", "The Calling", "The Goblin Way", "The Lilac and the Stone", "Trials", "The Tipping Point", "Heartlands – Chapter 1", "Heartlands – Chapter 2", "Heartlands – Chapter 3", "Heartlands – Chapter 4", "Heartlands – Chapter 5", "Faith & Flame", "The Doom of K’aresh – Chapter 1", "The Doom of K’aresh – Chapter 2", "The Doom of K’aresh – Chapter 3"] },
+                { title: "Midnight", items: ["The Void Between", "Legacy of the Amani", "The Quiet at the End of Us"] }
+            ]
+        },
+        {
+            title: "VIDEOS",
+            icon: "shield",
+            groups: [
+                { title: "Mists of Pandaria", items: ["The Burdens of Shaohao Prelude: The Vision", "The Burdens of Shaohao Part 1: Doubt", "The Burdens of Shaohao Part 2: Despair", "The Burdens of Shaohao Part 3: Fear", "The Burdens of Shaohao Part 4: Anger", "The Burdens of Shaohao Part 5: The Sundering"] },
+                { title: "Warlords of Draenor", items: ["Lords of War - Part 1", "Lords of War - Part 2", "Lords of War - Part 3", "Lords of War - Part 4", "Lords of War - Part 5"] },
+                { title: "Legion", items: ["Harbingers: Gul’dan", "Harbingers: Khadgar", "Harbingers: Illidan"] },
+                { title: "Battle for Azeroth", items: ["Warbringers: Jaina", "Warbringers: Sylvanas", "Warbringers: Azshara", "Old Soldier", "Battle for Azeroth Cinematic Trailer", "Battle for Azeroth — Embers of War", "Lost Honor", "Safe Haven", "Terror of Darkshore", "Reckoning", "Visions of N’Zoth - Intro Cinematic"] },
+                { title: "Shadowlands", items: ["Shadowlands Launch Cinematic: “Beyond the Veil”", "Shadowlands Afterlives: Bastion", "Shadowlands Afterlives: Maldraxxus", "Shadowlands Afterlives: Ardenweald", "Shadowlands Afterlives: Revendreth"] },
+                { title: "Dragonflight", items: ["Dragonflight: Legacies, Chapter 1", "Dragonflight: Legacies, Chapter 2"] },
+                { title: "The War Within", items: ["“A Place to Call Home” Featuring AURORA", "Xal’atath Animation: Supremacy"] },
+                { title: "Midnight", items: ["“Midnight Story So Far”", "“The Bitter Truth” Part One", "“The Bitter Truth” Part Two: “A Toast”", "“The Bitter Truth” Part Three: “The Dregs”"] }
+            ]
         }
     ]
-},
-{
-    title: "SHORT STORIES",
-    icon: "quill",
-    groups: [
-        { title: "World of Warcraft — Classic", items: ["The War of the Shifting Sands", "Road to Damnation"] },
-        { title: "The Burning Crusade", items: ["Unbroken"] },
-        { title: "Cataclysm", items: ["Charge of the Aspects", "Garrosh Hellscream: Heart of War", "Genn Greymane: Lord of His Pack", "Gallywix: Trade Secrets of a Trade Prince", "The Council of Three Hammers: Fire and Iron", "Vol’jin: The Judgment", "Gelbin Mekkatorque: Cut Short", "Baine Bloodhoof: As Our Fathers Before Us", "Tyrande & Malfurion: Seeds of Faith", "Sylvanas Windrunner: Edge of Night", "Varian Wrynn: Blood of Our Fathers", "Lor’themar Theron: In the Shadow of the Sun", "Velen: Prophet’s Lesson"] },
-        { title: "Mists of Pandaria", items: ["Quest for Pandaria – Part One", "Quest for Pandaria – Part Two", "Quest for Pandaria – Part Three", "Quest for Pandaria – Part Four", "Li Li’s Travel Journal", "The Trial of the Red Blossoms", "Bleeding Sun", "The Blank Scroll", "Death From Above", "The Strength of Steel", "Over Water", "The Untamed Valley", "The Jade Hunters"] },
-        { title: "Warlords of Draenor", items: ["Hellscream", "Code of Rule", "Apocrypha"] },
-        { title: "Legion", items: ["Dark Mirror"] },
-        { title: "Battle for Azeroth", items: ["A Good War", "Elegy", "A Moment in Verse"] },
-        { title: "Shadowlands", items: ["Terror by Torchlight", "We Ride Forth", "Visage Day"] },
-        { title: "Dragonflight", items: ["The Vow Eternal"] },
-        { title: "The War Within", items: ["A Whisper of Warning", "The Calling", "The Goblin Way", "The Lilac and the Stone", "Trials", "The Tipping Point", "Heartlands – Chapter 1", "Heartlands – Chapter 2", "Heartlands – Chapter 3", "Heartlands – Chapter 4", "Heartlands – Chapter 5", "Faith & Flame", "The Doom of K’aresh – Chapter 1", "The Doom of K’aresh – Chapter 2", "The Doom of K’aresh – Chapter 3"] },
-        { title: "Midnight", items: ["The Void Between", "Legacy of the Amani", "The Quiet at the End of Us"] }
-    ]
-},
-{
-    title: "VIDEA",
-    icon: "shield",
-    groups: [
-        { title: "Mists of Pandaria", items: ["The Burdens of Shaohao Prelude: The Vision", "The Burdens of Shaohao Part 1: Doubt", "The Burdens of Shaohao Part 2: Despair", "The Burdens of Shaohao Part 3: Fear", "The Burdens of Shaohao Part 4: Anger", "The Burdens of Shaohao Part 5: The Sundering"] },
-        { title: "Warlords of Draenor", items: ["Lords of War - Part 1", "Lords of War - Part 2", "Lords of War - Part 3", "Lords of War - Part 4", "Lords of War - Part 5"] },
-        { title: "Legion", items: ["Harbingers: Gul’dan", "Harbingers: Khadgar", "Harbingers: Illidan"] },
-        { title: "Battle for Azeroth", items: ["Warbringers: Jaina", "Warbringers: Sylvanas", "Warbringers: Azshara", "Old Soldier", "Battle for Azeroth Cinematic Trailer", "Battle for Azeroth — Embers of War", "Lost Honor", "Safe Haven", "Terror of Darkshore", "Reckoning", "Visions of N’Zoth - Intro Cinematic"] },
-        { title: "Shadowlands", items: ["Shadowlands Launch Cinematic: “Beyond the Veil”", "Shadowlands Afterlives: Bastion", "Shadowlands Afterlives: Maldraxxus", "Shadowlands Afterlives: Ardenweald", "Shadowlands Afterlives: Revendreth"] },
-        { title: "Dragonflight", items: ["Dragonflight: Legacies, Chapter 1", "Dragonflight: Legacies, Chapter 2"] },
-        { title: "The War Within", items: ["“A Place to Call Home” Featuring AURORA", "Xal’atath Animation: Supremacy"] },
-        { title: "Midnight", items: ["“Midnight Story So Far”", "“The Bitter Truth” Part One", "“The Bitter Truth” Part Two: “A Toast”", "“The Bitter Truth” Part Three: “The Dregs”"] }
-    ]
-}
-];
+};
 
 const THEME_KEY = "warcraft_theme_preference";
 const MODAL_SHOWN_KEY = "warcraft_install_modal_shown";
+const LANG_KEY = "warcraft_lang_preference";
+
+const translations = {
+    cs: {
+        subtitle: "Fanouškovský checklist světa Warcraftu",
+        progressLabel: "Postup sbírky",
+        activeQuests: "AKTUÁLNÍ QUESTY",
+        emptyQuests: "Zatím nemáš rozdělané žádné položky. Zaškrtni libovolný úkol v seznamu níže.",
+        themeTitle: "Zvolte svoji frakci",
+        neutralName: "NEUTRÁLNÍ",
+        settingsTitle: "Nastavení",
+        langLabel: "Jazyk / Language",
+        settingsClose: "Uložit a zavřít",
+        itemsText: "položek",
+        inProgressText: "rozdělaných"
+    },
+    en: {
+        subtitle: "World of Warcraft Fan Checklist",
+        progressLabel: "Collection Progress",
+        activeQuests: "ACTIVE QUESTS",
+        emptyQuests: "You don't have any quests in progress yet. Check any task in the list below.",
+        themeTitle: "Choose Your Faction",
+        neutralName: "NEUTRAL",
+        settingsTitle: "Settings",
+        langLabel: "Language / Jazyk",
+        settingsClose: "Save and Close",
+        itemsText: "items",
+        inProgressText: "in progress"
+    }
+};
+
+let currentLang = "cs";
+
+function updateModalTexts(lang) {
+    const installModal = document.getElementById("installModal");
+    if (installModal) {
+        const titleEl = installModal.querySelector(".modal-title");
+        const bodyEl = installModal.querySelector(".modal-body");
+        const btnEl = installModal.querySelector(".modal-btn");
+        if (titleEl) titleEl.textContent = titleEl.getAttribute("data-" + lang);
+        if (bodyEl) bodyEl.textContent = bodyEl.getAttribute("data-" + lang);
+        if (btnEl) btnEl.textContent = btnEl.getAttribute("data-" + lang);
+    }
+}
+
+function setLanguage(lang) {
+    currentLang = lang;
+    document.getElementById("btnLangCs").classList.toggle("active", lang === "cs");
+    document.getElementById("btnLangEn").classList.toggle("active", lang === "en");
+    
+    // Překlad statických textů
+    const t = translations[lang];
+    document.getElementById("subtitleText").textContent = t.subtitle;
+    document.getElementById("progressLabelText").textContent = t.progressLabel;
+    document.getElementById("activeQuestsTitleText").textContent = t.activeQuests;
+    document.getElementById("themeTitleText").textContent = t.themeTitle;
+    document.getElementById("factionNeutralName").textContent = t.neutralName;
+    document.getElementById("settingsTitleText").textContent = t.settingsTitle;
+    document.getElementById("langLabelText").textContent = t.langLabel;
+    document.getElementById("settingsCloseBtn").textContent = t.settingsClose;
+    
+    updateModalTexts(lang);
+
+    const emptyEl = document.getElementById("activeQuestsContent").querySelector("div");
+    if (emptyEl) {
+        emptyEl.textContent = t.emptyQuests;
+    }
+
+    try { window.localStorage.setItem(LANG_KEY, lang); } catch (e) {}
+
+    renderMedia();
+    updateProgress();
+    updateGroupStates();
+}
+
+function loadSavedLanguage() {
+    try {
+        const savedLang = window.localStorage.getItem(LANG_KEY);
+        if (savedLang && translations[savedLang]) {
+            setLanguage(savedLang);
+        }
+    } catch (e) {}
+}
+
+function openSettingsModal() {
+    document.getElementById("settingsModal").style.display = "flex";
+}
+
+function closeSettingsModal() {
+    document.getElementById("settingsModal").style.display = "none";
+}
 
 function setTheme(theme) {
     document.body.classList.remove("theme-alliance", "theme-horde");
@@ -550,7 +867,6 @@ function checkFirstVisitModal() {
             document.getElementById("installModal").style.display = "flex";
         }
     } catch (e) {
-        // Fallback pro režimy, kde je localStorage nedostupný
         document.getElementById("installModal").style.display = "flex";
     }
 }
@@ -638,10 +954,10 @@ function updateGroupStates() {
     });
 
     if (activeSectionsCount === 0) {
-        activeContentContainer.innerHTML = '<div style="padding: 10px; font-style: italic; color: #8c7e62; text-align: center;">Zatím nemáš rozdělané žádné položky. Zaškrtni libovolný úkol v seznamu níže.</div>';
+        activeContentContainer.innerHTML = '<div style="padding: 10px; font-style: italic; color: #8c7e62; text-align: center;">' + translations[currentLang].emptyQuests + '</div>';
     }
 
-    document.getElementById("activeQuestsCount").textContent = activeSectionsCount + " rozdělaných";
+    document.getElementById("activeQuestsCount").textContent = activeSectionsCount + " " + translations[currentLang].inProgressText;
 }
 
 const CATEGORY_ICONS = {
@@ -728,7 +1044,7 @@ function createSection(title, node, categoryName) {
     const ids = collectIds(node);
     const count = document.createElement("div");
     count.className = "section-count";
-    count.textContent = ids.length + " položek";
+    count.textContent = ids.length + " " + translations[currentLang].itemsText;
 
     const arrow = document.createElement("div");
     arrow.className = "arrow";
@@ -774,7 +1090,7 @@ function createSectionCopy(title, node) {
     const ids = collectIds(node);
     const count = document.createElement("div");
     count.className = "section-count";
-    count.textContent = ids.length + " položek";
+    count.textContent = ids.length + " " + translations[currentLang].itemsText;
 
     const arrow = document.createElement("div");
     arrow.className = "arrow";
@@ -817,8 +1133,12 @@ function renderMedia() {
     const container = document.getElementById("mediaContainer");
     container.innerHTML = "";
     groupRegistry = [];
+    itemRegistry = {};
+    idCounters = {};
 
-    mediaData.forEach(category => {
+    const currentMediaData = mediaData[currentLang] || mediaData.cs;
+
+    currentMediaData.forEach(category => {
         const categorySection = document.createElement("div");
         categorySection.className = "media-category";
         const section = document.createElement("div");
@@ -834,7 +1154,7 @@ function renderMedia() {
         const total = category.groups.reduce((sum, group) => sum + collectIds(group).length, 0);
         const count = document.createElement("div");
         count.className = "section-count";
-        count.textContent = total + " položek";
+        count.textContent = total + " " + translations[currentLang].itemsText;
 
         const arrow = document.createElement("div");
         arrow.className = "arrow";
@@ -888,6 +1208,7 @@ function updateProgress() {
 }
 
 async function init() {
+    loadSavedLanguage();
     await loadCheckedItems();
     renderMedia();
     updateProgress();
