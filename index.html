@@ -6,7 +6,9 @@
 <title>wowCheck</title>
 <meta name="theme-color" content="#111111">
 
-<!-- Opravené absolutní cesty pro správné uložení ikony na plochu telefonu -->
+<!-- Supabase CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <link rel="icon" type="image/png" sizes="32x32" href="https://zipoe39.github.io/Warcraft-Chcecklist/favinew.png?v=3">
 <link rel="shortcut icon" type="image/png" href="https://zipoe39.github.io/Warcraft-Chcecklist/favinew.png?v=3">
 <link rel="apple-touch-icon" sizes="180x180" href="https://zipoe39.github.io/Warcraft-Chcecklist/favinew.png?v=3">
@@ -55,16 +57,40 @@ body::before {
     background: linear-gradient(90deg, transparent, #8f6924 20%, #f0d68a 50%, #8f6924 80%, transparent);
     opacity: .9;
 }
-.header-inner { max-width: 1100px; margin: 0 auto; padding: 26px 18px 20px; text-align: center; }
+.header-inner { max-width: 1100px; margin: 0 auto; padding: 26px 18px 20px; text-align: center; position: relative; }
 
-/* Úprava loga: přidán filtr pro žluto-zlatý nádech ladící s ikonami a stínem */
+/* Auth panel v hlavičce */
+.auth-panel {
+    position: absolute;
+    top: 15px;
+    right: 18px;
+    font-size: 13px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.auth-btn {
+    background: linear-gradient(180deg, #d6a84f 0%, #9c7327 100%);
+    color: #111;
+    border: 1px solid #f5dfa0;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-family: 'Cinzel', Georgia, serif;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 11px;
+}
+.auth-btn:hover { filter: brightness(1.1); }
+#userEmail { color: #d6a84f; font-weight: bold; }
+
 .header-logo { 
     max-width: 320px; 
     width: 100%; 
     height: auto; 
     margin: 0 auto 5px auto; 
     display: block; 
-    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.9)) sepia(1) saturate(5) hue-rotate(5deg) brightness(1.1); 
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.9)) sepia(0.6) saturate(2) hue-rotate(5deg) brightness(0.95) contrast(1.05); 
+    transition: filter 0.5s ease;
 }
 
 .subtitle { margin-top: 8px; color: #9e8f6c; font-size: 16px; font-weight: bold; letter-spacing: .5px; text-shadow: 0 1px 2px rgba(0,0,0,0.8); }
@@ -171,6 +197,7 @@ body.theme-alliance { background-color: #070a0e; color: #c5cbd3; }
 body.theme-alliance::before { background: radial-gradient(ellipse at 20% 0%, rgba(20, 45, 80, 0.25) 0%, transparent 60%), radial-gradient(ellipse at 80% 80%, rgba(120, 100, 40, 0.08) 0%, transparent 55%), repeating-linear-gradient(45deg, rgba(15, 25, 45, 0.03) 0px, rgba(15, 25, 45, 0.03) 2px, transparent 2px, transparent 8px), #070a0e; }
 body.theme-alliance .header { background: var(--noise-pattern), linear-gradient(135deg, #09121d 0%, #122238 60%, #0a1524 100%); border-bottom: 3px solid #8f793b; box-shadow: 0 4px 20px rgba(0,0,0,0.9), 0 0 15px rgba(20, 50, 90, 0.3); }
 body.theme-alliance .header::after { background: linear-gradient(90deg, transparent, #284c70 20%, #8f793b 50%, #284c70 80%, transparent); }
+body.theme-alliance .header-logo { filter: drop-shadow(0 4px 12px rgba(0,0,0,0.9)) sepia(1) saturate(4) hue-rotate(160deg) brightness(0.9) contrast(1.1); }
 body.theme-alliance .subtitle { color: #6a8fae; }
 body.theme-alliance .progress-label { color: #b89f56; }
 body.theme-alliance .section { background: var(--leather-pattern), linear-gradient(180deg, #0c1421 0%, #080d17 100%); border: 1px solid #1a2b42; }
@@ -192,6 +219,7 @@ body.theme-horde { background-color: #0c0808; color: #c9bcad; }
 body.theme-horde::before { background: radial-gradient(ellipse at 20% 0%, rgba(85, 20, 20, 0.25) 0%, transparent 60%), radial-gradient(ellipse at 80% 80%, rgba(40, 15, 15, 0.15) 0%, transparent 55%), repeating-linear-gradient(-45deg, rgba(35, 12, 12, 0.04) 0px, rgba(35, 12, 12, 0.04) 3px, transparent 3px, transparent 10px), #0c0808; }
 body.theme-horde .header { background: var(--noise-pattern), linear-gradient(135deg, #120b0b 0%, #301313 60%, #1a0808 100%); border-bottom: 3px solid #5e2323; box-shadow: 0 4px 20px rgba(0,0,0,0.9), 0 0 15px rgba(65, 15, 15, 0.4); }
 body.theme-horde .header::after { background: linear-gradient(90deg, transparent, #5e2323 20%, #853e2b 50%, #5e2323 80%, transparent); }
+body.theme-horde .header-logo { filter: drop-shadow(0 4px 12px rgba(0,0,0,0.9)) grayscale(0.85) brightness(0.65) contrast(1.2); }
 body.theme-horde .subtitle { color: #ab6e5a; }
 body.theme-horde .progress-label { color: #c28878; }
 body.theme-horde .section { background: var(--leather-pattern), linear-gradient(180deg, #181010 0%, #100a0a 100%); border: 1px solid #451b1b; }
@@ -208,6 +236,83 @@ body.theme-horde .footer { background: var(--noise-pattern), linear-gradient(180
 body.theme-horde .footer::before { background: linear-gradient(90deg, transparent, #5e2323 50%, transparent); }
 body.theme-horde .theme-title { color: #853e2b; }
 
+/* Styly pro modály */
+#installModal, #authModal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+.modal-dialog {
+    background: var(--leather-pattern), linear-gradient(180deg, #1c1d24 0%, #14151a 100%);
+    border: 2px solid #c99836;
+    border-radius: 8px;
+    max-width: 420px;
+    width: 100%;
+    padding: 24px 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.9), 0 0 20px rgba(201, 152, 54, 0.2);
+    position: relative;
+    color: #e4dfd2;
+}
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    background: none;
+    border: none;
+    color: #a37c33;
+    font-size: 22px;
+    cursor: pointer;
+    font-weight: bold;
+    line-height: 1;
+}
+.modal-close:hover { color: #f5dfa0; }
+.modal-title {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #f5dfa0;
+    margin-bottom: 15px;
+}
+.modal-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    background: #0b0c0f;
+    border: 1px solid #3d311d;
+    color: #e4dfd2;
+    border-radius: 4px;
+}
+.modal-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(180deg, #d6a84f 0%, #9c7327 100%);
+    color: #111;
+    font-family: 'Cinzel', Georgia, serif;
+    font-weight: 700;
+    font-size: 14px;
+    border: 1px solid #f5dfa0;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 10px;
+}
+.modal-btn:hover { filter: brightness(1.1); }
+.auth-switch {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #9e8f6c;
+    cursor: pointer;
+}
+.auth-switch:hover { color: #f5dfa0; text-decoration: underline; }
+
 @media (max-width: 700px) {
     .header-logo { max-width: 220px; }
     .main { padding: 14px 10px 40px; }
@@ -222,6 +327,35 @@ body.theme-horde .theme-title { color: #853e2b; }
 </head>
 <body>
 
+<!-- Auth Modal -->
+<div id="authModal">
+    <div class="modal-dialog">
+        <button class="modal-close" onclick="closeAuthModal()">&times;</button>
+        <div class="modal-title" id="authModalTitle">Přihlášení</div>
+        <input type="email" id="authEmail" class="modal-input" placeholder="E-mail">
+        <input type="password" id="authPassword" class="modal-input" placeholder="Heslo">
+        <button class="modal-btn" id="authSubmitBtn" onclick="handleAuth()">Přihlásit se</button>
+        <div class="auth-switch" id="authSwitchText" onclick="toggleAuthMode()">Nemáš účet? Zaregistruj se</div>
+        <div id="authError" style="color: #ff6b6b; font-size: 12px; margin-top: 8px; text-align: center;"></div>
+    </div>
+</div>
+
+<!-- Instalace Modal -->
+<div id="installModal">
+    <div class="modal-dialog">
+        <button class="modal-close" onclick="closeInstallModal()">&times;</button>
+        <div class="modal-title">Ulož si aplikaci na plochu</div>
+        <div class="modal-body" style="font-size: 14px; line-height: 1.5; margin-bottom: 20px; white-space: pre-line;">Pro pohodlnější používání si Warcraft Checklist přidej na plochu jako webovou aplikaci.
+
+🍎 iPhone / iPad:
+V Safari klepni na Sdílet → Přidat na plochu.
+
+🤖 Android:
+V prohlížeči klepni na ⋮ → Přidat na plochu nebo Nainstalovat aplikaci.</div>
+        <button class="modal-btn" onclick="closeInstallModal()">Rozumím, skrýt nápovědu</button>
+    </div>
+</div>
+
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs>
         <linearGradient id="icon-gold" x1="0" y1="0" x2="1" y2="1">
@@ -234,6 +368,10 @@ body.theme-horde .theme-title { color: #853e2b; }
 
 <header class="header">
     <div class="header-inner">
+        <div class="auth-panel" id="authPanel">
+            <span id="userEmail"></span>
+            <button class="auth-btn" id="authActionBtn" onclick="openAuthModal()">Přihlásit</button>
+        </div>
         <img class="header-logo" src="76-767609_world-of-warcraft-logo-png-loot-crate-world.png" alt="World of Warcraft">
         <div class="subtitle">Fanouškovský checklist světa Warcraftu</div>
         <div class="progress-area">
@@ -294,6 +432,15 @@ body.theme-horde .theme-title { color: #853e2b; }
 </footer>
 
 <script>
+// --- SUPABASE INICIALIZACE ---
+const SUPABASE_URL = 'https://tvojesupabaseurl.supabase.co'; // Sem vlož svůj URL z Supabase[cite: 6]
+const SUPABASE_ANON_KEY = 'tvojesecretanonkey'; // Sem vlož svůj anon/public klíč ze Supabase[cite: 6]
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+let currentUser = null;
+let isSignUpMode = false;
+
+// [Zde zůstává nezměněné pole mediaData se všemi daty pro hry, knihy atd.]
 const mediaData = [
 {
     title: "HRY",
@@ -322,7 +469,23 @@ const mediaData = [
     title: "KNIHY",
     icon: "book",
     groups: [
-        { title: "Romány / novely", items: ["The Last Guardian", "Day of the Dragon", "Lord of the Clans", "Of Blood and Honor", "The Well of Eternity", "The Demon Soul", "The Sundering", "Cycle of Hatred", "Rise of the Horde", "Tides of Darkness", "Beyond the Dark Portal", "Night of the Dragon", "Arthas: Rise of the Lich King", "Stormrage", "The Shattering: Prelude to Cataclysm", "Thrall: Twilight of the Aspects", "Wolfheart", "Jaina Proudmoore: Tides of War", "Dawn of the Aspects", "Vol’jin: Shadows of the Horde", "War Crimes", "Illidan", "Traveler", "Traveler: The Spiral Path", "Traveler: The Shining Blade", "Before the Storm", "Shadows Rising", "Sylvanas", "War of the Scaleborn", "Blood Ties"] },
+        { 
+            title: "Romány / novely", 
+            groups: [
+                {
+                    title: "Warcraft",
+                    items: ["The Last Guardian", "Day of the Dragon", "Lord of the Clans", "Of Blood and Honor"]
+                },
+                {
+                    title: "War of the Ancients Trilogy",
+                    items: ["The Well of Eternity", "The Demon Soul", "The Sundering"]
+                },
+                {
+                    title: "World of Warcraft",
+                    items: ["Cycle of Hatred", "Rise of the Horde", "Tides of Darkness", "Beyond the Dark Portal", "Night of the Dragon", "Arthas: Rise of the Lich King", "Stormrage", "The Shattering: Prelude to Cataclysm", "Thrall: Twilight of the Aspects", "Wolfheart", "Jaina Proudmoore: Tides of War", "Dawn of the Aspects", "Vol’jin: Shadows of the Horde", "War Crimes", "Illidan", "Traveler", "Traveler: The Spiral Path", "Traveler: The Shining Blade", "Before the Storm", "Shadows Rising", "Sylvanas", "War of the Scaleborn", "Blood Ties"]
+                }
+            ]
+        },
         { title: "Exploring Azeroth", items: ["Exploring Azeroth: The Eastern Kingdoms", "Exploring Azeroth: Kalimdor", "Exploring Azeroth: Northrend", "Exploring Azeroth: Pandaria", "Exploring Azeroth: Islands and Isles"] },
         { title: "Chronicle", items: ["World of Warcraft: Chronicle Volume 1", "World of Warcraft: Chronicle Volume 2", "World of Warcraft: Chronicle Volume 3", "World of Warcraft: Chronicle Volume 4"] }
     ]
@@ -394,15 +557,14 @@ const mediaData = [
 ];
 
 const THEME_KEY = "warcraft_theme_preference";
+const MODAL_SHOWN_KEY = "warcraft_install_modal_shown";
 
 function setTheme(theme) {
     document.body.classList.remove("theme-alliance", "theme-horde");
     document.getElementById("btnAlliance").classList.remove("active");
     document.getElementById("btnHorde").classList.remove("active");
     document.getElementById("btnNeutral").classList.remove("active");
-
     const metaTheme = document.querySelector('meta[name="theme-color"]');
-
     if (theme === "alliance") {
         document.body.classList.add("theme-alliance");
         document.getElementById("btnAlliance").classList.add("active");
@@ -415,7 +577,6 @@ function setTheme(theme) {
         document.getElementById("btnNeutral").classList.add("active");
         if (metaTheme) metaTheme.setAttribute("content", "#111111");
     }
-
     try { window.localStorage.setItem(THEME_KEY, theme); } catch (e) {}
 }
 
@@ -426,6 +587,82 @@ function loadSavedTheme() {
     } catch (e) {}
 }
 
+function checkFirstVisitModal() {
+    try {
+        if (!window.localStorage.getItem(MODAL_SHOWN_KEY)) {
+            document.getElementById("installModal").style.display = "flex";
+        }
+    } catch (e) {
+        document.getElementById("installModal").style.display = "flex";
+    }
+}
+
+function closeInstallModal() {
+    document.getElementById("installModal").style.display = "none";
+    try { window.localStorage.setItem(MODAL_SHOWN_KEY, "true"); } catch (e) {}
+}
+
+// --- AUTENTIFIKAČNÍ FUNKCE ---
+function openAuthModal() { document.getElementById("authModal").style.display = "flex"; }
+function closeAuthModal() { document.getElementById("authModal").style.display = "none"; document.getElementById("authError").textContent = ""; }
+
+function toggleAuthMode() {
+    isSignUpMode = !isSignUpMode;
+    document.getElementById("authModalTitle").textContent = isSignUpMode ? "Registrace" : "Přihlášení";
+    document.getElementById("authSubmitBtn").textContent = isSignUpMode ? "Zaregistrovat se" : "Přihlásit se";
+    document.getElementById("authSwitchText").textContent = isSignUpMode ? "Už máš účet? Přihlas se" : "Nemáš účet? Zaregistruj se";
+}
+
+async function handleAuth() {
+    const email = document.getElementById("authEmail").value;
+    const password = document.getElementById("authPassword").value;
+    const errEl = document.getElementById("authError");
+    errEl.textContent = "";
+
+    if (isSignUpMode) {
+        const { data, error } = await supabaseClient.auth.signUp({ email, password });
+        if (error) errEl.textContent = error.message;
+        else { alert("Registrace proběhla úspěšně! Zkontroluj e-mail pro potvrzení, nebo se přihlas."); toggleAuthMode(); }
+    } else {
+        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+        if (error) errEl.textContent = error.message;
+        else { closeAuthModal(); checkUserSession(); }
+    }
+}
+
+async function logout() {
+    await supabaseClient.auth.signOut();
+    currentUser = null;
+    checkedItems = {};
+    updateUIAuth();
+    updateProgress();
+    updateGroupStates();
+}
+
+function updateUIAuth() {
+    const emailEl = document.getElementById("userEmail");
+    const actionBtn = document.getElementById("authActionBtn");
+    if (currentUser) {
+        emailEl.textContent = currentUser.email;
+        actionBtn.textContent = "Odhlásit";
+        actionBtn.onclick = logout;
+    } else {
+        emailEl.textContent = "";
+        actionBtn.textContent = "Přihlásit";
+        actionBtn.onclick = openAuthModal;
+    }
+}
+
+async function checkUserSession() {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    currentUser = session ? session.user : null;
+    updateUIAuth();
+    await loadCheckedItems();
+    updateProgress();
+    updateGroupStates();
+}
+
+// --- UKLÁDÁNÍ A NAČÍTÁNÍ DAT ZE SUPABASE ---
 const STORAGE_KEY = "warcraft_storyline_checked_v1";
 let checkedItems = {};
 let itemRegistry = {};
@@ -433,18 +670,41 @@ let idCounters = {};
 let groupRegistry = [];
 
 async function loadCheckedItems() {
-    try {
-        const raw = window.localStorage.getItem(STORAGE_KEY);
-        checkedItems = raw ? JSON.parse(raw) : {};
-    } catch (err) {
-        checkedItems = {};
+    if (currentUser) {
+        // Načtení z cloudu (tabulka 'checklist')
+        const { data, error } = await supabaseClient
+            .from('checklist')
+            .select('checked_items')
+            .eq('user_id', currentUser.id)
+            .single();
+        
+        if (data && data.checked_items) {
+            checkedItems = data.checked_items;
+        } else {
+            checkedItems = {};
+        }
+    } else {
+        // Fallback na lokální úložiště, pokud uživatel není přihlášený
+        try {
+            const raw = window.localStorage.getItem(STORAGE_KEY);
+            checkedItems = raw ? JSON.parse(raw) : {};
+        } catch (err) {
+            checkedItems = {};
+        }
     }
 }
 
 async function saveCheckedItems() {
-    try {
-        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(checkedItems));
-    } catch (err) {}
+    if (currentUser) {
+        // Uložení do Supabase tabulky 'checklist' (upsert podle user_id)
+        await supabaseClient
+            .from('checklist')
+            .upsert({ user_id: currentUser.id, checked_items: checkedItems }, { onConflict: 'user_id' });
+    } else {
+        try {
+            window.localStorage.setItem(STORAGE_KEY, JSON.stringify(checkedItems));
+        } catch (err) {}
+    }
 }
 
 function makeId(text) {
@@ -460,7 +720,6 @@ function updateGroupStates() {
     let activeSectionsCount = 0;
     const activeContentContainer = document.getElementById("activeQuestsContent");
     activeContentContainer.innerHTML = "";
-
     const addedTitles = new Set();
 
     function collectActiveNodes(nodeData) {
@@ -504,7 +763,6 @@ function updateGroupStates() {
     if (activeSectionsCount === 0) {
         activeContentContainer.innerHTML = '<div style="padding: 10px; font-style: italic; color: #8c7e62; text-align: center;">Zatím nemáš rozdělané žádné položky. Zaškrtni libovolný úkol v seznamu níže.</div>';
     }
-
     document.getElementById("activeQuestsCount").textContent = activeSectionsCount + " rozdělaných";
 }
 
@@ -742,9 +1000,7 @@ function updateProgress() {
     const ids = Object.keys(itemRegistry);
     const total = ids.length;
     let completed = 0;
-
     ids.forEach(id => { if (checkedItems[id]) completed++; });
-
     const percentage = total === 0 ? 0 : Math.round(completed / total * 100);
 
     document.getElementById("progressText").textContent = percentage + "% XP";
@@ -752,11 +1008,12 @@ function updateProgress() {
 }
 
 async function init() {
-    await loadCheckedItems();
+    await checkUserSession();
     renderMedia();
     updateProgress();
     updateGroupStates();
     loadSavedTheme();
+    checkFirstVisitModal();
 }
 
 init();
