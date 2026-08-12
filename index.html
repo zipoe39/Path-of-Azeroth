@@ -6,9 +6,6 @@
 <title>Path of Azeroth</title>
 <meta name="theme-color" content="#111111">
 
-<!-- Supabase JS SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <!-- Opravené absolutní cesty pro správné uložení ikony na plochu telefonu -->
 <link rel="icon" type="image/png" sizes="32x32" href="https://zipoe39.github.io/Warcraft-Chcecklist/favinew.png?v=3">
 <link rel="shortcut icon" type="image/png" href="https://zipoe39.github.io/Warcraft-Chcecklist/favinew.png?v=3">
@@ -20,7 +17,7 @@
 <style>
 :root {
     --noise-pattern: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C%2Ffilter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.07'/%3E%3C%2Fsvg%3E");
-    --leather-pattern: none;
+    --leather-pattern: none; /* Oprava rozbíjení textury odstraněním SVG filtru v pozadí */
     --cz-badge-bg: rgba(214, 168, 79, 0.15);
     --cz-badge-border: rgba(214, 168, 79, 0.4);
     --cz-badge-color: #f5dfa0;
@@ -59,7 +56,7 @@ body::before {
 }
 .header-inner { max-width: 1100px; margin: 0 auto; padding: 26px 18px 20px; text-align: center; position: relative; }
 
-/* Tlačítko nastavení v pravém horním rohu */
+/* Tlačítko nastavení (ozubené kolo) v pravém horním rohu */
 .settings-btn {
     position: absolute;
     top: 18px;
@@ -271,6 +268,7 @@ body.theme-horde .footer { background: linear-gradient(180deg, #0a0606 0%, #0302
 body.theme-horde .footer::before { background: linear-gradient(90deg, transparent, #5e2323 50%, transparent); }
 body.theme-horde .theme-title { color: #853e2b; }
 
+/* Opraveno rozmazání pozadí modálu (odstraněn backdrop-filter) */
 #settingsModal, #installModal {
     display: none;
     position: fixed;
@@ -294,7 +292,7 @@ body.theme-horde .theme-title { color: #853e2b; }
     border: 4px solid #000000;
     outline: 2px solid #5c4e38;
     border-radius: 2px;
-    max-width: 360px;
+    max-width: 340px;
     width: 100%;
     padding: 32px 18px 20px 18px;
     box-shadow: 0 20px 50px rgba(0,0,0,0.95);
@@ -425,29 +423,6 @@ body.theme-horde .theme-title { color: #853e2b; }
     border-color: #f5dfa0;
 }
 
-/* Styly pro přihlašovací formulář v modálním okně */
-.auth-box {
-    background: rgba(0,0,0,0.3);
-    border: 1px solid #5c4e38;
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 12px;
-}
-.auth-input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 8px;
-    background: #14151b;
-    border: 1px solid #5c4a24;
-    color: #e4dfd2;
-    border-radius: 3px;
-    font-size: 13px;
-}
-.auth-row {
-    display: flex;
-    gap: 6px;
-}
-
 @media (max-width: 700px) {
     .header-logo { max-width: 220px; }
     .main { padding: 14px 10px 40px; }
@@ -500,21 +475,6 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
     <div class="modal-dialog">
         <div class="modal-title" id="settingsTitleText">Options</div>
         <div class="modal-body">
-            <!-- Supabase Cloud Auth Sekce -->
-            <div class="auth-box" id="authBoxSection">
-                <span class="settings-label" id="authLabelText">Cloudové Úložiště / Účet</span>
-                <div id="userInfoSection" style="display:none; margin-bottom:8px; font-size:12px; color:#f5dfa0;">
-                    Přihlášen: <span id="userEmailDisplay" style="font-weight:bold;"></span>
-                </div>
-                <input type="email" id="authEmail" class="auth-input" placeholder="Email...">
-                <input type="password" id="authPassword" class="auth-input" placeholder="Heslo...">
-                <div class="auth-row" id="authButtonsRow">
-                    <button class="modal-btn" onclick="supabaseLogin()" id="btnLoginText" style="padding:6px;">Přihlásit</button>
-                    <button class="modal-btn" onclick="supabaseRegister()" id="btnRegisterText" style="padding:6px;">Registrovat</button>
-                </div>
-                <button class="modal-btn" onclick="supabaseLogout()" id="btnLogoutText" style="display:none; padding:6px; background:linear-gradient(180deg, #444 0%, #222 100%);">Odhlásit se</button>
-            </div>
-
             <div class="settings-group" style="margin-bottom: 12px;">
                 <button class="modal-btn" onclick="openInstallModalFromSettings()" id="helpBtnText" data-cs="Nápověda / Instalace" data-en="Help / Installation">Nápověda / Instalace</button>
             </div>
@@ -607,84 +567,6 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
 </footer>
 
 <script>
-// --- SUPABASE KONFIGURACE ---
-// Zde vlož URL a ANON_KEY z tvého Supabase projektu (pokud ho používáš, jinak nechej prázdné)
-const SUPABASE_URL = '';
-const SUPABASE_ANON_KEY = '';
-
-let supabaseClient = null;
-if (window.supabase && SUPABASE_URL && SUPABASE_URL !== 'TVŮJ_SUPABASE_URL') {
-    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-}
-
-let currentUser = null;
-
-async function checkSupabaseAuth() {
-    if (!supabaseClient) return;
-    const { data: { session } } = await supabaseClient.auth.getSession();
-    currentUser = session ? session.user : null;
-    updateAuthUI();
-}
-
-function updateAuthUI() {
-    const userInfo = document.getElementById("userInfoSection");
-    const userEmail = document.getElementById("userEmailDisplay");
-    const emailInput = document.getElementById("authEmail");
-    const passInput = document.getElementById("authPassword");
-    const authBtns = document.getElementById("authButtonsRow");
-    const logoutBtn = document.getElementById("btnLogoutText");
-    const authLabel = document.getElementById("authLabelText");
-
-    if (currentUser) {
-        if (userInfo) userInfo.style.display = "block";
-        if (userEmail) userEmail.textContent = currentUser.email;
-        if (emailInput) emailInput.style.display = "none";
-        if (passInput) passInput.style.display = "none";
-        if (authBtns) authBtns.style.display = "none";
-        if (logoutBtn) logoutBtn.style.display = "block";
-        if (authLabel) authLabel.textContent = currentLang === 'cs' ? "Cloudové Úložiště (Aktivní)" : "Cloud Storage (Active)";
-    } else {
-        if (userInfo) userInfo.style.display = "none";
-        if (emailInput) emailInput.style.display = "block";
-        if (passInput) passInput.style.display = "block";
-        if (authBtns) authBtns.style.display = "flex";
-        if (logoutBtn) logoutBtn.style.display = "none";
-        if (authLabel) authLabel.textContent = currentLang === 'cs' ? "Cloudové Úložiště / Účet" : "Cloud Storage / Account";
-    }
-}
-
-async function supabaseLogin() {
-    if (!supabaseClient) { alert("Supabase není nastaven!"); return; }
-    const email = document.getElementById("authEmail").value;
-    const password = document.getElementById("authPassword").value;
-    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-    if (error) { alert("Chyba při přihlášení: " + error.message); } 
-    else { currentUser = data.user; updateAuthUI(); loadCheckedItems(); alert("Úspěšně přihlášen!"); }
-}
-
-async function supabaseRegister() {
-    if (!supabaseClient) { alert("Supabase není nastaven!"); return; }
-    const email = document.getElementById("authEmail").value;
-    const password = document.getElementById("authPassword").value;
-    const { data, error } = await supabaseClient.auth.signUp({ email, password });
-    if (error) { alert("Chyba při registraci: " + error.message); } 
-    else { alert("Registrace proběhla! Zkontroluj svůj e-mail pro potvrzení (pokud je vyžadováno)."); }
-}
-
-async function supabaseLogout() {
-    if (!supabaseClient) return;
-    await supabaseClient.auth.signOut();
-    currentUser = null;
-    updateAuthUI();
-    checkedItems = {};
-    renderMedia();
-    updateProgress();
-    updateGroupStates();
-    alert("Odhlášeno.");
-}
-
-// -------------------------------------------------------------------------
-
 const mediaData = {
     cs: [
         {
@@ -982,7 +864,6 @@ function setLanguage(lang) {
     document.getElementById("settingsCloseBtn").textContent = t.settingsClose;
     
     updateModalTexts(lang);
-    updateAuthUI();
 
     const emptyEl = document.getElementById("activeQuestsContent").querySelector("div");
     if (emptyEl) {
@@ -1075,20 +956,6 @@ let groupRegistry = [];
 
 async function loadCheckedItems() {
     try {
-        if (supabaseClient && currentUser) {
-            // Načtení dat ze Supabase cloudu
-            const { data, error } = await supabaseClient
-                .from('user_progress')
-                .select('progress_data')
-                .eq('user_id', currentUser.id)
-                .single();
-            
-            if (data && data.progress_data) {
-                checkedItems = data.progress_data;
-                return;
-            }
-        }
-        // Fallback na lokální úložiště
         const raw = window.localStorage.getItem(STORAGE_KEY);
         checkedItems = raw ? JSON.parse(raw) : {};
     } catch (err) {
@@ -1098,15 +965,7 @@ async function loadCheckedItems() {
 
 async function saveCheckedItems() {
     try {
-        // Vždy uložení lokálně jako záloha
         window.localStorage.setItem(STORAGE_KEY, JSON.stringify(checkedItems));
-
-        // Uložení do Supabase cloudu, pokud je uživatel přihlášený
-        if (supabaseClient && currentUser) {
-            await supabaseClient
-                .from('user_progress')
-                .upsert({ user_id: currentUser.id, progress_data: checkedItems, updated_at: new Date() });
-        }
     } catch (err) {}
 }
 
@@ -1473,7 +1332,6 @@ function updateProgress() {
 
 async function init() {
     loadSavedLanguage();
-    await checkSupabaseAuth();
     await loadCheckedItems();
     renderMedia();
     updateProgress();
