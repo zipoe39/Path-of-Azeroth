@@ -608,7 +608,6 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
 
 <script>
 // --- SUPABASE KONFIGURACE ---
-// Zde si doplň své reálné Supabase URL a ANON_KEY
 const SUPABASE_URL = 'https://eybirvryvjscoknlykco.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_N0lbsNGfmweK9M5DwvWI1Q_o5yBY0MJ';
 
@@ -1084,15 +1083,15 @@ let groupRegistry = [];
 async function loadCheckedItems() {
     try {
         if (supabaseClient && currentUser) {
-            // Načtení dat ze Supabase cloudu
+            // Načtení dat ze Supabase cloudu z tabulky 'checked_items'
             const { data, error } = await supabaseClient
-                .from('user_progress')
-                .select('progress_data')
+                .from('checked_items')
+                .select('checked_items')
                 .eq('user_id', currentUser.id)
                 .maybeSingle();
             
-            if (data && data.progress_data) {
-                checkedItems = data.progress_data;
+            if (data && data.checked_items) {
+                checkedItems = data.checked_items;
                 return;
             }
         }
@@ -1109,11 +1108,11 @@ async function saveCheckedItems() {
         // Vždy uložení lokálně jako záloha
         window.localStorage.setItem(STORAGE_KEY, JSON.stringify(checkedItems));
 
-        // Uložení do Supabase cloudu, pokud je uživatel přihlášený
+        // Uložení do Supabase cloudu do tabulky 'checked_items'
         if (supabaseClient && currentUser) {
             await supabaseClient
-                .from('user_progress')
-                .upsert({ user_id: currentUser.id, progress_data: checkedItems, updated_at: new Date() });
+                .from('checked_items')
+                .upsert({ user_id: currentUser.id, checked_items: checkedItems });
         }
     } catch (err) {}
 }
