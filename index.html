@@ -244,34 +244,78 @@ body.theme-horde .footer { background: var(--noise-pattern), linear-gradient(180
 body.theme-horde .footer::before { background: linear-gradient(90deg, transparent, #5e2323 50%, transparent); }
 body.theme-horde .theme-title { color: #853e2b; }
 
-/* Styly pro nápovědné vyskakovací okno */
-#installModal, #settingsModal {
+/* Styly pro nápovědné vyskakovací okno sjednocené se stylem nastavení */
+#installModal {
     display: none;
     position: fixed;
     inset: 0;
     z-index: 9999;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(4px);
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(3px);
     align-items: center;
     justify-content: center;
     padding: 16px;
-    animation: fadeInModal 0.3s ease;
+    animation: fadeInModal 0.2s ease;
 }
+
+/* Věrný WoW panel styl pro Nastavení a Install modál */
+#settingsModal, #installModal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(3px);
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    animation: fadeInModal 0.2s ease;
+}
+
 @keyframes fadeInModal {
     from { opacity: 0; }
     to { opacity: 1; }
 }
-.modal-dialog {
-    background: var(--leather-pattern), linear-gradient(180deg, #1c1d24 0%, #14151a 100%);
-    border: 2px solid #c99836;
-    border-radius: 8px;
-    max-width: 480px;
+
+/* Věrné WoW game menu okno pro Nastavení i Install */
+#settingsModal .modal-dialog, #installModal .modal-dialog {
+    background-color: #3b2c1e;
+    background-image: 
+        radial-gradient(circle at 50% 50%, rgba(50,35,22,0.6) 0%, rgba(20,13,8,0.85) 100%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='leather'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.2' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23leather)' opacity='0.12'/%3E%3C/svg%3E");
+    border: 4px solid #000000;
+    outline: 2px solid #5c4e38;
+    border-radius: 2px;
+    max-width: 340px;
     width: 100%;
-    padding: 24px 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.9), 0 0 20px rgba(201, 152, 54, 0.2);
+    padding: 32px 18px 20px 18px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.95), inset 0 0 30px rgba(0,0,0,0.6);
+    text-align: center;
     position: relative;
     color: #e4dfd2;
 }
+
+/* Nadpis v horním metalickém rámečku přesně jako ve WoW */
+#settingsModal .modal-title, #installModal .modal-title {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffcc00;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: linear-gradient(180deg, #1f1f1f 0%, #0d0d0d 100%);
+    border: 3px solid #000000;
+    outline: 1px solid #5c4e38;
+    padding: 6px 16px;
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.8);
+    text-shadow: 0 1px 2px #000;
+    white-space: nowrap;
+}
+
 .modal-close {
     position: absolute;
     top: 12px;
@@ -287,39 +331,78 @@ body.theme-horde .theme-title { color: #853e2b; }
 .modal-close:hover {
     color: #f5dfa0;
 }
-.modal-title {
-    font-family: 'Cinzel', Georgia, serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: #f5dfa0;
-    margin-bottom: 12px;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
-}
+
 .modal-body {
-    font-size: 14px;
+    font-size: 13px;
     line-height: 1.5;
     color: #dcd3be;
     white-space: pre-line;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
+    margin-top: 6px;
+    text-align: left;
 }
-.modal-btn {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    background: linear-gradient(180deg, #d6a84f 0%, #9c7327 100%);
-    color: #111;
+
+/* WoW stylování tlačítek (červený vzhled přesně dle předlohy) */
+#settingsModal .lang-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+#settingsModal .lang-btn, 
+#settingsModal .modal-btn,
+#installModal .modal-btn {
+    background: linear-gradient(180deg, #7a1b1b 0%, #520c0c 50%, #330505 100%);
+    border: 2px solid #000000;
+    outline: 1px solid #5c4e38;
+    color: #e4dfd2;
     font-family: 'Cinzel', Georgia, serif;
     font-weight: 700;
-    font-size: 14px;
-    border: 1px solid #f5dfa0;
-    border-radius: 4px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    padding: 10px 14px;
+    border-radius: 2px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 3px 6px rgba(0,0,0,0.7);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.9);
+    transition: all 0.15s ease;
     cursor: pointer;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-    transition: filter 0.2s ease;
+    width: 100%;
 }
-.modal-btn:hover {
-    filter: brightness(1.1);
+
+#settingsModal .lang-btn:hover, 
+#settingsModal .modal-btn:hover,
+#installModal .modal-btn:hover {
+    background: linear-gradient(180deg, #992222 0%, #661010 50%, #420707 100%);
+    border-color: #000;
+    outline-color: #8c6e3b;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 4px 8px rgba(0,0,0,0.8), 0 0 8px rgba(180, 50, 50, 0.4);
+}
+
+#settingsModal .lang-btn.active {
+    background: linear-gradient(180deg, #ad2b2b 0%, #751515 50%, #520c0c 100%);
+    outline-color: #ffcc00;
+    color: #ffcc00;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.8), 0 0 10px rgba(255, 204, 0, 0.25);
+}
+
+#settingsModal .settings-label {
+    color: #d1b888;
+    font-size: 12px;
+    text-shadow: 0 1px 2px #000;
+    margin-bottom: 6px;
+    text-align: center;
+    letter-spacing: 1px;
+    font-family: 'Cinzel', Georgia, serif;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* Skrytí křížku v herním menu */
+#settingsModal .modal-close {
+    display: none;
 }
 
 /* Styly pro výběr jazyka v nastavení */
@@ -374,10 +457,9 @@ body.theme-horde .theme-title { color: #853e2b; }
 </head>
 <body>
 
-<!-- Vyskakovací okno (Modál) pro instalaci -->
+<!-- Vyskakovací okno (Modál) pro instalaci ve stejném WoW designu -->
 <div id="installModal">
     <div class="modal-dialog">
-        <button class="modal-close" onclick="closeInstallModal()">&times;</button>
         <div class="modal-title" data-cs="Ulož si aplikaci na plochu" data-en="Save App to Home Screen">Ulož si aplikaci na plochu</div>
         <div class="modal-body" data-cs="Pro pohodlnější používání si Warcraft Checklist přidej na plochu jako webovou aplikaci.
 
@@ -408,11 +490,10 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
     </div>
 </div>
 
-<!-- Vyskakovací okno pro Nastavení -->
+<!-- Vyskakovací okno pro Nastavení přesně ve stylu WoW game menu -->
 <div id="settingsModal">
     <div class="modal-dialog">
-        <button class="modal-close" onclick="closeSettingsModal()">&times;</button>
-        <div class="modal-title" id="settingsTitleText">Nastavení</div>
+        <div class="modal-title" id="settingsTitleText">Options</div>
         <div class="modal-body">
             <div class="settings-group">
                 <span class="settings-label" id="langLabelText">Jazyk / Language</span>
@@ -422,7 +503,7 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
                 </div>
             </div>
         </div>
-        <button class="modal-btn" onclick="closeSettingsModal()" id="settingsCloseBtn">Uložit a zavřít</button>
+        <button class="modal-btn" onclick="closeSettingsModal()" id="settingsCloseBtn">Return to Game</button>
     </div>
 </div>
 
@@ -747,9 +828,9 @@ const translations = {
         emptyQuests: "Zatím nemáš rozdělané žádné položky. Zaškrtni libovolný úkol v seznamu níže.",
         themeTitle: "Zvolte svoji frakci",
         neutralName: "NEUTRÁLNÍ",
-        settingsTitle: "Nastavení",
+        settingsTitle: "Options",
         langLabel: "Jazyk / Language",
-        settingsClose: "Uložit a zavřít",
+        settingsClose: "Return to Game",
         itemsText: "položek",
         inProgressText: "rozdělaných"
     },
@@ -760,9 +841,9 @@ const translations = {
         emptyQuests: "You don't have any quests in progress yet. Check any task in the list below.",
         themeTitle: "Choose Your Faction",
         neutralName: "NEUTRAL",
-        settingsTitle: "Settings",
+        settingsTitle: "Options",
         langLabel: "Language / Jazyk",
-        settingsClose: "Save and Close",
+        settingsClose: "Return to Game",
         itemsText: "items",
         inProgressText: "in progress"
     }
@@ -1190,7 +1271,6 @@ function renderMedia() {
     const aqHeader = document.getElementById("activeQuestsHeader");
     const aqSection = aqHeader.parentElement;
     
-    // Odstranění starého klonu/listenerů a přidání funkčního kliknutí pro oba jazyky
     const newAqHeader = aqHeader.cloneNode(true);
     aqHeader.parentNode.replaceChild(newAqHeader, aqHeader);
     
