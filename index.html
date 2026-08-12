@@ -1189,7 +1189,12 @@ function renderMedia() {
 
     const aqHeader = document.getElementById("activeQuestsHeader");
     const aqSection = aqHeader.parentElement;
-    aqHeader.addEventListener("click", () => {
+    
+    // Odstranění starého klonu/listenerů a přidání funkčního kliknutí pro oba jazyky
+    const newAqHeader = aqHeader.cloneNode(true);
+    aqHeader.parentNode.replaceChild(newAqHeader, aqHeader);
+    
+    newAqHeader.addEventListener("click", () => {
         aqSection.classList.toggle("open");
     });
 }
