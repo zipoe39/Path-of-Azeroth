@@ -9,10 +9,10 @@
 <!-- Supabase JS SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<!-- Opravené relativní cesty pro správné načtení favicony na GitHub Pages -->
-<link rel="icon" type="image/png" sizes="32x32" href="./favinew.png?v=3">
-<link rel="shortcut icon" type="image/png" href="./favinew.png?v=3">
-<link rel="apple-touch-icon" sizes="180x180" href="./favinew.png?v=3">
+<!-- Opravené absolutní cesty pro správné uložení ikony na plochu telefonu -->
+<link rel="icon" type="image/png" sizes="32x32" href="https://zipoe39.github.io/Warcraft-Chcecklist/favinew.png?v=3">
+<link rel="shortcut icon" type="image/png" href="https://zipoe39.github.io/Warcraft-Chcecklist/favinew.png?v=3">
+<link rel="apple-touch-icon" sizes="180x180" href="https://zipoe39.github.io/Warcraft-Chcecklist/favinew.png?v=3">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1518,12 +1518,6 @@ function updateProgress() {
     const currentMediaData = mediaData[currentLang] || mediaData.cs;
     let total = 0;
     let completed = 0;
-
-    currentMediaData.forEach((category, catIdx) => {
-        category.groups.groups.forEach((group, grpIdx) => {
-            // Bezpečná kontrola
-        });
-    });
 
     currentMediaData.forEach((category, catIdx) => {
         category.groups.forEach((group, grpIdx) => {
