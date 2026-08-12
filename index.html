@@ -17,17 +17,18 @@
 <style>
 :root {
     --noise-pattern: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C%2Ffilter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.07'/%3E%3C%2Fsvg%3E");
-    --leather-pattern: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='leather'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.15' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C%2Ffilter%3E%3Crect width='100%25' height='100%25' filter='url(%23leather)' opacity='0.04'/%3E%3C%2Fsvg%3E");
+    --leather-pattern: none; /* Oprava rozbíjení textury odstraněním SVG filtru v pozadí */
+    --cz-badge-bg: rgba(214, 168, 79, 0.15);
+    --cz-badge-border: rgba(214, 168, 79, 0.4);
+    --cz-badge-color: #f5dfa0;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; height: 100%; }
 body {
     margin: 0;
     background-color: #0b0c0f;
-    background-image: var(--noise-pattern);
     color: #e4dfd2;
     font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
-    transition: background 0.5s ease, color 0.5s ease;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -39,14 +40,12 @@ body::before {
     z-index: -1;
     pointer-events: none;
     background: radial-gradient(ellipse at 20% 0%, rgba(130, 80, 30, 0.15) 0%, transparent 55%), radial-gradient(ellipse at 80% 10%, rgba(0, 0, 0, 0.8) 0%, transparent 55%), #0b0c0f;
-    transition: background 0.5s ease;
 }
 .header {
-    background: var(--noise-pattern), linear-gradient(180deg, rgba(30,22,15,0.9) 0%, rgba(15,16,21,0.95) 60%), #14151b;
+    background: linear-gradient(180deg, rgba(30,22,15,0.95) 0%, rgba(15,16,21,0.98) 60%), #14151b;
     border-bottom: 3px solid #6b4e1b;
     box-shadow: inset 0 -2px 10px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,0.8), 0 0 15px rgba(107, 78, 27, 0.3);
     position: relative;
-    transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
 }
 .header::after {
     content: "";
@@ -62,7 +61,7 @@ body::before {
     position: absolute;
     top: 18px;
     right: 18px;
-    background: rgba(20, 21, 27, 0.8);
+    background: rgba(20, 21, 27, 0.9);
     border: 2px solid #6b4e1b;
     border-radius: 50%;
     width: 42px;
@@ -72,7 +71,6 @@ body::before {
     justify-content: center;
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0,0,0,0.6);
-    transition: all 0.2s ease;
     z-index: 10;
 }
 .settings-btn:hover {
@@ -90,7 +88,6 @@ body::before {
     transform: rotate(90deg);
 }
 
-/* Úprava loga: ztlumený filtr, aby žlutá nebyla tak agresivní */
 .header-logo { 
     max-width: 320px; 
     width: 100%; 
@@ -98,7 +95,6 @@ body::before {
     margin: 0 auto 5px auto; 
     display: block; 
     filter: drop-shadow(0 4px 12px rgba(0,0,0,0.9)) sepia(0.6) saturate(2) hue-rotate(5deg) brightness(0.95) contrast(1.05); 
-    transition: filter 0.5s ease;
 }
 
 .subtitle { margin-top: 8px; color: #9e8f6c; font-size: 16px; font-weight: bold; letter-spacing: .5px; text-shadow: 0 1px 2px rgba(0,0,0,0.8); }
@@ -106,13 +102,13 @@ body::before {
 .progress-label { font-size: 11px; color: #918263; margin-bottom: 6px; text-align: center; letter-spacing: 1.5px; text-transform: uppercase; font-family: 'Cinzel', Georgia, serif; text-shadow: 0 1px 2px #000; }
 .progress-bar {
     position: relative; height: 26px;
-    background: var(--noise-pattern), linear-gradient(180deg, #050505 0%, #17120a 50%, #0c0904 100%);
+    background: linear-gradient(180deg, #050505 0%, #17120a 50%, #0c0904 100%);
     border: 2px solid #5c4a24; border-radius: 13px; overflow: hidden;
     box-shadow: inset 0 3px 6px rgba(0,0,0,0.9), inset 0 -1px 0 rgba(255,255,255,.04), 0 0 0 1px #241b0c, 0 1px 0 rgba(255,255,255,.1);
 }
 .progress-fill {
     position: relative; height: 100%; width: 0%;
-    background: var(--leather-pattern), linear-gradient(180deg, #5bb3ff 0%, #1e73e8 50%, #0042a5 100%);
+    background: linear-gradient(180deg, #5bb3ff 0%, #1e73e8 50%, #0042a5 100%);
     box-shadow: 0 0 14px rgba(66, 153, 225, 0.7), 0 0 4px rgba(147, 197, 253, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.6), inset 0 -2px 4px rgba(0, 20, 50, 0.4);
     transition: width .5s cubic-bezier(.22,.7,.2,1); border-radius: 11px;
 }
@@ -133,13 +129,12 @@ body::before {
 .main { max-width: 1100px; width: 100%; margin: 0 auto; padding: 20px 18px 60px; flex: 1 0 auto; }
 .section {
     margin-bottom: 10px;
-    background: var(--leather-pattern), linear-gradient(180deg, #16171d 0%, #111216 100%);
+    background: linear-gradient(180deg, #16171d 0%, #111216 100%);
     border: 1px solid #3d311d; border-radius: 5px; overflow: hidden;
     box-shadow: inset 0 1px 1px rgba(255,255,255,0.05), 0 4px 10px rgba(0,0,0,0.5);
-    transition: background 0.5s ease, border-color 0.5s ease;
 }
 #activeQuestsCategory .section {
-    background: var(--leather-pattern), linear-gradient(180deg, #2c2514 0%, #1f1a0e 100%);
+    background: linear-gradient(180deg, #2c2514 0%, #1f1a0e 100%);
     border: 1px solid #c99836;
     box-shadow: inset 0 1px 2px rgba(255,220,130,0.15), 0 4px 12px rgba(0,0,0,0.6);
 }
@@ -151,7 +146,6 @@ body::before {
     padding: 14px 16px; cursor: pointer; user-select: none;
     border-left: 3px solid transparent !important;
     background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0.2) 100%);
-    transition: background .15s ease;
 }
 .section-header:hover { background: rgba(212, 175, 55, 0.05); }
 .section-title { font-family: 'Cinzel', Georgia, serif; font-weight: 700; font-size: 14px; color: #dcd3be; letter-spacing: .3px; text-shadow: 0 1px 2px rgba(0,0,0,0.8); }
@@ -160,19 +154,37 @@ body::before {
 .arrow::before { content: "+"; }
 .section.open > .section-header > .arrow { width: 9px; height: 9px; border-right: 2px solid #a37c33; border-bottom: 2px solid #a37c33; transform: rotate(225deg); font-size: 0; }
 .section.open > .section-header > .arrow::before { content: ""; }
-.section-content { display: none; padding: 10px 12px 12px; background: rgba(0, 0, 0, 0.25); box-shadow: inset 0 3px 6px rgba(0,0,0,0.6); }
+.section-content { display: none; padding: 10px 12px 12px; background: rgba(0, 0, 0, 0.35); box-shadow: inset 0 3px 6px rgba(0,0,0,0.6); }
 .section.open > .section-content { display: block; }
-.item { display: flex; align-items: flex-start; gap: 10px; padding: 9px 8px; border-top: 1px solid #211e17; line-height: 1.4; font-size: 14px; color: #c0b8a3; }
+
+.item { display: flex; align-items: center; gap: 10px; padding: 9px 8px; border-top: 1px solid #211e17; line-height: 1.4; font-size: 14px; color: #c0b8a3; }
 .item:first-child { border-top: 0; }
-.item input { flex: 0 0 auto; margin-top: 3px; width: 16px; height: 16px; accent-color: #c99836; cursor: pointer; }
+.item input { flex: 0 0 auto; width: 16px; height: 16px; accent-color: #c99836; cursor: pointer; margin-top: 0; }
 .item label { cursor: pointer; flex: 1; }
 .item.completed label { color: #544e40; text-decoration: line-through; }
+
+.cz-badge {
+    flex: 0 0 auto;
+    margin-left: auto;
+    background: var(--cz-badge-bg);
+    border: 1px solid var(--cz-badge-border);
+    color: var(--cz-badge-color);
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 3px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    pointer-events: none;
+}
+
 .media-category { margin-bottom: 12px; }
 .media-category .section-title { font-size: 18px; color: #f3dd98; display: flex; align-items: center; gap: 10px; }
 .category-icon { flex: 0 0 auto; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; }
 .category-icon svg { width: 18px; height: 18px; display: block; }
-.media-category > .section { border-color: #54421e; background: var(--leather-pattern), linear-gradient(180deg, #1c1d24 0%, #14151a 100%); }
-.media-category .section-content .section { background: var(--noise-pattern), #14151b; border: 1px solid #3d311d; border-radius: 4px; margin: 6px 0 6px 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.4); }
+.media-category > .section { border-color: #54421e; background: linear-gradient(180deg, #1c1d24 0%, #14151a 100%); }
+.media-category .section-content .section { background: #14151b; border: 1px solid #3d311d; border-radius: 4px; margin: 6px 0 6px 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.4); }
 .check, .in-progress { display: none; flex: 0 0 auto; width: 17px; height: 17px; text-align: center; border-radius: 50%; }
 .check { line-height: 17px; font-size: 12px; font-weight: 700; color: #051408; background: #3cd070; box-shadow: 0 0 10px rgba(60, 208, 112, 0.4); }
 .section.complete > .section-header > .check { display: block; }
@@ -184,11 +196,11 @@ body::before {
 .section.in-progress-state > .section-header > .in-progress { display: flex; }
 .section.in-progress-state > .section-header > .section-title { color: #f3dd98; }
 .section.in-progress-state > .section-header { border-left-color: #d6a84f; }
-.footer { border-top: 2px solid #4a3819; background: var(--noise-pattern), linear-gradient(180deg, #0d0e11 0%, #050507 100%); padding: 30px 18px 40px; text-align: center; position: relative; margin-top: auto; width: 100%; }
+.footer { border-top: 2px solid #4a3819; background: linear-gradient(180deg, #0d0e11 0%, #050507 100%); padding: 30px 18px 40px; text-align: center; position: relative; margin-top: auto; width: 100%; }
 .footer::before { content: ""; position: absolute; top: -4px; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, #d6a84f 50%, transparent); opacity: 0.7; }
 .theme-title { font-family: 'Cinzel', Georgia, serif; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #8c7e62; margin-bottom: 18px; text-shadow: 0 1px 2px #000; }
 .faction-container { display: flex; justify-content: center; align-items: center; gap: 30px; flex-wrap: wrap; }
-.faction-card { display: flex; flex-direction: column; align-items: center; cursor: pointer; background: var(--leather-pattern), linear-gradient(180deg, rgba(25, 27, 36, 0.8) 0%, rgba(12, 13, 18, 0.9) 100%); border: 2px solid #3d3019; border-radius: 10px; padding: 12px 20px; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); position: relative; user-select: none; width: 140px; box-shadow: inset 0 1px 1px rgba(255,255,255,0.05), 0 4px 10px rgba(0,0,0,0.6); }
+.faction-card { display: flex; flex-direction: column; align-items: center; cursor: pointer; background: linear-gradient(180deg, rgba(25, 27, 36, 0.9) 0%, rgba(12, 13, 18, 0.95) 100%); border: 2px solid #3d3019; border-radius: 10px; padding: 12px 20px; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); position: relative; user-select: none; width: 140px; box-shadow: inset 0 1px 1px rgba(255,255,255,0.05), 0 4px 10px rgba(0,0,0,0.6); }
 .faction-card:hover { transform: translateY(-4px) scale(1.03); }
 .faction-card.alliance:hover, .faction-card.alliance.active { border-color: #8f793b; box-shadow: 0 0 15px rgba(23, 42, 69, 0.8), inset 0 0 10px rgba(15, 28, 48, 0.8); background: linear-gradient(135deg, #09121d 0%, #102136 60%, #08111a 100%); }
 .faction-card.horde:hover, .faction-card.horde.active { border-color: #853e2b; box-shadow: 0 0 15px rgba(64, 18, 18, 0.8), inset 0 0 10px rgba(45, 12, 12, 0.8); background: linear-gradient(135deg, #120b0b 0%, #301313 60%, #1a0808 100%); }
@@ -201,15 +213,21 @@ body::before {
 .faction-card.neutral .faction-name { color: #f0d68a; }
 
 /* Alliance Theme */
-body.theme-alliance { background-color: #070a0e; color: #c5cbd3; }
-body.theme-alliance::before { background: radial-gradient(ellipse at 20% 0%, rgba(20, 45, 80, 0.25) 0%, transparent 60%), radial-gradient(ellipse at 80% 80%, rgba(120, 100, 40, 0.08) 0%, transparent 55%), repeating-linear-gradient(45deg, rgba(15, 25, 45, 0.03) 0px, rgba(15, 25, 45, 0.03) 2px, transparent 2px, transparent 8px), #070a0e; }
-body.theme-alliance .header { background: var(--noise-pattern), linear-gradient(135deg, #09121d 0%, #122238 60%, #0a1524 100%); border-bottom: 3px solid #8f793b; box-shadow: 0 4px 20px rgba(0,0,0,0.9), 0 0 15px rgba(20, 50, 90, 0.3); }
+body.theme-alliance { 
+    background-color: #070a0e; 
+    color: #c5cbd3; 
+    --cz-badge-bg: rgba(143, 121, 59, 0.15);
+    --cz-badge-border: rgba(143, 121, 59, 0.4);
+    --cz-badge-color: #d4bc74;
+}
+body.theme-alliance::before { background: radial-gradient(ellipse at 20% 0%, rgba(20, 45, 80, 0.25) 0%, transparent 60%), radial-gradient(ellipse at 80% 80%, rgba(120, 100, 40, 0.08) 0%, transparent 55%), #070a0e; }
+body.theme-alliance .header { background: linear-gradient(135deg, #09121d 0%, #122238 60%, #0a1524 100%); border-bottom: 3px solid #8f793b; box-shadow: 0 4px 20px rgba(0,0,0,0.9), 0 0 15px rgba(20, 50, 90, 0.3); }
 body.theme-alliance .header::after { background: linear-gradient(90deg, transparent, #284c70 20%, #8f793b 50%, #284c70 80%, transparent); }
 body.theme-alliance .header-logo { filter: drop-shadow(0 4px 12px rgba(0,0,0,0.9)) sepia(1) saturate(4) hue-rotate(160deg) brightness(0.9) contrast(1.1); }
 body.theme-alliance .subtitle { color: #6a8fae; }
 body.theme-alliance .progress-label { color: #b89f56; }
-body.theme-alliance .section { background: var(--leather-pattern), linear-gradient(180deg, #0c1421 0%, #080d17 100%); border: 1px solid #1a2b42; }
-body.theme-alliance .media-category .section-content .section { background: var(--noise-pattern), #0c1421; border-color: #1a2b42; }
+body.theme-alliance .section { background: linear-gradient(180deg, #0c1421 0%, #080d17 100%); border: 1px solid #1a2b42; }
+body.theme-alliance .media-category .section-content .section { background: #0c1421; border-color: #1a2b42; }
 body.theme-alliance .section-header:hover { background: rgba(40, 76, 112, 0.12); }
 body.theme-alliance .section-title { color: #c5cbd3; }
 body.theme-alliance .media-category .section-title { color: #b89f56; }
@@ -218,20 +236,26 @@ body.theme-alliance .arrow { border-color: #8f793b; }
 body.theme-alliance .item { border-top-color: #131e2d; color: #c5cbd3; }
 body.theme-alliance .item input { accent-color: #8f793b; }
 body.theme-alliance .item.completed label { color: #435263; }
-body.theme-alliance .footer { background: var(--noise-pattern), linear-gradient(180deg, #06090e 0%, #020406 100%); border-top-color: #8f793b; }
+body.theme-alliance .footer { background: linear-gradient(180deg, #06090e 0%, #020406 100%); border-top-color: #8f793b; }
 body.theme-alliance .footer::before { background: linear-gradient(90deg, transparent, #284c70 50%, transparent); }
 body.theme-alliance .theme-title { color: #8f793b; }
 
 /* Horde Theme */
-body.theme-horde { background-color: #0c0808; color: #c9bcad; }
-body.theme-horde::before { background: radial-gradient(ellipse at 20% 0%, rgba(85, 20, 20, 0.25) 0%, transparent 60%), radial-gradient(ellipse at 80% 80%, rgba(40, 15, 15, 0.15) 0%, transparent 55%), repeating-linear-gradient(-45deg, rgba(35, 12, 12, 0.04) 0px, rgba(35, 12, 12, 0.04) 3px, transparent 3px, transparent 10px), #0c0808; }
-body.theme-horde .header { background: var(--noise-pattern), linear-gradient(135deg, #120b0b 0%, #301313 60%, #1a0808 100%); border-bottom: 3px solid #5e2323; box-shadow: 0 4px 20px rgba(0,0,0,0.9), 0 0 15px rgba(65, 15, 15, 0.4); }
+body.theme-horde { 
+    background-color: #0c0808; 
+    color: #c9bcad; 
+    --cz-badge-bg: rgba(133, 62, 43, 0.18);
+    --cz-badge-border: rgba(133, 62, 43, 0.5);
+    --cz-badge-color: #e0937d;
+}
+body.theme-horde::before { background: radial-gradient(ellipse at 20% 0%, rgba(85, 20, 20, 0.25) 0%, transparent 60%), radial-gradient(ellipse at 80% 80%, rgba(40, 15, 15, 0.15) 0%, transparent 55%), #0c0808; }
+body.theme-horde .header { background: linear-gradient(135deg, #120b0b 0%, #301313 60%, #1a0808 100%); border-bottom: 3px solid #5e2323; box-shadow: 0 4px 20px rgba(0,0,0,0.9), 0 0 15px rgba(65, 15, 15, 0.4); }
 body.theme-horde .header::after { background: linear-gradient(90deg, transparent, #5e2323 20%, #853e2b 50%, #5e2323 80%, transparent); }
 body.theme-horde .header-logo { filter: drop-shadow(0 4px 12px rgba(0,0,0,0.9)) grayscale(0.85) brightness(0.65) contrast(1.2); }
 body.theme-horde .subtitle { color: #ab6e5a; }
 body.theme-horde .progress-label { color: #c28878; }
-body.theme-horde .section { background: var(--leather-pattern), linear-gradient(180deg, #181010 0%, #100a0a 100%); border: 1px solid #451b1b; }
-body.theme-horde .media-category .section-content .section { background: var(--noise-pattern), #181010; border-color: #451b1b; }
+body.theme-horde .section { background: linear-gradient(180deg, #181010 0%, #100a0a 100%); border: 1px solid #451b1b; }
+body.theme-horde .media-category .section-content .section { background: #181010; border-color: #451b1b; }
 body.theme-horde .section-header:hover { background: rgba(80, 25, 25, 0.15); }
 body.theme-horde .section-title { color: #c9bcad; }
 body.theme-horde .media-category .section-title { color: #c28878; }
@@ -240,32 +264,17 @@ body.theme-horde .arrow { border-color: #853e2b; }
 body.theme-horde .item { border-top-color: #211313; color: #c9bcad; }
 body.theme-horde .item input { accent-color: #5e2323; }
 body.theme-horde .item.completed label { color: #4a3232; }
-body.theme-horde .footer { background: var(--noise-pattern), linear-gradient(180deg, #0a0606 0%, #030202 100%); border-top-color: #5e2323; }
+body.theme-horde .footer { background: linear-gradient(180deg, #0a0606 0%, #030202 100%); border-top-color: #5e2323; }
 body.theme-horde .footer::before { background: linear-gradient(90deg, transparent, #5e2323 50%, transparent); }
 body.theme-horde .theme-title { color: #853e2b; }
 
-/* Styly pro nápovědné vyskakovací okno sjednocené se stylem nastavení */
-#installModal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(3px);
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    animation: fadeInModal 0.2s ease;
-}
-
-/* Věrný WoW panel styl pro Nastavení a Install modál */
+/* Opraveno rozmazání pozadí modálu (odstraněn backdrop-filter) */
 #settingsModal, #installModal {
     display: none;
     position: fixed;
     inset: 0;
     z-index: 9999;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(3px);
+    background: rgba(0, 0, 0, 0.85);
     align-items: center;
     justify-content: center;
     padding: 16px;
@@ -277,25 +286,21 @@ body.theme-horde .theme-title { color: #853e2b; }
     to { opacity: 1; }
 }
 
-/* Věrné WoW game menu okno pro Nastavení i Install */
 #settingsModal .modal-dialog, #installModal .modal-dialog {
     background-color: #3b2c1e;
-    background-image: 
-        radial-gradient(circle at 50% 50%, rgba(50,35,22,0.6) 0%, rgba(20,13,8,0.85) 100%),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='leather'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.2' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23leather)' opacity='0.12'/%3E%3C/svg%3E");
+    background-image: radial-gradient(circle at 50% 50%, rgba(50,35,22,0.6) 0%, rgba(20,13,8,0.9) 100%);
     border: 4px solid #000000;
     outline: 2px solid #5c4e38;
     border-radius: 2px;
     max-width: 340px;
     width: 100%;
     padding: 32px 18px 20px 18px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.95), inset 0 0 30px rgba(0,0,0,0.6);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.95);
     text-align: center;
     position: relative;
     color: #e4dfd2;
 }
 
-/* Nadpis v horním metalickém rámečku přesně jako ve WoW */
 #settingsModal .modal-title, #installModal .modal-title {
     font-family: 'Cinzel', Georgia, serif;
     font-size: 14px;
@@ -316,22 +321,6 @@ body.theme-horde .theme-title { color: #853e2b; }
     white-space: nowrap;
 }
 
-.modal-close {
-    position: absolute;
-    top: 12px;
-    right: 14px;
-    background: none;
-    border: none;
-    color: #a37c33;
-    font-size: 22px;
-    cursor: pointer;
-    font-weight: bold;
-    line-height: 1;
-}
-.modal-close:hover {
-    color: #f5dfa0;
-}
-
 .modal-body {
     font-size: 13px;
     line-height: 1.5;
@@ -342,7 +331,6 @@ body.theme-horde .theme-title { color: #853e2b; }
     text-align: left;
 }
 
-/* WoW stylování tlačítek (červený vzhled přesně dle předlohy) */
 #settingsModal .lang-options {
     display: flex;
     flex-direction: column;
@@ -400,12 +388,10 @@ body.theme-horde .theme-title { color: #853e2b; }
     text-transform: uppercase;
 }
 
-/* Skrytí křížku v herním menu */
 #settingsModal .modal-close {
     display: none;
 }
 
-/* Styly pro výběr jazyka v nastavení */
 .settings-group {
     margin-bottom: 15px;
 }
@@ -430,10 +416,6 @@ body.theme-horde .theme-title { color: #853e2b; }
     cursor: pointer;
     font-family: 'Cinzel', Georgia, serif;
     font-weight: 700;
-    transition: all 0.2s ease;
-}
-.lang-btn:hover {
-    border-color: #d6a84f;
 }
 .lang-btn.active {
     background: linear-gradient(180deg, #d6a84f 0%, #9c7327 100%);
@@ -457,7 +439,6 @@ body.theme-horde .theme-title { color: #853e2b; }
 </head>
 <body>
 
-<!-- Vyskakovací okno (Modál) pro instalaci ve stejném WoW designu -->
 <div id="installModal">
     <div class="modal-dialog">
         <div class="modal-title" data-cs="Ulož si aplikaci na plochu" data-en="Save App to Home Screen">Ulož si aplikaci na plochu</div>
@@ -490,12 +471,14 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
     </div>
 </div>
 
-<!-- Vyskakovací okno pro Nastavení přesně ve stylu WoW game menu -->
 <div id="settingsModal">
     <div class="modal-dialog">
         <div class="modal-title" id="settingsTitleText">Options</div>
         <div class="modal-body">
-            <div class="settings-group">
+            <div class="settings-group" style="margin-bottom: 12px;">
+                <button class="modal-btn" onclick="openInstallModalFromSettings()" id="helpBtnText" data-cs="Nápověda / Instalace" data-en="Help / Installation">Nápověda / Instalace</button>
+            </div>
+            <div class="settings-group" style="margin-bottom: 0;">
                 <span class="settings-label" id="langLabelText">Jazyk / Language</span>
                 <div class="lang-options">
                     <button class="lang-btn active" id="btnLangCs" onclick="setLanguage('cs')">Čeština</button>
@@ -518,7 +501,6 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
 </svg>
 
 <header class="header">
-    <!-- Tlačítko nastavení v pravém horním rohu (ozubené kolo) -->
     <button class="settings-btn" onclick="openSettingsModal()" title="Nastavení">
         <svg viewBox="0 0 24 24">
             <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87 c-0.11,0.2-0.06,0.47,0.12,0.61l2.03,1.58c-0.05,0.3-0.07,0.62-0.07,0.94s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.11-0.2,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
@@ -619,20 +601,20 @@ const mediaData = {
                     groups: [
                         {
                             title: "Warcraft",
-                            items: ["The Last Guardian", "Day of the Dragon", "Lord of the Clans", "Of Blood and Honor"]
+                            items: ["Poslední strážce [CZ]", "Den draka [CZ]", "Vládce klanů [CZ]", "Of Blood and Honor"]
                         },
                         {
                             title: "Válka prastarých",
-                            items: ["The Well of Eternity", "The Demon Soul", "The Sundering"]
+                            items: ["Studna věčnosti [CZ]", "Duše démona [CZ]", "Rozdělení [CZ]"]
                         },
                         {
                             title: "World of Warcraft",
-                            items: ["Cycle of Hatred", "Rise of the Horde", "Tides of Darkness", "Beyond the Dark Portal", "Night of the Dragon", "Arthas: Rise of the Lich King", "Stormrage", "The Shattering: Prelude to Cataclysm", "Thrall: Twilight of the Aspects", "Wolfheart", "Jaina Proudmoore: Tides of War", "Dawn of the Aspects", "Vol’jin: Shadows of the Horde", "War Crimes", "Illidan", "Traveler", "Traveler: The Spiral Path", "Traveler: The Shining Blade", "Before the Storm", "Shadows Rising", "Sylvanas", "War of the Scaleborn", "Blood Ties"]
+                            items: ["Kruh nenávisti [CZ]", "Zrod Hordy [CZ]", "Příliv temnoty [CZ]", "Za Temným portálem [CZ]", "Noc draka [CZ]", "Arthas: Zrod krále Lichů [CZ]", "Stormrage [CZ]", "Roztříštění [CZ]", "Thrall: Soumrak Aspektů [CZ]", "Vlčí srdce [CZ]", "Jaina Proudmoore: Tides of War", "Dawn of the Aspects", "Vol’jin: Shadows of the Horde", "War Crimes", "Illidan", "Traveler [CZ]", "Traveler: The Spiral Path [CZ]", "Traveler: The Shining Blade [CZ]", "Před bouří [CZ]", "Stíny povstávají [CZ]", "Sylvanas [CZ]", "War of the Scaleborn", "Blood Ties"]
                         }
                     ]
                 },
-                { title: "Putování Azerothem", items: ["Exploring Azeroth: The Eastern Kingdoms", "Exploring Azeroth: Kalimdor", "Exploring Azeroth: Northrend", "Exploring Azeroth: Pandaria", "Exploring Azeroth: Islands and Isles"] },
-                { title: "Kroniky", items: ["World of Warcraft: Chronicle Volume 1", "World of Warcraft: Chronicle Volume 2", "World of Warcraft: Chronicle Volume 3", "World of Warcraft: Chronicle Volume 4"] }
+                { title: "Putování Azerothem", items: ["Putování Azerothem: Východní království [CZ]", "Putování Azerothem: Kalimdor [CZ]", "Putování Azerothem: Northrend [CZ]", "Putování Azerothem: Pandarie [CZ]", "Exploring Azeroth: Islands and Isles"] },
+                { title: "Kroniky", items: ["World of Warcraft: Kronika svazek I. [CZ]", "World of Warcraft: Kronika svazek II. [CZ]", "World of Warcraft: Kronika svazek III. [CZ]", "World of Warcraft: Kronika svazek IV. [CZ]"] }
             ]
         },
         {
@@ -644,16 +626,16 @@ const mediaData = {
                     groups: [
                         {
                             title: "World of Warcraft: The Comic series",
-                            groups: [
-                                { title: "Volume 1", items: ["Issue 0: Prologue", "Issue 1: Stranger in a Strange Land", "Issue 2: Killing Ground", "Issue 3: Destiny Awaits!", "Issue 4: Balancing the Scales", "Issue 5: The Beast Within!", "Issue 6: Blood", "Issue 7: Revelations"] },
-                                { title: "Volume 2", items: ["Issue 8: The Return", "Issue 9: Through the Mirror Darkly", "Issue 10: Last of the Line", "Issue 11: Descent", "Issue 12: The Enemy Revealed", "Issue 13: Flashback", "Issue 14: Into the Jaws of Death!"] },
-                                { title: "Volume 3", items: ["Issue 15: Conflicting Loyalties", "Issue 16: Threat!", "Issue 17: Gathering Thunder!", "Issue 18: Showdown!", "Issue 19: The Winds of War", "Issue 20: Repercussions", "Issue 21: Secrets"] },
-                                { title: "Volume 4", items: ["Issue 22: Whispers", "Issue 23: The Gathering", "Issue 24: Hard Choices", "Issue 25: Armageddon"] }
+                            items: [
+                                "Kniha první [CZ]",
+                                "Kniha druhá [CZ]",
+                                "Kniha třetí [CZ]",
+                                "Kniha čtvrtá [CZ]"
                             ]
                         },
-                        { title: "Ashbringer", items: ["Ashbringer"] },
+                        { title: "Ashbringer", items: ["Ashbringer [CZ]"] },
                         { title: "Wrath of the Lich King", items: ["World of Warcraft: The Comic – Special Issue: Beginnings and Ends"] },
-                        { title: "Cataclysm", items: ["Curse of the Worgen", "Dark Riders", "Bloodsworn"] },
+                        { title: "Cataclysm", items: ["Prokletí Worgenů [CZ]", "Temní jezdci [CZ]", "Pokrevní přísaha [CZ]"] },
                         { title: "Mists of Pandaria", items: ["Pearl of Pandaria"] },
                         { title: "Warlords of Draenor", items: ["Gul’dan and the Stranger", "Blackhand", "Blood and Thunder"] },
                         { title: "Legion", items: ["Magni: Fault Lines", "Nightborne: Twilight of Suramar", "Highmountain: A Mountain Divided", "Anduin: Son of the Wolf"] },
@@ -664,7 +646,7 @@ const mediaData = {
                 },
                 {
                     title: "Manga",
-                    items: ["The Sunwell Trilogy: Dragon Hunt", "The Sunwell Trilogy: Shadows of Ice", "The Sunwell Trilogy: Ghostlands", "Warcraft Legends – Volume 1", "Warcraft Legends – Volume 2", "Warcraft Legends – Volume 3", "Warcraft Legends – Volume 4", "Warcraft Legends – Volume 5", "Death Knight", "Mage", "Shaman", "Shadow Wing: The Dragons of Outland", "Shadow Wing: Nexus Point"]
+                    items: ["Sluneční studna: Dračí lov [CZ]", "Sluneční studna: Stíny ledu [CZ]", "Sluneční studna: Země přízraků [CZ]", "Warcraft Legendy: svazek 1 [CZ]", "Warcraft Legendy: svazek 2 [CZ]", "Warcraft Legendy: svazek 3 [CZ]", "Warcraft Legendy: svazek 4 [CZ]", "Warcraft Legendy: svazek 5 [CZ]", "Rytíř smrti [CZ]", "Mág [CZ]", "Šaman [CZ]", "Dědictví stínů: Draci Outlandu [CZ]", "Dědictví stínů: Nexus [CZ]"]
                 }
             ]
         },
@@ -829,6 +811,7 @@ const translations = {
         themeTitle: "Zvolte svoji frakci",
         neutralName: "NEUTRÁLNÍ",
         settingsTitle: "Options",
+        helpBtn: "Nápověda / Instalace",
         langLabel: "Jazyk / Language",
         settingsClose: "Return to Game",
         itemsText: "položek",
@@ -842,6 +825,7 @@ const translations = {
         themeTitle: "Choose Your Faction",
         neutralName: "NEUTRAL",
         settingsTitle: "Options",
+        helpBtn: "Help / Installation",
         langLabel: "Language / Jazyk",
         settingsClose: "Return to Game",
         itemsText: "items",
@@ -868,7 +852,6 @@ function setLanguage(lang) {
     document.getElementById("btnLangCs").classList.toggle("active", lang === "cs");
     document.getElementById("btnLangEn").classList.toggle("active", lang === "en");
     
-    // Překlad statických textů
     const t = translations[lang];
     document.getElementById("subtitleText").textContent = t.subtitle;
     document.getElementById("progressLabelText").textContent = t.progressLabel;
@@ -876,6 +859,7 @@ function setLanguage(lang) {
     document.getElementById("themeTitleText").textContent = t.themeTitle;
     document.getElementById("factionNeutralName").textContent = t.neutralName;
     document.getElementById("settingsTitleText").textContent = t.settingsTitle;
+    document.getElementById("helpBtnText").textContent = t.helpBtn;
     document.getElementById("langLabelText").textContent = t.langLabel;
     document.getElementById("settingsCloseBtn").textContent = t.settingsClose;
     
@@ -908,6 +892,11 @@ function openSettingsModal() {
 
 function closeSettingsModal() {
     document.getElementById("settingsModal").style.display = "none";
+}
+
+function openInstallModalFromSettings() {
+    closeSettingsModal();
+    document.getElementById("installModal").style.display = "flex";
 }
 
 function setTheme(theme) {
@@ -980,13 +969,13 @@ async function saveCheckedItems() {
     } catch (err) {}
 }
 
-function makeId(text) {
-    return text.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+function getItemGlobalKey(categoryIndex, groupIndices, itemIndex) {
+    return `cat_${categoryIndex}_grp_${groupIndices.join('_')}_item_${itemIndex}`;
 }
 
-function registerGroup(element, ids, title, categoryName, nodeData) {
-    if (!ids.length) return;
-    groupRegistry.push({ element: element, ids: ids, title: title, categoryName: categoryName, nodeData: nodeData });
+function registerGroup(element, keys, title, categoryName, nodeData) {
+    if (!keys.length) return;
+    groupRegistry.push({ element: element, keys: keys, title: title, categoryName: categoryName, nodeData: nodeData });
 }
 
 function updateGroupStates() {
@@ -996,42 +985,44 @@ function updateGroupStates() {
 
     const addedTitles = new Set();
 
-    function collectActiveNodes(nodeData) {
-        if (!nodeData) return;
-        if (nodeData.items) {
-            const ids = nodeData.items.map(makeId);
-            const checkedCount = ids.filter(id => !!checkedItems[id]).length;
-            if (checkedCount > 0 && checkedCount < ids.length) {
-                if (nodeData.title && !addedTitles.has(nodeData.title)) {
-                    addedTitles.add(nodeData.title);
-                    activeSectionsCount++;
-                    activeContentContainer.appendChild(createSectionCopy(nodeData.title, nodeData));
-                }
-            }
-        }
-        if (nodeData.groups) {
-            nodeData.groups.forEach(sub => {
-                const subIds = collectIds(sub);
-                const subChecked = subIds.filter(id => !!checkedItems[id]).length;
-                if (subChecked > 0 && subChecked < subIds.length) {
-                    collectActiveNodes(sub);
-                }
-            });
-        }
-    }
-
     groupRegistry.forEach(function(group) {
-        const total = group.ids.length;
-        const checkedCount = group.ids.filter(id => !!checkedItems[id]).length;
+        const total = group.keys.length;
+        const checkedCount = group.keys.filter(key => !!checkedItems[key]).length;
         const done = (checkedCount === total && total > 0);
         const inProgress = (checkedCount > 0 && checkedCount < total);
 
         group.element.classList.toggle("complete", done);
         group.element.classList.toggle("in-progress-state", inProgress);
+    });
 
-        if (inProgress) {
-            collectActiveNodes(group.nodeData);
-        }
+    const currentMediaData = mediaData[currentLang] || mediaData.cs;
+    currentMediaData.forEach((category, catIdx) => {
+        category.groups.forEach((group, grpIdx) => {
+            if (group.items) {
+                const keys = group.items.map((_, itemIdx) => getItemGlobalKey(catIdx, [grpIdx], itemIdx));
+                const checkedCount = keys.filter(key => !!checkedItems[key]).length;
+                if (checkedCount > 0 && checkedCount < keys.length) {
+                    if (group.title && !addedTitles.has(group.title)) {
+                        addedTitles.add(group.title);
+                        activeSectionsCount++;
+                        activeContentContainer.appendChild(createSectionCopy(group.title, group, catIdx, [grpIdx]));
+                    }
+                }
+            } else if (group.groups) {
+                group.groups.forEach((sub, subIdx) => {
+                    const subPath = [grpIdx, subIdx];
+                    const subKeys = collectKeys(sub, catIdx, subPath);
+                    const subChecked = subKeys.filter(key => !!checkedItems[key]).length;
+                    if (subChecked > 0 && subChecked < subKeys.length) {
+                        if (sub.title && !addedTitles.has(sub.title)) {
+                            addedTitles.add(sub.title);
+                            activeSectionsCount++;
+                            activeContentContainer.appendChild(createSectionCopy(sub.title, sub, catIdx, subPath));
+                        }
+                    }
+                });
+            }
+        });
     });
 
     if (activeSectionsCount === 0) {
@@ -1072,35 +1063,50 @@ function createInProgressMark() {
     return progressMark;
 }
 
-function createItem(text) {
-    const id = makeId(text);
-    if (!itemRegistry[id]) { itemRegistry[id] = []; idCounters[id] = 0; }
-    idCounters[id]++;
+function createItem(text, globalKey) {
+    if (!itemRegistry[globalKey]) { itemRegistry[globalKey] = []; idCounters[globalKey] = 0; }
+    idCounters[globalKey]++;
 
     const wrapper = document.createElement("div");
     wrapper.className = "item";
-    if (checkedItems[id]) wrapper.classList.add("completed");
+    if (checkedItems[globalKey]) wrapper.classList.add("completed");
 
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.checked = !!checkedItems[id];
-    checkbox.id = "check-" + id + "-" + idCounters[id];
-    checkbox.addEventListener("change", () => setChecked(id, checkbox.checked));
+    checkbox.checked = !!checkedItems[globalKey];
+    checkbox.id = "check-" + globalKey + "-" + idCounters[globalKey];
+    checkbox.addEventListener("change", () => setChecked(globalKey, checkbox.checked));
 
     const label = document.createElement("label");
     label.htmlFor = checkbox.id;
-    label.textContent = text;
+    
+    let displayText = text;
+    let hasCZ = false;
+    if (displayText.endsWith(" [CZ]")) {
+        displayText = displayText.replace(" [CZ]", "");
+        hasCZ = true;
+    }
+    
+    label.textContent = displayText;
 
     wrapper.appendChild(checkbox);
     wrapper.appendChild(label);
-    itemRegistry[id].push({ wrapper: wrapper, checkbox: checkbox });
+    
+    if (hasCZ) {
+        const czBadge = document.createElement("span");
+        czBadge.className = "cz-badge";
+        czBadge.textContent = "CZ";
+        wrapper.appendChild(czBadge);
+    }
+
+    itemRegistry[globalKey].push({ wrapper: wrapper, checkbox: checkbox });
     return wrapper;
 }
 
-function setChecked(id, value) {
-    checkedItems[id] = value;
+function setChecked(globalKey, value) {
+    checkedItems[globalKey] = value;
     saveCheckedItems();
-    (itemRegistry[id] || []).forEach(entry => {
+    (itemRegistry[globalKey] || []).forEach(entry => {
         entry.checkbox.checked = value;
         entry.wrapper.classList.toggle("completed", value);
     });
@@ -1108,12 +1114,20 @@ function setChecked(id, value) {
     updateGroupStates();
 }
 
-function collectIds(node) {
-    if (node.items) return node.items.map(makeId);
-    return (node.groups || []).reduce((ids, group) => ids.concat(collectIds(group)), []);
+function collectKeys(node, catIdx, grpPath) {
+    if (node.items) {
+        return node.items.map((_, itemIdx) => getItemGlobalKey(catIdx, grpPath, itemIdx));
+    }
+    let keys = [];
+    if (node.groups) {
+        node.groups.forEach((sub, subIdx) => {
+            keys = keys.concat(collectKeys(sub, catIdx, grpPath.concat([subIdx])));
+        });
+    }
+    return keys;
 }
 
-function createSection(title, node, categoryName) {
+function createSection(title, node, catIdx, grpPath) {
     const section = document.createElement("div");
     section.className = "section";
     const header = document.createElement("div");
@@ -1122,10 +1136,10 @@ function createSection(title, node, categoryName) {
     titleEl.className = "section-title";
     titleEl.textContent = title;
 
-    const ids = collectIds(node);
+    const keys = collectKeys(node, catIdx, grpPath);
     const count = document.createElement("div");
     count.className = "section-count";
-    count.textContent = ids.length + " " + translations[currentLang].itemsText;
+    count.textContent = keys.length + " " + translations[currentLang].itemsText;
 
     const arrow = document.createElement("div");
     arrow.className = "arrow";
@@ -1140,9 +1154,14 @@ function createSection(title, node, categoryName) {
     content.className = "section-content";
 
     if (node.items) {
-        node.items.forEach(item => content.appendChild(createItem(item)));
+        node.items.forEach((item, itemIdx) => {
+            const itemKey = getItemGlobalKey(catIdx, grpPath, itemIdx);
+            content.appendChild(createItem(item, itemKey));
+        });
     } else {
-        (node.groups || []).forEach(group => content.appendChild(createSection(group.title, group, categoryName)));
+        (node.groups || []).forEach((group, subIdx) => {
+            content.appendChild(createSection(group.title, group, catIdx, grpPath.concat([subIdx])));
+        });
     }
 
     header.addEventListener("click", () => {
@@ -1155,11 +1174,11 @@ function createSection(title, node, categoryName) {
 
     section.appendChild(header);
     section.appendChild(content);
-    registerGroup(section, ids, title, categoryName, Object.assign({ title: title }, node));
+    registerGroup(section, keys, title, catIdx, node);
     return section;
 }
 
-function createSectionCopy(title, node) {
+function createSectionCopy(title, node, catIdx, grpPath) {
     const section = document.createElement("div");
     section.className = "section";
     const header = document.createElement("div");
@@ -1168,10 +1187,10 @@ function createSectionCopy(title, node) {
     titleEl.className = "section-title";
     titleEl.textContent = title;
 
-    const ids = collectIds(node);
+    const keys = collectKeys(node, catIdx, grpPath);
     const count = document.createElement("div");
     count.className = "section-count";
-    count.textContent = ids.length + " " + translations[currentLang].itemsText;
+    count.textContent = keys.length + " " + translations[currentLang].itemsText;
 
     const arrow = document.createElement("div");
     arrow.className = "arrow";
@@ -1186,9 +1205,14 @@ function createSectionCopy(title, node) {
     content.className = "section-content";
 
     if (node.items) {
-        node.items.forEach(item => content.appendChild(createItem(item)));
+        node.items.forEach((item, itemIdx) => {
+            const itemKey = getItemGlobalKey(catIdx, grpPath, itemIdx);
+            content.appendChild(createItem(item, itemKey));
+        });
     } else {
-        (node.groups || []).forEach(group => content.appendChild(createSectionCopy(group.title, group)));
+        (node.groups || []).forEach((group, subIdx) => {
+            content.appendChild(createSectionCopy(group.title, group, catIdx, grpPath.concat([subIdx])));
+        });
     }
 
     header.addEventListener("click", () => {
@@ -1202,8 +1226,8 @@ function createSectionCopy(title, node) {
     section.appendChild(header);
     section.appendChild(content);
     
-    const checkedCount = ids.filter(id => !!checkedItems[id]).length;
-    const total = ids.length;
+    const checkedCount = keys.filter(key => !!checkedItems[key]).length;
+    const total = keys.length;
     section.classList.toggle("complete", checkedCount === total && total > 0);
     section.classList.toggle("in-progress-state", checkedCount > 0 && checkedCount < total);
 
@@ -1219,7 +1243,7 @@ function renderMedia() {
 
     const currentMediaData = mediaData[currentLang] || mediaData.cs;
 
-    currentMediaData.forEach(category => {
+    currentMediaData.forEach((category, catIdx) => {
         const categorySection = document.createElement("div");
         categorySection.className = "media-category";
         const section = document.createElement("div");
@@ -1232,7 +1256,8 @@ function renderMedia() {
         title.appendChild(createCategoryIcon(category.icon));
         title.appendChild(document.createTextNode(category.title));
 
-        const total = category.groups.reduce((sum, group) => sum + collectIds(group).length, 0);
+        const allCatKeys = collectKeys({ groups: category.groups }, catIdx, []);
+        const total = allCatKeys.length;
         const count = document.createElement("div");
         count.className = "section-count";
         count.textContent = total + " " + translations[currentLang].itemsText;
@@ -1248,9 +1273,14 @@ function renderMedia() {
         content.className = "section-content";
 
         if (category.groups.length === 1 && category.groups[0].items) {
-            category.groups[0].items.forEach(item => content.appendChild(createItem(item)));
+            category.groups[0].items.forEach((item, itemIdx) => {
+                const itemKey = getItemGlobalKey(catIdx, [0], itemIdx);
+                content.appendChild(createItem(item, itemKey));
+            });
         } else {
-            category.groups.forEach(group => content.appendChild(createSection(group.title, group, category.title)));
+            category.groups.forEach((group, grpIdx) => {
+                content.appendChild(createSection(group.title, group, catIdx, [grpIdx]));
+            });
         }
 
         header.addEventListener("click", () => {
@@ -1263,7 +1293,7 @@ function renderMedia() {
 
         section.appendChild(header);
         section.appendChild(content);
-        registerGroup(section, category.groups.reduce((ids, group) => ids.concat(collectIds(group)), []), category.title, category.title, { title: category.title, groups: category.groups });
+        registerGroup(section, allCatKeys, category.title, catIdx, { title: category.title, groups: category.groups });
         categorySection.appendChild(section);
         container.appendChild(categorySection);
     });
@@ -1280,11 +1310,19 @@ function renderMedia() {
 }
 
 function updateProgress() {
-    const ids = Object.keys(itemRegistry);
-    const total = ids.length;
+    const currentMediaData = mediaData[currentLang] || mediaData.cs;
+    let total = 0;
     let completed = 0;
 
-    ids.forEach(id => { if (checkedItems[id]) completed++; });
+    currentMediaData.forEach((category, catIdx) => {
+        category.groups.forEach((group, grpIdx) => {
+            const keys = collectKeys(group, catIdx, [grpIdx]);
+            total += keys.length;
+            keys.forEach(key => {
+                if (checkedItems[key]) completed++;
+            });
+        });
+    });
 
     const percentage = total === 0 ? 0 : Math.round(completed / total * 100);
 
