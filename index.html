@@ -91,6 +91,38 @@ body::before {
     transform: rotate(90deg);
 }
 
+/* Tlačítko přihlášení v levém horním rohu */
+.auth-btn-top {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    background: rgba(20, 21, 27, 0.9);
+    border: 2px solid #6b4e1b;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    z-index: 10;
+}
+.auth-btn-top:hover {
+    border-color: #f5dfa0;
+    transform: scale(1.05);
+    background: rgba(40, 35, 25, 0.9);
+}
+.auth-btn-top svg {
+    width: 22px;
+    height: 22px;
+    fill: #d6a84f;
+    transition: transform 0.3s ease;
+}
+.auth-btn-top:hover svg {
+    transform: scale(1.1);
+}
+
 .header-logo { 
     max-width: 320px; 
     width: 100%; 
@@ -271,7 +303,7 @@ body.theme-horde .footer { background: linear-gradient(180deg, #0a0606 0%, #0302
 body.theme-horde .footer::before { background: linear-gradient(90deg, transparent, #5e2323 50%, transparent); }
 body.theme-horde .theme-title { color: #853e2b; }
 
-#settingsModal, #installModal {
+#settingsModal, #installModal, #authModal {
     display: none;
     position: fixed;
     inset: 0;
@@ -288,7 +320,7 @@ body.theme-horde .theme-title { color: #853e2b; }
     to { opacity: 1; }
 }
 
-#settingsModal .modal-dialog, #installModal .modal-dialog {
+#settingsModal .modal-dialog, #installModal .modal-dialog, #authModal .modal-dialog {
     background-color: #3b2c1e;
     background-image: radial-gradient(circle at 50% 50%, rgba(50,35,22,0.6) 0%, rgba(20,13,8,0.9) 100%);
     border: 4px solid #000000;
@@ -303,7 +335,7 @@ body.theme-horde .theme-title { color: #853e2b; }
     color: #e4dfd2;
 }
 
-#settingsModal .modal-title, #installModal .modal-title {
+#settingsModal .modal-title, #installModal .modal-title, #authModal .modal-title {
     font-family: 'Cinzel', Georgia, serif;
     font-size: 14px;
     font-weight: 700;
@@ -342,7 +374,8 @@ body.theme-horde .theme-title { color: #853e2b; }
 
 #settingsModal .lang-btn, 
 #settingsModal .modal-btn,
-#installModal .modal-btn {
+#installModal .modal-btn,
+#authModal .modal-btn {
     background: linear-gradient(180deg, #7a1b1b 0%, #520c0c 50%, #330505 100%);
     border: 2px solid #000000;
     outline: 1px solid #5c4e38;
@@ -362,7 +395,8 @@ body.theme-horde .theme-title { color: #853e2b; }
 
 #settingsModal .lang-btn:hover, 
 #settingsModal .modal-btn:hover,
-#installModal .modal-btn:hover {
+#installModal .modal-btn:hover,
+#authModal .modal-btn:hover {
     background: linear-gradient(180deg, #992222 0%, #661010 50%, #420707 100%);
     border-color: #000;
     outline-color: #8c6e3b;
@@ -378,7 +412,7 @@ body.theme-horde .theme-title { color: #853e2b; }
     box-shadow: inset 0 1px 3px rgba(0,0,0,0.8), 0 0 10px rgba(255, 204, 0, 0.25);
 }
 
-#settingsModal .settings-label {
+#settingsModal .settings-label, #authModal .settings-label {
     color: #d1b888;
     font-size: 12px;
     text-shadow: 0 1px 2px #000;
@@ -388,10 +422,6 @@ body.theme-horde .theme-title { color: #853e2b; }
     font-family: 'Cinzel', Georgia, serif;
     font-weight: 700;
     text-transform: uppercase;
-}
-
-#settingsModal .modal-close {
-    display: none;
 }
 
 .settings-group {
@@ -459,6 +489,8 @@ body.theme-horde .theme-title { color: #853e2b; }
     .faction-name { font-size: 11px; }
     .settings-btn { top: 12px; right: 12px; width: 36px; height: 36px; }
     .settings-btn svg { width: 18px; height: 18px; }
+    .auth-btn-top { top: 12px; left: 12px; width: 36px; height: 36px; }
+    .auth-btn-top svg { width: 18px; height: 18px; }
 }
 </style>
 </head>
@@ -496,12 +528,12 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
     </div>
 </div>
 
-<div id="settingsModal">
+<!-- Samostatné okno pro Přihlášení -->
+<div id="authModal">
     <div class="modal-dialog">
-        <div class="modal-title" id="settingsTitleText">Options</div>
+        <div class="modal-title" id="authModalTitle">Přihlášení / Účet</div>
         <div class="modal-body">
-            <!-- Supabase Cloud Auth Sekce -->
-            <div class="auth-box" id="authBoxSection">
+            <div class="auth-box" id="authBoxSection" style="margin-bottom:0;">
                 <span class="settings-label" id="authLabelText">Cloudové Úložiště / Účet</span>
                 <div id="userInfoSection" style="display:none; margin-bottom:8px; font-size:12px; color:#f5dfa0;">
                     Přihlášen: <span id="userEmailDisplay" style="font-weight:bold;"></span>
@@ -514,7 +546,15 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
                 </div>
                 <button class="modal-btn" onclick="supabaseLogout()" id="btnLogoutText" style="display:none; padding:6px; background:linear-gradient(180deg, #444 0%, #222 100%);">Odhlásit se</button>
             </div>
+        </div>
+        <button class="modal-btn" onclick="closeAuthModal()" id="authCloseBtn">Zavřít</button>
+    </div>
+</div>
 
+<div id="settingsModal">
+    <div class="modal-dialog">
+        <div class="modal-title" id="settingsTitleText">Options</div>
+        <div class="modal-body">
             <div class="settings-group" style="margin-bottom: 12px;">
                 <button class="modal-btn" onclick="openInstallModalFromSettings()" id="helpBtnText" data-cs="Nápověda / Instalace" data-en="Help / Installation">Nápověda / Instalace</button>
             </div>
@@ -541,6 +581,13 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
 </svg>
 
 <header class="header">
+    <!-- Tlačítko přihlášení v levém horním rohu -->
+    <button class="auth-btn-top" onclick="openAuthModal()" title="Přihlášení / Účet">
+        <svg viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+        </svg>
+    </button>
+
     <button class="settings-btn" onclick="openSettingsModal()" title="Nastavení">
         <svg viewBox="0 0 24 24">
             <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87 c-0.11,0.2-0.06,0.47,0.12,0.61l2.03,1.58c-0.05,0.3-0.07,0.62-0.07,0.94s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.11-0.2,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
@@ -939,6 +986,8 @@ const translations = {
         helpBtn: "Nápověda / Instalace",
         langLabel: "Jazyk / Language",
         settingsClose: "Return to Game",
+        authTitle: "Přihlášení / Účet",
+        authClose: "Zavřít",
         itemsText: "položek",
         inProgressText: "rozdělaných"
     },
@@ -953,6 +1002,8 @@ const translations = {
         helpBtn: "Help / Installation",
         langLabel: "Language / Jazyk",
         settingsClose: "Return to Game",
+        authTitle: "Login / Account",
+        authClose: "Close",
         itemsText: "items",
         inProgressText: "in progress"
     }
@@ -987,6 +1038,8 @@ function setLanguage(lang) {
     document.getElementById("helpBtnText").textContent = t.helpBtn;
     document.getElementById("langLabelText").textContent = t.langLabel;
     document.getElementById("settingsCloseBtn").textContent = t.settingsClose;
+    document.getElementById("authModalTitle").textContent = t.authTitle;
+    document.getElementById("authCloseBtn").textContent = t.authClose;
     
     updateModalTexts(lang);
     updateAuthUI();
@@ -1018,6 +1071,14 @@ function openSettingsModal() {
 
 function closeSettingsModal() {
     document.getElementById("settingsModal").style.display = "none";
+}
+
+function openAuthModal() {
+    document.getElementById("authModal").style.display = "flex";
+}
+
+function closeAuthModal() {
+    document.getElementById("authModal").style.display = "none";
 }
 
 function openInstallModalFromSettings() {
@@ -1083,7 +1144,6 @@ let groupRegistry = [];
 async function loadCheckedItems() {
     try {
         if (supabaseClient && currentUser) {
-            // Načtení dat ze Supabase cloudu z tabulky 'checked_items'
             const { data, error } = await supabaseClient
                 .from('checked_items')
                 .select('checked_items')
@@ -1095,7 +1155,6 @@ async function loadCheckedItems() {
                 return;
             }
         }
-        // Fallback na lokální úložiště
         const raw = window.localStorage.getItem(STORAGE_KEY);
         checkedItems = raw ? JSON.parse(raw) : {};
     } catch (err) {
@@ -1105,10 +1164,8 @@ async function loadCheckedItems() {
 
 async function saveCheckedItems() {
     try {
-        // Vždy uložení lokálně jako záloha
         window.localStorage.setItem(STORAGE_KEY, JSON.stringify(checkedItems));
 
-        // Uložení do Supabase cloudu do tabulky 'checked_items'
         if (supabaseClient && currentUser) {
             await supabaseClient
                 .from('checked_items')
