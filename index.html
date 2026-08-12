@@ -6,6 +6,9 @@
 <title>Path of Azeroth</title>
 <meta name="theme-color" content="#111111">
 
+<!-- Supabase JS Client CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <!-- Opravené absolutní cesty pro správné uložení ikony na plochu telefonu -->
 <link rel="icon" type="image/png" sizes="32x32" href="https://zipoe39.github.io/Warcraft-Chcecklist/favinew.png?v=3">
 <link rel="shortcut icon" type="image/png" href="https://zipoe39.github.io/Warcraft-Chcecklist/favinew.png?v=3">
@@ -86,6 +89,35 @@ body::before {
 }
 .settings-btn:hover svg {
     transform: rotate(90deg);
+}
+
+/* Tlačítko přihlášení v levém horním rohu */
+.auth-btn-header {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    background: rgba(20, 21, 27, 0.9);
+    border: 2px solid #6b4e1b;
+    border-radius: 21px;
+    padding: 0 14px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    z-index: 10;
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: #d6a84f;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+}
+.auth-btn-header:hover {
+    border-color: #f5dfa0;
+    color: #f5dfa0;
+    background: rgba(40, 35, 25, 0.9);
 }
 
 .header-logo { 
@@ -434,6 +466,7 @@ body.theme-horde .theme-title { color: #853e2b; }
     .faction-name { font-size: 11px; }
     .settings-btn { top: 12px; right: 12px; width: 36px; height: 36px; }
     .settings-btn svg { width: 18px; height: 18px; }
+    .auth-btn-header { top: 12px; left: 12px; height: 36px; padding: 0 10px; font-size: 10px; }
 }
 </style>
 </head>
@@ -475,6 +508,9 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
     <div class="modal-dialog">
         <div class="modal-title" id="settingsTitleText">Options</div>
         <div class="modal-body">
+            <div class="settings-group" style="margin-bottom: 12px;" id="authSectionGroup">
+                <button class="modal-btn" onclick="handleAuthAction()" id="authActionBtn" style="background: linear-gradient(180deg, #2b5b7a 0%, #15354e 50%, #0d2233 100%);">Přihlásit se přes Supabase</button>
+            </div>
             <div class="settings-group" style="margin-bottom: 12px;">
                 <button class="modal-btn" onclick="openInstallModalFromSettings()" id="helpBtnText" data-cs="Nápověda / Instalace" data-en="Help / Installation">Nápověda / Instalace</button>
             </div>
@@ -501,6 +537,7 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
 </svg>
 
 <header class="header">
+    <button class="auth-btn-header" id="authHeaderBtn" onclick="openSettingsModal()" title="Účet">Účet</button>
     <button class="settings-btn" onclick="openSettingsModal()" title="Nastavení">
         <svg viewBox="0 0 24 24">
             <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87 c-0.11,0.2-0.06,0.47,0.12,0.61l2.03,1.58c-0.05,0.3-0.07,0.62-0.07,0.94s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.11-0.2,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
@@ -567,6 +604,12 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
 </footer>
 
 <script>
+// --- SUPABASE CONFIGURATION ---
+const SUPABASE_URL = "TVÉ_SUPABASE_URL";       // Vlož své Supabase URL
+const SUPABASE_ANON_KEY = "TVŮJ_SUPABASE_ANON_KEY"; // Vlož svůj Supabase Anon klíč
+const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+let currentUser = null;
+
 const mediaData = {
     cs: [
         {
@@ -815,7 +858,10 @@ const translations = {
         langLabel: "Jazyk / Language",
         settingsClose: "Return to Game",
         itemsText: "položek",
-        inProgressText: "rozdělaných"
+        inProgressText: "rozdělaných",
+        loginText: "Přihlásit se přes Supabase",
+        logoutText: "Odhlásit se",
+        accountLabel: "Účet"
     },
     en: {
         subtitle: "World of Warcraft Fan Checklist",
@@ -829,7 +875,10 @@ const translations = {
         langLabel: "Language / Jazyk",
         settingsClose: "Return to Game",
         itemsText: "items",
-        inProgressText: "in progress"
+        inProgressText: "in progress",
+        loginText: "Sign in with Supabase",
+        logoutText: "Sign out",
+        accountLabel: "Account"
     }
 };
 
@@ -863,6 +912,7 @@ function setLanguage(lang) {
     document.getElementById("langLabelText").textContent = t.langLabel;
     document.getElementById("settingsCloseBtn").textContent = t.settingsClose;
     
+    updateAuthUI();
     updateModalTexts(lang);
 
     const emptyEl = document.getElementById("activeQuestsContent").querySelector("div");
@@ -955,6 +1005,21 @@ let idCounters = {};
 let groupRegistry = [];
 
 async function loadCheckedItems() {
+    if (supabaseClient && currentUser) {
+        try {
+            const { data, error } = await supabaseClient
+                .from('user_checklist')
+                .select('checked_data')
+                .eq('user_id', currentUser.id)
+                .single();
+            if (data && data.checked_data) {
+                checkedItems = data.checked_data;
+                return;
+            }
+        } catch (err) {
+            console.error("Chyba při načítání ze Supabase:", err);
+        }
+    }
     try {
         const raw = window.localStorage.getItem(STORAGE_KEY);
         checkedItems = raw ? JSON.parse(raw) : {};
@@ -967,6 +1032,16 @@ async function saveCheckedItems() {
     try {
         window.localStorage.setItem(STORAGE_KEY, JSON.stringify(checkedItems));
     } catch (err) {}
+
+    if (supabaseClient && currentUser) {
+        try {
+            await supabaseClient
+                .from('user_checklist')
+                .upsert({ user_id: currentUser.id, checked_data: checkedItems, updated_at: new Date() });
+        } catch (err) {
+            console.error("Chyba při ukládání do Supabase:", err);
+        }
+    }
 }
 
 function getItemGlobalKey(categoryIndex, groupIndices, itemIndex) {
@@ -1330,8 +1405,79 @@ function updateProgress() {
     document.getElementById("progressFill").style.width = percentage + "%";
 }
 
+// --- SUPABASE AUTH & SYNC FUNCTIONS ---
+async function initAuth() {
+    if (!supabaseClient) return;
+    try {
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        currentUser = session ? session.user : null;
+        updateAuthUI();
+
+        supabaseClient.auth.onAuthStateChange(async (_event, session) => {
+            currentUser = session ? session.user : null;
+            updateAuthUI();
+            await loadCheckedItems();
+            renderMedia();
+            updateProgress();
+            updateGroupStates();
+        });
+    } catch (e) {
+        console.error("Chyba při inicializaci auth:", e);
+    }
+}
+
+function updateAuthUI() {
+    const authBtn = document.getElementById("authActionBtn");
+    const headerAuthBtn = document.getElementById("authHeaderBtn");
+    const t = translations[currentLang];
+
+    if (currentUser) {
+        if (authBtn) {
+            authBtn.textContent = t.logoutText;
+            authBtn.style.background = "linear-gradient(180deg, #7a1b1b 0%, #520c0c 50%, #330505 100%)";
+        }
+        if (headerAuthBtn) {
+            headerAuthBtn.textContent = currentUser.email ? currentUser.email.split('@')[0] : t.accountLabel;
+        }
+    } else {
+        if (authBtn) {
+            authBtn.textContent = t.loginText;
+            authBtn.style.background = "linear-gradient(180deg, #2b5b7a 0%, #15354e 50%, #0d2233 100%)";
+        }
+        if (headerAuthBtn) {
+            headerAuthBtn.textContent = t.accountLabel;
+        }
+    }
+}
+
+async function handleAuthAction() {
+    if (!supabaseClient) return;
+    if (currentUser) {
+        await supabaseClient.auth.signOut();
+        currentUser = null;
+        updateAuthUI();
+        await loadCheckedItems();
+        renderMedia();
+        updateProgress();
+        updateGroupStates();
+        closeSettingsModal();
+    } else {
+        const email = prompt(currentLang === 'cs' ? "Zadej svůj e-mail pro přihlášení (Magic Link):" : "Enter your email to sign in (Magic Link):");
+        if (email) {
+            const { error } = await supabaseClient.auth.signInWithOtp({ email });
+            if (error) {
+                alert((currentLang === 'cs' ? "Chyba při přihlášení: " : "Login error: ") + error.message);
+            } else {
+                alert(currentLang === 'cs' ? "Odkaz pro přihlášení byl odeslán na tvůj e-mail!" : "Login link sent to your email!");
+                closeSettingsModal();
+            }
+        }
+    }
+}
+
 async function init() {
     loadSavedLanguage();
+    await initAuth();
     await loadCheckedItems();
     renderMedia();
     updateProgress();
