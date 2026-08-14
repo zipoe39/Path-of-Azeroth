@@ -1084,6 +1084,7 @@ async function supabaseLogin() {
     else { 
         currentUser = data.user; 
         updateAuthUI(); 
+        await loadCharacter();
         await loadCheckedItems(); 
         renderMedia();
         updateProgress();
@@ -1149,6 +1150,10 @@ async function supabaseLogout() {
     await supabaseClient.auth.signOut();
     currentUser = null;
     updateAuthUI();
+    pendingCharacter = { ...DEFAULT_CHARACTER };
+    try { localStorage.removeItem('poaCharacter'); } catch (error) {}
+    clearCharacterIcon();
+    syncCharacterSelectionUI();
     checkedItems = {};
     renderMedia();
     updateProgress();
@@ -1157,7 +1162,106 @@ async function supabaseLogout() {
 }
 
 // Funkce pro interaktivní výběr v menu "Tvoje postava"
-let pendingCharacter = { race: 'Human', gender: 'Male', class: 'Warrior', icon: 'human.png' };
+const DEFAULT_CHARACTER = { race: 'Human', gender: 'Male', class: 'Warrior', icon: 'human.png' };
+let pendingCharacter = { ...DEFAULT_CHARACTER };
+
+function normalizeCharacter(character) {
+    if (!character || typeof character !== "object") return { ...DEFAULT_CHARACTER };
+
+    const normalized = { ...DEFAULT_CHARACTER };
+    if (typeof character.race === "string") normalized.race = character.race;
+    if (typeof character.gender === "string") normalized.gender = character.gender;
+    if (typeof character.class === "string") normalized.class = character.class;
+    if (typeof character.icon === "string" && /^[a-z0-9_-]+\.(png|webp)$/i.test(character.icon)) {
+        normalized.icon = character.icon;
+    }
+    return normalized;
+}
+
+function syncCharacterSelectionUI() {
+    document.querySelectorAll('.wow-race-card').forEach(card => {
+        card.classList.toggle('selected', card.title === pendingCharacter.race);
+        const img = card.querySelector('img');
+        if (img) {
+            const src = pendingCharacter.gender === 'Female' ? img.dataset.female : img.dataset.male;
+            if (src) img.src = src;
+        }
+    });
+
+    document.querySelectorAll('.wow-gender-btn').forEach(button => {
+        button.classList.toggle('selected', button.title === pendingCharacter.gender);
+    });
+
+    document.querySelectorAll('.wow-class-card').forEach(card => {
+        const label = card.querySelector('.wow-class-label');
+        card.classList.toggle('selected', label && label.textContent === pendingCharacter.class);
+    });
+
+    const selectedRace = document.querySelector('.wow-race-card.selected img');
+    if (selectedRace) pendingCharacter.icon = selectedRace.getAttribute('src');
+}
+
+async function loadCharacter() {
+    if (supabaseClient && currentUser) {
+        try {
+            const { data, error } = await supabaseClient
+                .from('profiles')
+                .select('character_data')
+                .eq('id', currentUser.id)
+                .maybeSingle();
+
+            if (error) {
+                alert(translations[currentLang].alertCharacterLoadError + error.message);
+                pendingCharacter = { ...DEFAULT_CHARACTER };
+            } else if (data && data.character_data) {
+                pendingCharacter = normalizeCharacter(data.character_data);
+            } else {
+                pendingCharacter = { ...DEFAULT_CHARACTER };
+            }
+        } catch (error) {
+            alert(translations[currentLang].alertCharacterLoadError + error.message);
+            pendingCharacter = { ...DEFAULT_CHARACTER };
+        }
+    } else {
+        try {
+            const saved = JSON.parse(localStorage.getItem('poaCharacter') || 'null');
+            pendingCharacter = normalizeCharacter(saved);
+        } catch (error) {
+            pendingCharacter = { ...DEFAULT_CHARACTER };
+        }
+    }
+
+    syncCharacterSelectionUI();
+    applyCharacterIcon(pendingCharacter.icon);
+}
+
+async function saveCharacter() {
+    const t = translations[currentLang];
+
+    if (supabaseClient && currentUser) {
+        const { data, error } = await supabaseClient
+            .from('profiles')
+            .upsert({
+                id: currentUser.id,
+                character_data: pendingCharacter,
+                updated_at: new Date().toISOString()
+            }, { onConflict: 'id' })
+            .select('id, character_data, updated_at')
+            .single();
+
+        if (error || !data) {
+            alert(t.alertCharacterSaveError + (error ? error.message : t.alertCharacterSaveUnknownError));
+            return false;
+        }
+
+        pendingCharacter = normalizeCharacter(data.character_data);
+        try { localStorage.removeItem('poaCharacter'); } catch (error) {}
+        return true;
+    }
+
+    try { localStorage.setItem('poaCharacter', JSON.stringify(pendingCharacter)); } catch (error) {}
+    return true;
+}
 
 function selectRace(element, raceName) {
     document.querySelectorAll('.wow-race-card').forEach(el => el.classList.remove('selected'));
@@ -1187,28 +1291,31 @@ function selectClass(element, className) {
 function applyCharacterIcon(iconSrc) {
     const btn = document.querySelector('.auth-btn-top');
     if (!btn || !iconSrc) return;
-    btn.innerHTML = '<img class="auth-btn-portrait" src="' + iconSrc + '" alt="">';
+    btn.innerHTML = "";
+    const portrait = document.createElement("img");
+    portrait.className = "auth-btn-portrait";
+    portrait.src = iconSrc;
+    portrait.alt = "";
+    btn.appendChild(portrait);
     btn.classList.add('has-portrait');
 }
 
-function confirmCharacter() {
+function clearCharacterIcon() {
+    const btn = document.querySelector('.auth-btn-top');
+    if (!btn) return;
+    btn.classList.remove('has-portrait');
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>';
+}
+
+async function confirmCharacter() {
     const selectedRace = document.querySelector('.wow-race-card.selected img');
     if (selectedRace) pendingCharacter.icon = selectedRace.getAttribute('src');
-    try { localStorage.setItem('poaCharacter', JSON.stringify(pendingCharacter)); } catch (e) {}
+    pendingCharacter = normalizeCharacter(pendingCharacter);
+    const saved = await saveCharacter();
+    if (!saved) return;
     applyCharacterIcon(pendingCharacter.icon);
     document.getElementById("characterModal").style.display = "none";
 }
-
-function restoreCharacterIcon() {
-    try {
-        const saved = JSON.parse(localStorage.getItem('poaCharacter') || 'null');
-        if (saved && saved.icon) {
-            pendingCharacter = saved;
-            applyCharacterIcon(saved.icon);
-        }
-    } catch (e) {}
-}
-document.addEventListener('DOMContentLoaded', restoreCharacterIcon);
 
 // -------------------------------------------------------------------------
 
@@ -1488,6 +1595,9 @@ const translations = {
         alertPasswordTooShort: "Heslo musí mít alespoň 6 znaků.",
         alertPasswordChangeError: "Chyba při změně hesla: ",
         alertPasswordChangeSuccess: "Heslo bylo úspěšně změněno.",
+        alertCharacterSaveError: "Chyba při ukládání postavy: ",
+        alertCharacterSaveUnknownError: "Cloud nevrátil potvrzení uložení.",
+        alertCharacterLoadError: "Chyba při načítání postavy: ",
         alertLogout: "Odhlášeno.",
         itemsText: "položek",
         inProgressText: "rozdělaných"
@@ -1532,6 +1642,9 @@ const translations = {
         alertPasswordTooShort: "The password must be at least 6 characters long.",
         alertPasswordChangeError: "Password change error: ",
         alertPasswordChangeSuccess: "Password changed successfully.",
+        alertCharacterSaveError: "Character save error: ",
+        alertCharacterSaveUnknownError: "The cloud did not confirm the save.",
+        alertCharacterLoadError: "Character loading error: ",
         alertLogout: "Logged out.",
         itemsText: "items",
         inProgressText: "in progress"
@@ -1631,8 +1744,9 @@ function closeSettingsModal() {
     document.getElementById("settingsModal").style.display = "none";
 }
 
-function openAuthModal() {
+async function openAuthModal() {
     document.getElementById("authModal").style.display = "flex";
+    if (currentUser) await loadCharacter();
 }
 
 function closeAuthModal() {
@@ -1641,6 +1755,7 @@ function closeAuthModal() {
 
 function openCharacterModal() {
     closeAuthModal();
+    syncCharacterSelectionUI();
     document.getElementById("characterModal").style.display = "flex";
 }
 
@@ -2133,6 +2248,7 @@ function updateProgress() {
 async function init() {
     loadSavedLanguage();
     await checkSupabaseAuth();
+    await loadCharacter();
     await loadCheckedItems();
     renderMedia();
     updateProgress();
