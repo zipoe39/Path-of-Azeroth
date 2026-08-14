@@ -305,7 +305,7 @@ body.theme-horde .footer { background: linear-gradient(180deg, #0a0606 0%, #0302
 body.theme-horde .footer::before { background: linear-gradient(90deg, transparent, #5e2323 50%, transparent); }
 body.theme-horde .theme-title { color: #853e2b; }
 
-#settingsModal, #installModal, #authModal, #registerModal, #characterModal {
+#settingsModal, #installModal, #authModal, #registerModal, #changePasswordModal, #characterModal {
     display: none;
     position: fixed;
     inset: 0;
@@ -322,7 +322,7 @@ body.theme-horde .theme-title { color: #853e2b; }
     to { opacity: 1; }
 }
 
-#settingsModal .modal-dialog, #installModal .modal-dialog, #authModal .modal-dialog, #registerModal .modal-dialog {
+#settingsModal .modal-dialog, #installModal .modal-dialog, #authModal .modal-dialog, #registerModal .modal-dialog, #changePasswordModal .modal-dialog {
     background-color: #3b2c1e;
     background-image: radial-gradient(circle at 50% 50%, rgba(50,35,22,0.6) 0%, rgba(20,13,8,0.9) 100%);
     border: 4px solid #000000;
@@ -353,7 +353,7 @@ body.theme-horde .theme-title { color: #853e2b; }
     color: #e4dfd2;
 }
 
-#settingsModal .modal-title, #installModal .modal-title, #authModal .modal-title, #registerModal .modal-title {
+#settingsModal .modal-title, #installModal .modal-title, #authModal .modal-title, #registerModal .modal-title, #changePasswordModal .modal-title {
     font-family: 'Cinzel', Georgia, serif;
     font-size: 14px;
     font-weight: 700;
@@ -410,6 +410,7 @@ body.theme-horde .theme-title { color: #853e2b; }
 #installModal .modal-btn,
 #authModal .modal-btn,
 #registerModal .modal-btn,
+#changePasswordModal .modal-btn,
 #characterModal .modal-btn {
     background: linear-gradient(180deg, #7a1b1b 0%, #520c0c 50%, #330505 100%);
     border: 2px solid #000000;
@@ -434,6 +435,7 @@ body.theme-horde .theme-title { color: #853e2b; }
 #installModal .modal-btn:hover,
 #authModal .modal-btn:hover,
 #registerModal .modal-btn:hover,
+#changePasswordModal .modal-btn:hover,
 #characterModal .modal-btn:hover {
     background: linear-gradient(180deg, #992222 0%, #661010 50%, #420707 100%);
     border-color: #000;
@@ -451,7 +453,7 @@ body.theme-horde .theme-title { color: #853e2b; }
     box-shadow: inset 0 1px 3px rgba(0,0,0,0.8), 0 0 10px rgba(255, 204, 0, 0.25);
 }
 
-#settingsModal .settings-label, #authModal .settings-label, #registerModal .settings-label {
+#settingsModal .settings-label, #authModal .settings-label, #registerModal .settings-label, #changePasswordModal .settings-label {
     color: #d1b888;
     font-size: 12px;
     text-shadow: 0 1px 2px #000;
@@ -782,6 +784,7 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
                     <button class="modal-btn" onclick="openRegisterModal()" id="btnRegisterText" style="padding:6px;" data-cs="Registrovat" data-en="Register">Registrovat</button>
                 </div>
                 <button class="modal-btn" onclick="openCharacterModal()" id="btnTvojePostava" style="margin-top:8px; padding:6px; background:linear-gradient(180deg, #3b5c1e 0%, #1e330f 100%);" data-cs="Tvoje postava" data-en="Your Character">Tvoje postava</button>
+                <button class="modal-btn" onclick="openChangePasswordModal()" id="btnChangePassword" style="display:none; margin-top:8px; padding:6px; background:linear-gradient(180deg, #6b4e1b 0%, #3d2b0d 100%);" data-cs="Změnit heslo" data-en="Change password">Změnit heslo</button>
                 <button class="modal-btn" onclick="supabaseLogout()" id="btnLogoutText" style="display:none; margin-top:8px; padding:6px; background:linear-gradient(180deg, #444 0%, #222 100%);" data-cs="Odhlásit se" data-en="Logout">Odhlásit se</button>
             </div>
         </div>
@@ -905,6 +908,21 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
             </div>
         </div>
         <button class="modal-btn" onclick="closeRegisterModal()" id="regCloseBtn">Zavřít</button>
+    </div>
+</div>
+
+<!-- Samostatné okno pro změnu hesla -->
+<div id="changePasswordModal">
+    <div class="modal-dialog">
+        <div class="modal-title" id="changePasswordModalTitle">Změna hesla</div>
+        <div class="modal-body">
+            <div class="auth-box" style="margin-bottom:0;">
+                <input type="password" id="newPassword" class="auth-input" data-cs-ph="Nové heslo" data-en-ph="New password" placeholder="Nové heslo">
+                <input type="password" id="confirmNewPassword" class="auth-input" data-cs-ph="Potvrzení nového hesla" data-en-ph="Confirm new password" placeholder="Potvrzení nového hesla">
+                <button class="modal-btn" onclick="supabaseChangePassword()" id="btnSavePassword" style="padding:6px;" data-cs="Uložit nové heslo" data-en="Save new password">Uložit nové heslo</button>
+            </div>
+        </div>
+        <button class="modal-btn" onclick="closeChangePasswordModal()" id="changePasswordCloseBtn">Zavřít</button>
     </div>
 </div>
 
@@ -1035,6 +1053,7 @@ function updateAuthUI() {
     const emailInput = document.getElementById("authEmail");
     const passInput = document.getElementById("authPassword");
     const authBtns = document.getElementById("authButtonsRow");
+    const changePasswordBtn = document.getElementById("btnChangePassword");
     const logoutBtn = document.getElementById("btnLogoutText");
 
     if (currentUser) {
@@ -1043,12 +1062,14 @@ function updateAuthUI() {
         if (emailInput) emailInput.style.display = "none";
         if (passInput) passInput.style.display = "none";
         if (authBtns) authBtns.style.display = "none";
+        if (changePasswordBtn) changePasswordBtn.style.display = "block";
         if (logoutBtn) logoutBtn.style.display = "block";
     } else {
         if (userInfo) userInfo.style.display = "none";
         if (emailInput) emailInput.style.display = "block";
         if (passInput) passInput.style.display = "block";
         if (authBtns) authBtns.style.display = "flex";
+        if (changePasswordBtn) changePasswordBtn.style.display = "none";
         if (logoutBtn) logoutBtn.style.display = "none";
     }
 }
@@ -1089,6 +1110,38 @@ async function supabaseRegister() {
         alert(t.alertRegisterSuccess); 
         closeRegisterModal();
     }
+}
+
+async function supabaseChangePassword() {
+    const t = translations[currentLang];
+    if (!supabaseClient || !currentUser) {
+        alert(t.alertNotLoggedIn);
+        return;
+    }
+
+    const newPassword = document.getElementById("newPassword").value;
+    const confirmNewPassword = document.getElementById("confirmNewPassword").value;
+
+    if (newPassword.length < 6) {
+        alert(t.alertPasswordTooShort);
+        return;
+    }
+
+    if (newPassword !== confirmNewPassword) {
+        alert(t.alertPasswordsMismatch);
+        return;
+    }
+
+    const { error } = await supabaseClient.auth.updateUser({ password: newPassword });
+    if (error) {
+        alert(t.alertPasswordChangeError + error.message);
+        return;
+    }
+
+    document.getElementById("newPassword").value = "";
+    document.getElementById("confirmNewPassword").value = "";
+    closeChangePasswordModal();
+    alert(t.alertPasswordChangeSuccess);
 }
 
 async function supabaseLogout() {
@@ -1138,30 +1191,10 @@ function applyCharacterIcon(iconSrc) {
     btn.classList.add('has-portrait');
 }
 
-async function confirmCharacter() {
+function confirmCharacter() {
     const selectedRace = document.querySelector('.wow-race-card.selected img');
     if (selectedRace) pendingCharacter.icon = selectedRace.getAttribute('src');
-    
-    // 1. Uložení lokálně do localStorage (jako záloha / pro nepřihlášené)
-    try { 
-        localStorage.setItem('poaCharacter', JSON.stringify(pendingCharacter)); 
-    } catch (e) {}
-
-    // 2. Uložení do cloudu Supabase, pokud je uživatel přihlášený
-    if (supabaseClient && currentUser) {
-        const { error } = await supabaseClient
-            .from('profiles')
-            .upsert({ 
-                id: currentUser.id, 
-                character_data: pendingCharacter,
-                updated_at: new Date()
-            });
-            
-        if (error) {
-            console.error("Chyba při ukládání postavy do Supabase:", error.message);
-        }
-    }
-
+    try { localStorage.setItem('poaCharacter', JSON.stringify(pendingCharacter)); } catch (e) {}
     applyCharacterIcon(pendingCharacter.icon);
     document.getElementById("characterModal").style.display = "none";
 }
@@ -1433,7 +1466,12 @@ const translations = {
         loginBtn: "Přihlásit",
         registerBtn: "Registrovat",
         characterBtn: "Tvoje postava",
+        changePasswordBtn: "Změnit heslo",
         logoutBtn: "Odhlásit se",
+        changePasswordTitle: "Změna hesla",
+        newPasswordPh: "Nové heslo",
+        confirmNewPasswordPh: "Potvrzení nového hesla",
+        savePasswordBtn: "Uložit nové heslo",
         confirmBtn: "Potvrdit",
         createAccountBtn: "Vytvořit účet",
         authBtnTitle: "Přihlášení",
@@ -1446,6 +1484,10 @@ const translations = {
         alertPasswordsMismatch: "Zadaná hesla se neshodují!",
         alertRegisterError: "Chyba při registraci: ",
         alertRegisterSuccess: "Registrace proběhla! Zkontroluj svůj e-mail pro potvrzení (pokud je vyžadováno).",
+        alertNotLoggedIn: "Nejsi přihlášen.",
+        alertPasswordTooShort: "Heslo musí mít alespoň 6 znaků.",
+        alertPasswordChangeError: "Chyba při změně hesla: ",
+        alertPasswordChangeSuccess: "Heslo bylo úspěšně změněno.",
         alertLogout: "Odhlášeno.",
         itemsText: "položek",
         inProgressText: "rozdělaných"
@@ -1468,7 +1510,12 @@ const translations = {
         loginBtn: "Login",
         registerBtn: "Register",
         characterBtn: "Your Character",
+        changePasswordBtn: "Change password",
         logoutBtn: "Logout",
+        changePasswordTitle: "Change password",
+        newPasswordPh: "New password",
+        confirmNewPasswordPh: "Confirm new password",
+        savePasswordBtn: "Save new password",
         confirmBtn: "Confirm",
         createAccountBtn: "Create Account",
         authBtnTitle: "Login",
@@ -1481,6 +1528,10 @@ const translations = {
         alertPasswordsMismatch: "The passwords do not match!",
         alertRegisterError: "Registration error: ",
         alertRegisterSuccess: "Registration complete! Check your email for confirmation (if required).",
+        alertNotLoggedIn: "You are not logged in.",
+        alertPasswordTooShort: "The password must be at least 6 characters long.",
+        alertPasswordChangeError: "Password change error: ",
+        alertPasswordChangeSuccess: "Password changed successfully.",
         alertLogout: "Logged out.",
         itemsText: "items",
         inProgressText: "in progress"
@@ -1528,18 +1579,22 @@ function setLanguage(lang) {
     document.getElementById("btnLoginText").textContent = t.loginBtn;
     document.getElementById("btnRegisterText").textContent = t.registerBtn;
     document.getElementById("btnTvojePostava").textContent = t.characterBtn;
+    document.getElementById("btnChangePassword").textContent = t.changePasswordBtn;
     document.getElementById("btnLogoutText").textContent = t.logoutBtn;
+    document.getElementById("changePasswordModalTitle").textContent = t.changePasswordTitle;
+    document.getElementById("btnSavePassword").textContent = t.savePasswordBtn;
+    document.getElementById("changePasswordCloseBtn").textContent = t.authClose;
     document.getElementById("btnConfirmCharacter").textContent = t.confirmBtn;
     document.getElementById("btnCreateAccount").textContent = t.createAccountBtn;
     const authBtnTop = document.getElementById("authBtnTop");
     if (authBtnTop) authBtnTop.title = t.authBtnTitle;
 
-    ["authEmail", "authPassword", "regEmail", "regPassword", "regPasswordConfirm"].forEach(function(id) {
+    ["authEmail", "authPassword", "regEmail", "regPassword", "regPasswordConfirm", "newPassword", "confirmNewPassword"].forEach(function(id) {
         const el = document.getElementById(id);
         if (el) el.placeholder = el.getAttribute("data-" + lang + "-ph") || el.placeholder;
     });
 
-    ["btnLoginText", "btnRegisterText", "btnTvojePostava", "btnLogoutText", "btnConfirmCharacter", "btnCreateAccount"].forEach(function(id) {
+    ["btnLoginText", "btnRegisterText", "btnTvojePostava", "btnChangePassword", "btnLogoutText", "btnConfirmCharacter", "btnCreateAccount", "btnSavePassword"].forEach(function(id) {
         const el = document.getElementById(id);
         if (el) el.textContent = el.getAttribute("data-" + lang) || el.textContent;
     });
@@ -1601,6 +1656,17 @@ function openRegisterModal() {
 
 function closeRegisterModal() {
     document.getElementById("registerModal").style.display = "none";
+}
+
+function openChangePasswordModal() {
+    if (!currentUser) return;
+    closeAuthModal();
+    document.getElementById("changePasswordModal").style.display = "flex";
+}
+
+function closeChangePasswordModal() {
+    document.getElementById("changePasswordModal").style.display = "none";
+    openAuthModal();
 }
 
 function openInstallModalFromSettings() {
