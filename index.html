@@ -133,6 +133,12 @@ body::before {
     display: block; 
     filter: drop-shadow(0 4px 12px rgba(0,0,0,0.9)) sepia(0.6) saturate(2) hue-rotate(5deg) brightness(0.95) contrast(1.05); 
 }
+/* Logo konkrétní classy je už plně barevné - nechceme přes něj tisknout zlatý/frakční filtr */
+.header-logo.has-class-logo,
+body.theme-alliance .header-logo.has-class-logo,
+body.theme-horde .header-logo.has-class-logo {
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.9));
+}
 
 .subtitle { margin-top: 8px; color: #9e8f6c; font-size: 16px; font-weight: bold; letter-spacing: .5px; text-shadow: 0 1px 2px rgba(0,0,0,0.8); }
 .progress-area { margin: 15px auto 0; max-width: 520px; }
@@ -671,6 +677,66 @@ body.theme-horde .theme-title { color: #853e2b; }
     justify-content: center;
     width: 100%;
 }
+.wow-classlogo-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 12px 0 2px;
+}
+.wow-classlogo-toggle-label {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 11px;
+    letter-spacing: .3px;
+    color: #c9bfa3;
+    text-shadow: 0 1px 2px #000;
+    cursor: pointer;
+    user-select: none;
+    max-width: 220px;
+    text-align: left;
+}
+.wow-toggle-switch {
+    position: relative;
+    width: 40px;
+    height: 20px;
+    flex: 0 0 auto;
+    display: block;
+}
+.wow-toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+.wow-toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background: #1a1a1a;
+    border: 2px solid #5c4e38;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+}
+.wow-toggle-slider::before {
+    content: "";
+    position: absolute;
+    height: 12px;
+    width: 12px;
+    left: 2px;
+    top: 2px;
+    background: #9e8f6c;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+}
+.wow-toggle-switch input:checked + .wow-toggle-slider {
+    border-color: #ffcc00;
+    box-shadow: 0 0 8px rgba(255,204,0,0.4);
+}
+.wow-toggle-switch input:checked + .wow-toggle-slider::before {
+    transform: translateX(20px);
+    background: #ffcc00;
+}
 .wow-class-card {
     width: 54px;
     box-sizing: border-box;
@@ -850,7 +916,6 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
                 </div>
 
                 <!-- Třídy (Classes) -->
-                <div class="wow-wip-note">Class – under construction</div>
                 <div class="wow-classes-grid">
                     <div class="wow-class-card selected" onclick="selectClass(this, 'Warrior')">
                         <img src="warrior.png" alt="Warrior">
@@ -888,6 +953,15 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
                         <img src="druid.png" alt="Druid">
                         <span class="wow-class-label">Druid</span>
                     </div>
+                </div>
+
+                <!-- Přepínač: logo hlavní stránky dle classy, nebo dle frakce -->
+                <div class="wow-classlogo-toggle">
+                    <label class="wow-toggle-switch">
+                        <input type="checkbox" id="classLogoToggle" checked onchange="toggleClassLogo(this)">
+                        <span class="wow-toggle-slider"></span>
+                    </label>
+                    <label class="wow-classlogo-toggle-label" for="classLogoToggle" id="classLogoToggleLabel" data-cs="Logo dle classy (jinak dle frakce)" data-en="Logo by class (otherwise by faction)">Logo dle classy (jinak dle frakce)</label>
                 </div>
             </div>
         </div>
@@ -969,7 +1043,7 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
         </svg>
     </button>
     <div class="header-inner">
-        <img class="header-logo" src="path-of-azeroth_logo2.png" alt="Path of Azeroth">
+        <img class="header-logo" id="headerLogo" src="path-of-azeroth_logo2.png" data-default-src="path-of-azeroth_logo2.png" alt="Path of Azeroth">
         <div class="subtitle" id="subtitleText" data-cs="Fanouškovský checklist světa Warcraftu" data-en="World of Warcraft Fan Checklist">Fanouškovský checklist světa Warcraftu</div>
         <div class="progress-area">
             <div class="progress-label" id="progressLabelText" data-cs="Postup sbírky" data-en="Collection Progress">Postup sbírky</div>
@@ -1162,8 +1236,37 @@ async function supabaseLogout() {
 }
 
 // Funkce pro interaktivní výběr v menu "Tvoje postava"
-const DEFAULT_CHARACTER = { race: 'Human', gender: 'Male', class: 'Warrior', icon: 'human.png' };
+const DEFAULT_CHARACTER = { race: 'Human', gender: 'Male', class: 'Warrior', icon: 'human.png', classLogoEnabled: true };
 let pendingCharacter = { ...DEFAULT_CHARACTER };
+
+// Logo hlavní stránky pro jednotlivé třídy (classy)
+const CLASS_LOGOS = {
+    'Warrior': 'logo_warrior.png',
+    'Paladin': 'logo_paladin.png',
+    'Hunter': 'logo_hunter.png',
+    'Rogue': 'logo_rogue.png',
+    'Priest': 'logo_priest.png',
+    'Shaman': 'logo_shaman.png',
+    'Mage': 'logo_mage.png',
+    'Warlock': 'logo_warlock.png',
+    'Druid': 'logo_druid.png'
+};
+
+// Nastaví logo v hlavičce podle zvolené classy (nebo výchozí logo, pokud classa nemá vlastní verzi)
+function applyClassLogo(character) {
+    const logoEl = document.getElementById('headerLogo');
+    if (!logoEl) return;
+    const useClassLogo = !!(character && character.classLogoEnabled !== false);
+    const classSrc = useClassLogo ? CLASS_LOGOS[character.class] : null;
+    const src = classSrc || logoEl.dataset.defaultSrc || 'path-of-azeroth_logo2.png';
+    if (logoEl.getAttribute('src') !== src) logoEl.setAttribute('src', src);
+    logoEl.classList.toggle('has-class-logo', Boolean(classSrc));
+}
+
+// Přepínač: logo hlavní stránky dle vybrané classy, nebo dle aktuální frakce (Aliance/Horda/Neutrální)
+function toggleClassLogo(element) {
+    pendingCharacter.classLogoEnabled = !!element.checked;
+}
 
 function normalizeCharacter(character) {
     if (!character || typeof character !== "object") return { ...DEFAULT_CHARACTER };
@@ -1175,6 +1278,7 @@ function normalizeCharacter(character) {
     if (typeof character.icon === "string" && /^[a-z0-9_-]+\.(png|webp)$/i.test(character.icon)) {
         normalized.icon = character.icon;
     }
+    if (typeof character.classLogoEnabled === "boolean") normalized.classLogoEnabled = character.classLogoEnabled;
     return normalized;
 }
 
@@ -1196,6 +1300,9 @@ function syncCharacterSelectionUI() {
         const label = card.querySelector('.wow-class-label');
         card.classList.toggle('selected', label && label.textContent === pendingCharacter.class);
     });
+
+    const classLogoToggle = document.getElementById('classLogoToggle');
+    if (classLogoToggle) classLogoToggle.checked = pendingCharacter.classLogoEnabled !== false;
 
     const selectedRace = document.querySelector('.wow-race-card.selected img');
     if (selectedRace) pendingCharacter.icon = selectedRace.getAttribute('src');
@@ -1233,6 +1340,7 @@ async function loadCharacter() {
 
     syncCharacterSelectionUI();
     applyCharacterIcon(pendingCharacter.icon);
+    applyClassLogo(pendingCharacter);
 }
 
 async function saveCharacter() {
@@ -1314,6 +1422,7 @@ async function confirmCharacter() {
     const saved = await saveCharacter();
     if (!saved) return;
     applyCharacterIcon(pendingCharacter.icon);
+    applyClassLogo(pendingCharacter);
     document.getElementById("characterModal").style.display = "none";
 }
 
@@ -1707,7 +1816,7 @@ function setLanguage(lang) {
         if (el) el.placeholder = el.getAttribute("data-" + lang + "-ph") || el.placeholder;
     });
 
-    ["btnLoginText", "btnRegisterText", "btnTvojePostava", "btnChangePassword", "btnLogoutText", "btnConfirmCharacter", "btnCreateAccount", "btnSavePassword"].forEach(function(id) {
+    ["btnLoginText", "btnRegisterText", "btnTvojePostava", "btnChangePassword", "btnLogoutText", "btnConfirmCharacter", "btnCreateAccount", "btnSavePassword", "classLogoToggleLabel"].forEach(function(id) {
         const el = document.getElementById(id);
         if (el) el.textContent = el.getAttribute("data-" + lang) || el.textContent;
     });
