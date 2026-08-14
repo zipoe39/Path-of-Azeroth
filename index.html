@@ -1138,12 +1138,57 @@ function applyCharacterIcon(iconSrc) {
     btn.classList.add('has-portrait');
 }
 
-function confirmCharacter() {
+async function confirmCharacter() {
     const selectedRace = document.querySelector('.wow-race-card.selected img');
     if (selectedRace) pendingCharacter.icon = selectedRace.getAttribute('src');
-    try { localStorage.setItem('poaCharacter', JSON.stringify(pendingCharacter)); } catch (e) {}
+    
+    // 1. Uložení lokálně do localStorage (jako záloha / pro nepřihlášené)
+    try { 
+        localStorage.setItem('poaCharacter', JSON.stringify(pendingCharacter)); 
+    } catch (e) {}
+
+    // 2. Uložení do cloudu Supabase, pokud je uživatel přihlášený
+    if (supabaseClient && currentUser) {
+        const { error } = await supabaseClient
+            .from('profiles')
+            .upsert({ 
+                id: currentUser.id, 
+                character_data: pendingCharacter,
+                updated_at: new Date()
+            });
+            
+        if (error) {
+            console.error("Chyba při ukládání postavy do Supabase:", error.message);
+        }
+    }
+
     applyCharacterIcon(pendingCharacter.icon);
     document.getElementById("characterModal").style.display = "none";
+}
+
+async function loadCharacterData() {
+    try {
+        if (supabaseClient && currentUser) {
+            const { data, error } = await supabaseClient
+                .from('profiles')
+                .select('character_data')
+                .eq('id', currentUser.id)
+                .maybeSingle();
+
+            if (data && data.character_data) {
+                pendingCharacter = data.character_data;
+                applyCharacterIcon(pendingCharacter.icon);
+                // Uložíme pro jistotu i lokálně
+                localStorage.setItem('poaCharacter', JSON.stringify(pendingCharacter));
+                return;
+            }
+        }
+        
+        // Fallback na localStorage, pokud uživatel není přihlášený
+        restoreCharacterIcon();
+    } catch (err) {
+        console.error("Chyba při načítání postavy:", err);
+    }
 }
 
 function restoreCharacterIcon() {
