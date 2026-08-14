@@ -1166,31 +1166,6 @@ async function confirmCharacter() {
     document.getElementById("characterModal").style.display = "none";
 }
 
-async function loadCharacterData() {
-    try {
-        if (supabaseClient && currentUser) {
-            const { data, error } = await supabaseClient
-                .from('profiles')
-                .select('character_data')
-                .eq('id', currentUser.id)
-                .maybeSingle();
-
-            if (data && data.character_data) {
-                pendingCharacter = data.character_data;
-                applyCharacterIcon(pendingCharacter.icon);
-                // Uložíme pro jistotu i lokálně
-                localStorage.setItem('poaCharacter', JSON.stringify(pendingCharacter));
-                return;
-            }
-        }
-        
-        // Fallback na localStorage, pokud uživatel není přihlášený
-        restoreCharacterIcon();
-    } catch (err) {
-        console.error("Chyba při načítání postavy:", err);
-    }
-}
-
 function restoreCharacterIcon() {
     try {
         const saved = JSON.parse(localStorage.getItem('poaCharacter') || 'null');
