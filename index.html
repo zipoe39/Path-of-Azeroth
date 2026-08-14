@@ -113,6 +113,8 @@ body::before {
     transform: scale(1.05);
     background: rgba(40, 35, 25, 0.9);
 }
+.auth-btn-top.has-portrait { padding: 0; overflow: hidden; }
+.auth-btn-portrait { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
 .auth-btn-top svg {
     width: 22px;
     height: 22px;
@@ -303,7 +305,7 @@ body.theme-horde .footer { background: linear-gradient(180deg, #0a0606 0%, #0302
 body.theme-horde .footer::before { background: linear-gradient(90deg, transparent, #5e2323 50%, transparent); }
 body.theme-horde .theme-title { color: #853e2b; }
 
-#settingsModal, #installModal, #authModal, #registerModal {
+#settingsModal, #installModal, #authModal, #registerModal, #characterModal {
     display: none;
     position: fixed;
     inset: 0;
@@ -330,6 +332,22 @@ body.theme-horde .theme-title { color: #853e2b; }
     width: 100%;
     padding: 32px 18px 20px 18px;
     box-shadow: 0 20px 50px rgba(0,0,0,0.95);
+    text-align: center;
+    position: relative;
+    color: #e4dfd2;
+}
+
+/* Speciální úprava pro okno výběru postavy podle vzoru WoW Classic */
+#characterModal .modal-dialog {
+    background-color: #121318;
+    background-image: linear-gradient(180deg, rgba(30,25,18,0.95) 0%, rgba(10,10,12,0.98) 100%);
+    border: 4px solid #000000;
+    outline: 3px solid #6b4e1b;
+    border-radius: 4px;
+    max-width: 420px;
+    width: 100%;
+    padding: 16px 16px 20px 16px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.95);
     text-align: center;
     position: relative;
     color: #e4dfd2;
@@ -391,7 +409,8 @@ body.theme-horde .theme-title { color: #853e2b; }
 #settingsModal .modal-btn,
 #installModal .modal-btn,
 #authModal .modal-btn,
-#registerModal .modal-btn {
+#registerModal .modal-btn,
+#characterModal .modal-btn {
     background: linear-gradient(180deg, #7a1b1b 0%, #520c0c 50%, #330505 100%);
     border: 2px solid #000000;
     outline: 1px solid #5c4e38;
@@ -414,7 +433,8 @@ body.theme-horde .theme-title { color: #853e2b; }
 #settingsModal .modal-btn:hover,
 #installModal .modal-btn:hover,
 #authModal .modal-btn:hover,
-#registerModal .modal-btn:hover {
+#registerModal .modal-btn:hover,
+#characterModal .modal-btn:hover {
     background: linear-gradient(180deg, #992222 0%, #661010 50%, #420707 100%);
     border-color: #000;
     outline-color: #8c6e3b;
@@ -497,6 +517,201 @@ body.theme-horde .theme-title { color: #853e2b; }
     gap: 6px;
 }
 
+/* Styly pro výběr postavy podle WoW Classic (banner, ikony, classy) */
+.wow-char-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    padding: 5px 0;
+}
+.wow-factions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 54px);
+    gap: 6px;
+    justify-content: center;
+    width: 100%;
+}
+.wow-faction-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding-top: 4px;
+    padding-bottom: 30px;
+}
+.wow-faction-column.alliance { grid-column: 1; }
+.wow-faction-column.horde { grid-column: 3; }
+.wow-faction-spacer { grid-column: 2; }
+.wow-faction-banner {
+    position: absolute;
+    top: 30px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    z-index: 1;
+    pointer-events: none;
+}
+.wow-faction-banner.alliance {
+    background: linear-gradient(180deg, #1b4b8a 0%, #0d2342 100%);
+    border-left: 2px solid #ffcc00;
+    border-right: 2px solid #ffcc00;
+    border-top: none;
+    border-bottom: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.8);
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+}
+.wow-faction-banner.horde {
+    background: linear-gradient(180deg, #8a1b1b 0%, #420d0d 100%);
+    border-left: 2px solid #ffcc00;
+    border-right: 2px solid #ffcc00;
+    border-top: none;
+    border-bottom: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.8);
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+}
+.wow-faction-title {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffcc00;
+    margin-bottom: 12px;
+    text-shadow: 0 1px 2px #000;
+    position: relative;
+    z-index: 3;
+    letter-spacing: 1px;
+}
+
+.wow-races-list {
+    display: grid;
+    grid-template-columns: 54px;
+    justify-content: center;
+    gap: 6px;
+    z-index: 2;
+    width: 100%;
+    align-items: center;
+}
+.wow-race-card {
+    width: 54px;
+    flex: 0 0 auto;
+    box-sizing: border-box;
+    height: 54px;
+    background: #1a1a1a;
+    border: 2px solid #5c4e38;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.2s ease;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.6);
+}
+.wow-race-card:hover, .wow-race-card.selected {
+    border-color: #ffcc00;
+    box-shadow: 0 0 10px rgba(255,204,0,0.6), inset 0 0 6px rgba(255,204,0,0.25);
+}
+.wow-race-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 2px;
+}
+.wow-gender-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin: 4px 0;
+}
+.wow-gender-btn {
+    width: 40px;
+    height: 40px;
+    background: #1a1a1a;
+    border: 2px solid #5c4e38;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+.wow-gender-btn:hover, .wow-gender-btn.selected {
+    border-color: #ffcc00;
+    box-shadow: 0 0 8px rgba(255,204,0,0.4);
+}
+.wow-gender-btn img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    border-radius: 3px;
+    filter: brightness(0.85);
+    transition: filter 0.2s ease;
+}
+.wow-gender-btn:hover img, .wow-gender-btn.selected img {
+    filter: brightness(1.15);
+}
+.wow-wip-note {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #9e8f6c;
+    text-align: center;
+    margin: 6px 0 4px;
+    text-shadow: 0 1px 2px #000;
+}
+.wow-classes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 54px);
+    gap: 6px;
+    justify-content: center;
+    width: 100%;
+}
+.wow-class-card {
+    width: 54px;
+    box-sizing: border-box;
+    height: 54px;
+    background: #1a1a1a;
+    border: 2px solid #5c4e38;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.2s ease;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.6);
+}
+.wow-class-card:hover, .wow-class-card.selected {
+    border-color: #ffcc00;
+    box-shadow: 0 0 8px rgba(255,204,0,0.5), inset 0 0 6px rgba(255,204,0,0.25);
+}
+.wow-class-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 2px;
+}
+.wow-class-label {
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 6px);
+    font-size: 8px;
+    font-weight: bold;
+    line-height: 1.15;
+    text-align: center;
+    color: #ffcc00;
+    background: rgba(0,0,0,0.7);
+    padding: 1px 2px;
+    border-radius: 2px;
+    font-family: 'Cinzel', Georgia, serif;
+    pointer-events: none;
+}
+
 @media (max-width: 700px) {
     .header-logo { max-width: 220px; }
     .main { padding: 14px 10px 40px; }
@@ -558,18 +773,122 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
         <div class="modal-body">
             <div class="auth-box" id="authBoxSection" style="margin-bottom:0;">
                 <div id="userInfoSection" style="display:none; margin-bottom:8px; font-size:12px; color:#f5dfa0;">
-                    Přihlášen: <span id="userEmailDisplay" style="font-weight:bold;"></span>
+                    <span id="loggedInLabel">Přihlášen:</span> <span id="userEmailDisplay" style="font-weight:bold;"></span>
                 </div>
-                <input type="email" id="authEmail" class="auth-input" placeholder="Email...">
-                <input type="password" id="authPassword" class="auth-input" placeholder="Heslo...">
+                <input type="email" id="authEmail" class="auth-input" data-cs-ph="Email..." data-en-ph="Email..." placeholder="Email...">
+                <input type="password" id="authPassword" class="auth-input" data-cs-ph="Heslo" data-en-ph="Password" placeholder="Heslo">
                 <div class="auth-row" id="authButtonsRow">
-                    <button class="modal-btn" onclick="supabaseLogin()" id="btnLoginText" style="padding:6px;">Přihlásit</button>
-                    <button class="modal-btn" onclick="openRegisterModal()" id="btnRegisterText" style="padding:6px;">Registrovat</button>
+                    <button class="modal-btn" onclick="supabaseLogin()" id="btnLoginText" style="padding:6px;" data-cs="Přihlásit" data-en="Login">Přihlásit</button>
+                    <button class="modal-btn" onclick="openRegisterModal()" id="btnRegisterText" style="padding:6px;" data-cs="Registrovat" data-en="Register">Registrovat</button>
                 </div>
-                <button class="modal-btn" onclick="supabaseLogout()" id="btnLogoutText" style="display:none; padding:6px; background:linear-gradient(180deg, #444 0%, #222 100%);">Odhlásit se</button>
+                <button class="modal-btn" onclick="openCharacterModal()" id="btnTvojePostava" style="margin-top:8px; padding:6px; background:linear-gradient(180deg, #3b5c1e 0%, #1e330f 100%);" data-cs="Tvoje postava" data-en="Your Character">Tvoje postava</button>
+                <button class="modal-btn" onclick="supabaseLogout()" id="btnLogoutText" style="display:none; margin-top:8px; padding:6px; background:linear-gradient(180deg, #444 0%, #222 100%);" data-cs="Odhlásit se" data-en="Logout">Odhlásit se</button>
             </div>
         </div>
         <button class="modal-btn" onclick="closeAuthModal()" id="authCloseBtn">Zavřít</button>
+    </div>
+</div>
+
+<!-- Samostatné okno pro výběr postavy (vzhled podle WoW Classic) -->
+<div id="characterModal">
+    <div class="modal-dialog" style="max-width: 340px;">
+        <div class="modal-body" style="margin-bottom: 8px;">
+            <div class="wow-char-container">
+                <div class="wow-factions-grid">
+                    <!-- Aliance -->
+                    <div class="wow-faction-column alliance">
+                        <div class="wow-faction-banner alliance"></div>
+                        <div class="wow-faction-title">Alliance</div>
+                        <div class="wow-races-list">
+                            <div class="wow-race-card selected" onclick="selectRace(this, 'Human')" title="Human">
+                                <img src="human.png" data-male="human.png" data-female="femalehuman.png" alt="Human">
+                            </div>
+                            <div class="wow-race-card" onclick="selectRace(this, 'Dwarf')" title="Dwarf">
+                                <img src="dwarf.png" data-male="dwarf.png" data-female="femaledwarf.png" alt="Dwarf">
+                            </div>
+                            <div class="wow-race-card" onclick="selectRace(this, 'Night Elf')" title="Night Elf">
+                                <img src="nelf.png" data-male="nelf.png" data-female="femalenelf.png" alt="Night Elf">
+                            </div>
+                            <div class="wow-race-card" onclick="selectRace(this, 'Gnome')" title="Gnome">
+                                <img src="gnome.png" data-male="gnome.png" data-female="femalegnome.png" alt="Gnome">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wow-faction-spacer"></div>
+                    <!-- Horda -->
+                    <div class="wow-faction-column horde">
+                        <div class="wow-faction-banner horde"></div>
+                        <div class="wow-faction-title">Horde</div>
+                        <div class="wow-races-list">
+                            <div class="wow-race-card" onclick="selectRace(this, 'Orc')" title="Orc">
+                                <img src="orc.png" data-male="orc.png" data-female="femaleorc.png" alt="Orc">
+                            </div>
+                            <div class="wow-race-card" onclick="selectRace(this, 'Undead')" title="Undead">
+                                <img src="undead.png" data-male="undead.png" data-female="femaleundead.png" alt="Undead">
+                            </div>
+                            <div class="wow-race-card" onclick="selectRace(this, 'Tauren')" title="Tauren">
+                                <img src="tauren.png" data-male="tauren.png" data-female="femaletauren.png" alt="Tauren">
+                            </div>
+                            <div class="wow-race-card" onclick="selectRace(this, 'Troll')" title="Troll">
+                                <img src="troll.png" data-male="troll.png" data-female="femaletroll.png" alt="Troll">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pohlaví -->
+                <div class="wow-gender-row">
+                    <div class="wow-gender-btn selected" onclick="selectGender(this, 'Male')" title="Male">
+                        <img src="male.webp" alt="Male">
+                    </div>
+                    <div class="wow-gender-btn" onclick="selectGender(this, 'Female')" title="Female">
+                        <img src="female.png" alt="Female">
+                    </div>
+                </div>
+
+                <!-- Třídy (Classes) -->
+                <div class="wow-wip-note">Class – under construction</div>
+                <div class="wow-classes-grid">
+                    <div class="wow-class-card selected" onclick="selectClass(this, 'Warrior')">
+                        <img src="warrior.png" alt="Warrior">
+                        <span class="wow-class-label">Warrior</span>
+                    </div>
+                    <div class="wow-class-card" onclick="selectClass(this, 'Paladin')">
+                        <img src="paladin.png" alt="Paladin">
+                        <span class="wow-class-label">Paladin</span>
+                    </div>
+                    <div class="wow-class-card" onclick="selectClass(this, 'Hunter')">
+                        <img src="hunter.png" alt="Hunter">
+                        <span class="wow-class-label">Hunter</span>
+                    </div>
+                    <div class="wow-class-card" onclick="selectClass(this, 'Rogue')">
+                        <img src="rogue.png" alt="Rogue">
+                        <span class="wow-class-label">Rogue</span>
+                    </div>
+                    <div class="wow-class-card" onclick="selectClass(this, 'Priest')">
+                        <img src="priest.png" alt="Priest">
+                        <span class="wow-class-label">Priest</span>
+                    </div>
+                    <div class="wow-class-card" onclick="selectClass(this, 'Shaman')">
+                        <img src="shaman.png" alt="Shaman">
+                        <span class="wow-class-label">Shaman</span>
+                    </div>
+                    <div class="wow-class-card" onclick="selectClass(this, 'Mage')">
+                        <img src="mage.png" alt="Mage">
+                        <span class="wow-class-label">Mage</span>
+                    </div>
+                    <div class="wow-class-card" onclick="selectClass(this, 'Warlock')">
+                        <img src="warlock.png" alt="Warlock">
+                        <span class="wow-class-label">Warlock</span>
+                    </div>
+                    <div class="wow-class-card" onclick="selectClass(this, 'Druid')">
+                        <img src="druid.png" alt="Druid">
+                        <span class="wow-class-label">Druid</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="modal-btn" onclick="confirmCharacter()" id="btnConfirmCharacter" data-cs="Potvrdit" data-en="Confirm">Potvrdit</button>
     </div>
 </div>
 
@@ -579,10 +898,10 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
         <div class="modal-title" id="registerModalTitle">Registrace</div>
         <div class="modal-body">
             <div class="auth-box" style="margin-bottom:0;">
-                <input type="email" id="regEmail" class="auth-input" placeholder="Email...">
-                <input type="password" id="regPassword" class="auth-input" placeholder="Heslo...">
-                <input type="password" id="regPasswordConfirm" class="auth-input" placeholder="Potvrzení hesla...">
-                <button class="modal-btn" onclick="supabaseRegister()" style="padding:6px;">Vytvořit účet</button>
+                <input type="email" id="regEmail" class="auth-input" data-cs-ph="Email..." data-en-ph="Email..." placeholder="Email...">
+                <input type="password" id="regPassword" class="auth-input" data-cs-ph="Heslo" data-en-ph="Password" placeholder="Heslo">
+                <input type="password" id="regPasswordConfirm" class="auth-input" data-cs-ph="Potvrzení hesla" data-en-ph="Confirm password" placeholder="Potvrzení hesla">
+                <button class="modal-btn" onclick="supabaseRegister()" id="btnCreateAccount" style="padding:6px;" data-cs="Vytvořit účet" data-en="Create Account">Vytvořit účet</button>
             </div>
         </div>
         <button class="modal-btn" onclick="closeRegisterModal()" id="regCloseBtn">Zavřít</button>
@@ -620,7 +939,7 @@ Pak ji budeš mít kdykoliv po ruce. ⚔️</div>
 
 <header class="header">
     <!-- Tlačítko přihlášení v levém horním rohu -->
-    <button class="auth-btn-top" onclick="openAuthModal()" title="Přihlášení">
+    <button class="auth-btn-top" onclick="openAuthModal()" id="authBtnTop" title="Přihlášení" data-cs-title="Přihlášení" data-en-title="Login">
         <svg viewBox="0 0 24 24">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
         </svg>
@@ -735,11 +1054,12 @@ function updateAuthUI() {
 }
 
 async function supabaseLogin() {
-    if (!supabaseClient) { alert("Supabase není nastaven!"); return; }
+    const t = translations[currentLang];
+    if (!supabaseClient) { alert(t.alertSupabaseNotSet); return; }
     const email = document.getElementById("authEmail").value;
     const password = document.getElementById("authPassword").value;
     const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-    if (error) { alert("Chyba při přihlášení: " + error.message); } 
+    if (error) { alert(t.alertLoginError + error.message); } 
     else { 
         currentUser = data.user; 
         updateAuthUI(); 
@@ -747,25 +1067,26 @@ async function supabaseLogin() {
         renderMedia();
         updateProgress();
         updateGroupStates();
-        alert("Úspěšně přihlášen!"); 
+        alert(t.alertLoginSuccess); 
     }
 }
 
 async function supabaseRegister() {
-    if (!supabaseClient) { alert("Supabase není nastaven!"); return; }
+    const t = translations[currentLang];
+    if (!supabaseClient) { alert(t.alertSupabaseNotSet); return; }
     const email = document.getElementById("regEmail").value;
     const password = document.getElementById("regPassword").value;
     const passwordConfirm = document.getElementById("regPasswordConfirm").value;
 
     if (password !== passwordConfirm) {
-        alert("Zadaná hesla se neshodují!");
+        alert(t.alertPasswordsMismatch);
         return;
     }
 
     const { data, error } = await supabaseClient.auth.signUp({ email, password });
-    if (error) { alert("Chyba při registraci: " + error.message); } 
+    if (error) { alert(t.alertRegisterError + error.message); } 
     else { 
-        alert("Registrace proběhla! Zkontroluj svůj e-mail pro potvrzení (pokud je vyžadováno)."); 
+        alert(t.alertRegisterSuccess); 
         closeRegisterModal();
     }
 }
@@ -779,8 +1100,62 @@ async function supabaseLogout() {
     renderMedia();
     updateProgress();
     updateGroupStates();
-    alert("Odhlášeno.");
+    alert(translations[currentLang].alertLogout);
 }
+
+// Funkce pro interaktivní výběr v menu "Tvoje postava"
+let pendingCharacter = { race: 'Human', gender: 'Male', class: 'Warrior', icon: 'human.png' };
+
+function selectRace(element, raceName) {
+    document.querySelectorAll('.wow-race-card').forEach(el => el.classList.remove('selected'));
+    element.classList.add('selected');
+    pendingCharacter.race = raceName;
+    const img = element.querySelector('img');
+    if (img) pendingCharacter.icon = img.getAttribute('src');
+}
+
+function selectGender(element, genderName) {
+    document.querySelectorAll('.wow-gender-btn').forEach(el => el.classList.remove('selected'));
+    element.classList.add('selected');
+    pendingCharacter.gender = genderName;
+    document.querySelectorAll('.wow-race-card img').forEach(img => {
+        const src = genderName === 'Female' ? img.dataset.female : img.dataset.male;
+        if (src) img.src = src;
+    });
+}
+
+function selectClass(element, className) {
+    document.querySelectorAll('.wow-class-card').forEach(el => el.classList.remove('selected'));
+    element.classList.add('selected');
+    pendingCharacter.class = className;
+}
+
+// Vykreslí vybranou postavu do ikonky vlevo nahoře
+function applyCharacterIcon(iconSrc) {
+    const btn = document.querySelector('.auth-btn-top');
+    if (!btn || !iconSrc) return;
+    btn.innerHTML = '<img class="auth-btn-portrait" src="' + iconSrc + '" alt="">';
+    btn.classList.add('has-portrait');
+}
+
+function confirmCharacter() {
+    const selectedRace = document.querySelector('.wow-race-card.selected img');
+    if (selectedRace) pendingCharacter.icon = selectedRace.getAttribute('src');
+    try { localStorage.setItem('poaCharacter', JSON.stringify(pendingCharacter)); } catch (e) {}
+    applyCharacterIcon(pendingCharacter.icon);
+    document.getElementById("characterModal").style.display = "none";
+}
+
+function restoreCharacterIcon() {
+    try {
+        const saved = JSON.parse(localStorage.getItem('poaCharacter') || 'null');
+        if (saved && saved.icon) {
+            pendingCharacter = saved;
+            applyCharacterIcon(saved.icon);
+        }
+    } catch (e) {}
+}
+document.addEventListener('DOMContentLoaded', restoreCharacterIcon);
 
 // -------------------------------------------------------------------------
 
@@ -1034,6 +1409,24 @@ const translations = {
         authTitle: "Přihlášení",
         regTitle: "Registrace",
         authClose: "Zavřít",
+        loggedInLabel: "Přihlášen:",
+        loginBtn: "Přihlásit",
+        registerBtn: "Registrovat",
+        characterBtn: "Tvoje postava",
+        logoutBtn: "Odhlásit se",
+        confirmBtn: "Potvrdit",
+        createAccountBtn: "Vytvořit účet",
+        authBtnTitle: "Přihlášení",
+        phEmail: "Email...",
+        phPassword: "Heslo",
+        phConfirmPassword: "Potvrzení hesla",
+        alertSupabaseNotSet: "Supabase není nastaven!",
+        alertLoginError: "Chyba při přihlášení: ",
+        alertLoginSuccess: "Úspěšně přihlášen!",
+        alertPasswordsMismatch: "Zadaná hesla se neshodují!",
+        alertRegisterError: "Chyba při registraci: ",
+        alertRegisterSuccess: "Registrace proběhla! Zkontroluj svůj e-mail pro potvrzení (pokud je vyžadováno).",
+        alertLogout: "Odhlášeno.",
         itemsText: "položek",
         inProgressText: "rozdělaných"
     },
@@ -1051,6 +1444,24 @@ const translations = {
         authTitle: "Login",
         regTitle: "Registration",
         authClose: "Close",
+        loggedInLabel: "Logged in:",
+        loginBtn: "Login",
+        registerBtn: "Register",
+        characterBtn: "Your Character",
+        logoutBtn: "Logout",
+        confirmBtn: "Confirm",
+        createAccountBtn: "Create Account",
+        authBtnTitle: "Login",
+        phEmail: "Email...",
+        phPassword: "Password",
+        phConfirmPassword: "Confirm password",
+        alertSupabaseNotSet: "Supabase is not configured!",
+        alertLoginError: "Login error: ",
+        alertLoginSuccess: "Successfully logged in!",
+        alertPasswordsMismatch: "The passwords do not match!",
+        alertRegisterError: "Registration error: ",
+        alertRegisterSuccess: "Registration complete! Check your email for confirmation (if required).",
+        alertLogout: "Logged out.",
         itemsText: "items",
         inProgressText: "in progress"
     }
@@ -1093,7 +1504,26 @@ function setLanguage(lang) {
     document.getElementById("registerModalTitle").textContent = t.regTitle;
     document.getElementById("authCloseBtn").textContent = t.authClose;
     document.getElementById("regCloseBtn").textContent = t.authClose;
-    
+    document.getElementById("loggedInLabel").textContent = t.loggedInLabel;
+    document.getElementById("btnLoginText").textContent = t.loginBtn;
+    document.getElementById("btnRegisterText").textContent = t.registerBtn;
+    document.getElementById("btnTvojePostava").textContent = t.characterBtn;
+    document.getElementById("btnLogoutText").textContent = t.logoutBtn;
+    document.getElementById("btnConfirmCharacter").textContent = t.confirmBtn;
+    document.getElementById("btnCreateAccount").textContent = t.createAccountBtn;
+    const authBtnTop = document.getElementById("authBtnTop");
+    if (authBtnTop) authBtnTop.title = t.authBtnTitle;
+
+    ["authEmail", "authPassword", "regEmail", "regPassword", "regPasswordConfirm"].forEach(function(id) {
+        const el = document.getElementById(id);
+        if (el) el.placeholder = el.getAttribute("data-" + lang + "-ph") || el.placeholder;
+    });
+
+    ["btnLoginText", "btnRegisterText", "btnTvojePostava", "btnLogoutText", "btnConfirmCharacter", "btnCreateAccount"].forEach(function(id) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = el.getAttribute("data-" + lang) || el.textContent;
+    });
+
     updateModalTexts(lang);
     updateAuthUI();
 
@@ -1132,6 +1562,16 @@ function openAuthModal() {
 
 function closeAuthModal() {
     document.getElementById("authModal").style.display = "none";
+}
+
+function openCharacterModal() {
+    closeAuthModal();
+    document.getElementById("characterModal").style.display = "flex";
+}
+
+function closeCharacterModal() {
+    document.getElementById("characterModal").style.display = "none";
+    openAuthModal();
 }
 
 function openRegisterModal() {
