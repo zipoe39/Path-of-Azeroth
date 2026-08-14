@@ -1272,10 +1272,12 @@ function updateGroupStates() {
                 const keys = group.items.map((_, itemIdx) => getItemGlobalKey(catIdx, [grpIdx], itemIdx));
                 const checkedCount = keys.filter(key => !!checkedItems[key]).length;
                 if (checkedCount > 0 && checkedCount < keys.length) {
-                    if (group.title && !addedTitles.has(group.title)) {
-                        addedTitles.add(group.title);
+                    const dedupeKey = catIdx + "::" + group.title;
+                    if (group.title && !addedTitles.has(dedupeKey)) {
+                        addedTitles.add(dedupeKey);
                         activeSectionsCount++;
-                        activeContentContainer.appendChild(createSectionCopy(group.title, group, catIdx, [grpIdx]));
+                        const displayTitle = category.title + " — " + group.title;
+                        activeContentContainer.appendChild(createSectionCopy(displayTitle, group, catIdx, [grpIdx]));
                     }
                 }
             } else if (group.groups) {
@@ -1284,10 +1286,12 @@ function updateGroupStates() {
                     const subKeys = collectKeys(sub, catIdx, subPath);
                     const subChecked = subKeys.filter(key => !!checkedItems[key]).length;
                     if (subChecked > 0 && subChecked < subKeys.length) {
-                        if (sub.title && !addedTitles.has(sub.title)) {
-                            addedTitles.add(sub.title);
+                        const dedupeKey = catIdx + "::" + subPath.join(".") + "::" + sub.title;
+                        if (sub.title && !addedTitles.has(dedupeKey)) {
+                            addedTitles.add(dedupeKey);
                             activeSectionsCount++;
-                            activeContentContainer.appendChild(createSectionCopy(sub.title, sub, catIdx, subPath));
+                            const displayTitle = category.title + " — " + sub.title;
+                            activeContentContainer.appendChild(createSectionCopy(displayTitle, sub, catIdx, subPath));
                         }
                     }
                 });
