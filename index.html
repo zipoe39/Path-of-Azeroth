@@ -9,10 +9,10 @@
 <!-- Supabase JS SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<!-- Opravené absolutní cesty pro správné uložení ikony na plochu telefonu -->
-<link rel="icon" type="image/png" sizes="32x32" href="https://zipoe39.github.io/Warcraft-Chcecklist/favinew.png?v=3">
-<link rel="shortcut icon" type="image/png" href="https://zipoe39.github.io/Warcraft-Chcecklist/favinew.png?v=3">
-<link rel="apple-touch-icon" sizes="180x180" href="https://zipoe39.github.io/Warcraft-Chcecklist/favinew.png?v=3">
+<!-- Relativní cesty k favicon souboru (funguje bez ohledu na název/cestu repozitáře) -->
+<link rel="icon" type="image/png" sizes="32x32" href="favinew.png?v=4">
+<link rel="shortcut icon" type="image/png" href="favinew.png?v=4">
+<link rel="apple-touch-icon" sizes="180x180" href="favinew.png?v=4">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -372,7 +372,22 @@ body.theme-horde .theme-title { color: #853e2b; }
     margin-bottom: 8px;
 }
 
+#installModal .lang-options {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+#installModal .lang-options .lang-btn {
+    width: auto;
+    flex: 1 1 0;
+    padding: 8px 10px;
+    font-size: 12px;
+}
+
 #settingsModal .lang-btn, 
+#installModal .lang-btn,
 #settingsModal .modal-btn,
 #installModal .modal-btn,
 #authModal .modal-btn,
@@ -395,6 +410,7 @@ body.theme-horde .theme-title { color: #853e2b; }
 }
 
 #settingsModal .lang-btn:hover, 
+#installModal .lang-btn:hover,
 #settingsModal .modal-btn:hover,
 #installModal .modal-btn:hover,
 #authModal .modal-btn:hover,
@@ -407,7 +423,8 @@ body.theme-horde .theme-title { color: #853e2b; }
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 4px 8px rgba(0,0,0,0.8), 0 0 8px rgba(180, 50, 50, 0.4);
 }
 
-#settingsModal .lang-btn.active {
+#settingsModal .lang-btn.active,
+#installModal .lang-btn.active {
     background: linear-gradient(180deg, #ad2b2b 0%, #751515 50%, #520c0c 100%);
     outline-color: #ffcc00;
     color: #ffcc00;
@@ -501,6 +518,10 @@ body.theme-horde .theme-title { color: #853e2b; }
 <div id="installModal">
     <div class="modal-dialog">
         <div class="modal-title" data-cs="Ulož si aplikaci na plochu" data-en="Save App to Home Screen">Ulož si aplikaci na plochu</div>
+        <div class="lang-options">
+            <button class="lang-btn active" id="btnInstallLangEn" onclick="updateModalTexts('en')">English</button>
+            <button class="lang-btn" id="btnInstallLangCs" onclick="updateModalTexts('cs')">Čeština</button>
+        </div>
         <div class="modal-body" data-cs="Pro pohodlnější používání si Path of Azeroth přidej na plochu jako webovou aplikaci.
 
 🍎 iPhone / iPad:
@@ -1047,6 +1068,10 @@ function updateModalTexts(lang) {
         if (bodyEl) bodyEl.textContent = bodyEl.getAttribute("data-" + lang);
         if (btnEl) btnEl.textContent = btnEl.getAttribute("data-" + lang);
     }
+    const btnInstallEn = document.getElementById("btnInstallLangEn");
+    const btnInstallCs = document.getElementById("btnInstallLangCs");
+    if (btnInstallEn) btnInstallEn.classList.toggle("active", lang === "en");
+    if (btnInstallCs) btnInstallCs.classList.toggle("active", lang === "cs");
 }
 
 function setLanguage(lang) {
@@ -1120,6 +1145,7 @@ function closeRegisterModal() {
 
 function openInstallModalFromSettings() {
     closeSettingsModal();
+    updateModalTexts(currentLang);
     document.getElementById("installModal").style.display = "flex";
 }
 
@@ -1158,9 +1184,11 @@ function checkFirstVisitModal() {
     try {
         const hasShown = window.localStorage.getItem(MODAL_SHOWN_KEY);
         if (!hasShown) {
+            updateModalTexts("en");
             document.getElementById("installModal").style.display = "flex";
         }
     } catch (e) {
+        updateModalTexts("en");
         document.getElementById("installModal").style.display = "flex";
     }
 }
